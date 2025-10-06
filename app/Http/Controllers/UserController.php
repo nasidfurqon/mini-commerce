@@ -8,12 +8,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function create(UserRequest $request) {
-        
-    }
-
-    }
-
     /**
      * Display a listing of the resource.
      */

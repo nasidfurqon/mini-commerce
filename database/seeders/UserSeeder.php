@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use App\Models\User;
 class UserSeeder extends Seeder
 {
     /**
@@ -12,32 +12,48 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::insert([
+        // Create admin user
+        User::create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => 'admin123', // Will be hashed by mutator
+            'role' => 'admin'
+        ]);
+
+        $users = [
             [
                 'name' => 'Andi Wijaya',
-                'email' => 'andi@example.com',
-                'password' => bcrypt('password1'),
+                'email' => 'user1@example.com',
+                'password' => 'password', // Will be hashed by mutator
+                'role' => 'pengguna'
             ],
             [
                 'name' => 'Budi Santoso',
-                'email' => 'budi@example.com',
-                'password' => bcrypt('password2'),
+                'email' => 'user2@example.com',
+                'password' => 'password', // Will be hashed by mutator
+                'role' => 'pengguna'
             ],
             [
                 'name' => 'Citra Dewi',
-                'email' => 'citra@example.com',
-                'password' => bcrypt('password3'),
+                'email' => 'user3@example.com',
+                'password' => 'password', // Will be hashed by mutator
+                'role' => 'pengguna'
             ],
             [
                 'name' => 'Dewi Lestari',
-                'email' => 'dewi@example.com',
-                'password' => bcrypt('password4'),
+                'email' => 'user4@example.com',
+                'password' => 'password', // Will be hashed by mutator
+                'role' => 'pengguna'
             ],
             [
                 'name' => 'Eko Prasetyo',
-                'email' => 'eko@example.com',
-                'password' => bcrypt('password5'),
-            ],
-        ]);
+                'email' => 'user5@example.com',
+                'password' => 'password', // Will be hashed by mutator
+                'role' => 'pengguna'
+            ]
+        ];
+        foreach ($users as $i) {
+            User::create($i);
+        }
     }
 }

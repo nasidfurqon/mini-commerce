@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    private $views = 'Page.Cart';
     public function index()
     {
         $carts = Cart::all();
-        return view('carts.index', compact('carts'));
+        return view($this->views . '.Index', compact('carts'));
     }
 
-    public function create()
+    
+    public function preview()
     {
         return view('carts.create');
     }
