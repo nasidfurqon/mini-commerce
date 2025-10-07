@@ -71,16 +71,20 @@
                             </div>
                             <!-- Single Wedge End -->
                             @if($canAccessCart)
+                            <!-- Wishlist Button -->
+                            <a href="{{ route('wishlist.index') }}" class="header-action-btn header-action-btn-wishlist pr-15px">
+                                <i class="icon-heart"></i>
+                                <span class="header-action-num">03</span>
+                            </a>
+                            
+                            <!-- Cart Button -->
                             <a href="#cartPreviewModal" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
                                 <span class="header-action-num">01</span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
-                            @endif
                             
-                            <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
-                                <i class="icon-menu"></i>
-                            </a>
+                            @endif
                             @include('Partial.Cart-Preview')
                         </div>
                     </div>
@@ -88,63 +92,7 @@
                 </div>
             </div>
         </div>
-        <!-- Header Bottom  End -->
-        <!-- Header Bottom  Start -->
-        <div class="header-bottom d-lg-none sticky-nav bg-white">
-            <div class="container position-relative">
-                <div class="row align-self-center">
-                    <!-- Header Logo Start -->
-                    <div class="col-auto align-self-center">
-                        <div class="header-logo">
-                            <a href="index.html"><img src="{{ asset('assets/images/logo/logo.png') }}" alt="Site Logo" /></a>
-                        </div>
-                    </div>
-                    <!-- Header Logo End -->
 
-                    <!-- Header Action Start -->
-                    <div class="col align-self-center">
-                        <div class="header-actions">
-                            <div class="header_account_list">
-                                <a href="javascript:void(0)" class="header-action-btn search-btn"><i
-                                        class="icon-magnifier"></i></a>
-                                <div class="dropdown_search">
-                                    <form class="action-form" action="#">
-                                        <input class="form-control" placeholder="Enter your search key" type="text">
-                                        <button class="submit" type="submit"><i class="icon-magnifier"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- Single Wedge Start -->
-                            <div class="header-bottom-set dropdown">
-                                <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
-                                        class="icon-user"></i></button>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a class="dropdown-item" href="my-account.html">My account</a></li>
-                                    <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('auth.page') }}">Sign in</a></li>
-                                </ul>
-                            </div>
-                            @auth
-                                @if (Auth::user()->role == 'pengguna')
-                                <!-- Single Wedge End -->
-                                <a href="#offcanvas-cart" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
-                                    <i class="icon-handbag"></i>
-                                    <span class="header-action-num">01</span>
-                                    <!-- <span class="cart-amount">€30.00</span> -->
-                                </a>
-                                <a href="#offcanvas-mobile-menu" class="header-action-btn header-action-btn-menu offcanvas-toggle d-lg-none">
-                                    <i class="icon-menu"></i>
-                                </a>
-                                @include('Partial.Cart-Preview')                            
-                                @endif
-                            @endauth
-                        </div>
-                    </div>
-                    <!-- Header Action End -->
-                </div>
-            </div>
-        </div>
-        <!-- Header Bottom  End -->
         <!-- Main Menu Start -->
         <div class="bg-black d-none d-lg-block sticky-nav">
             <div class="container position-relative">
@@ -153,44 +101,8 @@
                         <div class="main-menu">
                             <ul>
                                 <li class="dropdown"><a href="{{ route('index') }}">Home</a></li>
-                                <li><a href="about.html">About us</a></li>
-                                <li><a href="{{ route('shop',['category'=>'all']) }}">Shop</a></li>
-                                <li class="dropdown"><a href="#">Pages <i class="ion-ios-arrow-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="404.html">404 Page</a></li>
-                                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                        <li><a href="faq.html">Faq Page</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon Page</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown "><a href="#">Blog <i class="ion-ios-arrow-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li class="dropdown position-static"><a href="blog-grid-left-sidebar.html">Blog Grid
-                                            <i class="ion-ios-arrow-right"></i></a>
-                                            <ul class="sub-menu sub-menu-2">
-                                                <li><a href="blog-grid-left-sidebar.html">Blog Grid Left Sidebar</a></li>
-                                                <li><a href="blog-grid-right-sidebar.html">Blog Grid Right Sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown position-static"><a href="blog-list-left-sidebar.html">Blog List
-                                            <i class="ion-ios-arrow-right"></i></a>
-                                            <ul class="sub-menu sub-menu-2">
-                                                <li><a href="blog-list-left-sidebar.html">Blog List Left Sidebar</a></li>
-                                                <li><a href="blog-list-right-sidebar.html">Blog List Right Sidebar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown position-static"><a href="blog-single-left-sidebar.html">Single
-                                            Blog <i class="ion-ios-arrow-right"></i></a>
-                                            <ul class="sub-menu sub-menu-2">
-                                                <li><a href="blog-single-left-sidebar.html">Single Blog Left Sidebar</a>
-                                                </li>
-                                                <li><a href="blog-single-right-sidebar.html">Single Blog Right Sidebar</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="{{ route('shop',['category'=>'all']) }}">Shop</a></li>                         
+                                <li><a href="{{ route('contact') }}">Contact us</a></li>´
                             </ul>
                         </div>
                     </div>

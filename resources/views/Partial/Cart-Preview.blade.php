@@ -59,7 +59,7 @@
                 </div>
                 <div class="buttons">
                     <a href="{{ route('user.cart.index') }}" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                    <a href="checkout.html" class="btn btn-outline-dark current-btn">checkout</a>
+                    <a href="{{ route('user.checkout.index') }}" class="btn btn-outline-dark current-btn">checkout</a>
                 </div>
                 <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
             </div>

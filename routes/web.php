@@ -10,6 +10,7 @@ use App\Http\Controllers\CartController;
 Route::middleware(['guest.or.auth'])->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
     Route::get('/shop/{category?}', [LandingPageController::class, 'shop'])->name('shop');
+    Route::get('/contact', [LandingPageController::class, 'contact'])->name('contact');
     Route::get('/product/{id}', [LandingPageController::class, 'detail'])->name('product.detail');
 });
 
@@ -43,10 +44,13 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
 Route::prefix('user')->middleware(['min.role:pengguna'])->group(function () {
     Route::get('/home', [LandingPageController::class, 'index'])->name('user.index');
     Route::get('/shop/{category?}', [LandingPageController::class, 'shop'])->name('user.shop');
+    Route::get('/contact', [LandingPageController::class, 'contact'])->name('user.contact');
+    Route::get('/product/{id}', [LandingPageController::class, 'detail'])->name('user.product.detail');
     Route::get('/cart', [CartController::class, 'index'])->name('user.cart.index');
     Route::post('/cart/add', [CartController::class, 'store'])->name('user.cart.add');
     Route::put('/cart/{id}', [CartController::class, 'update'])->name('user.cart.update');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('user.cart.remove');
+    Route::get('/checkout', [LandingPageController::class, 'checkout'])->name('user.checkout.index');
 });
 
 // Additional user-only routes that require authentication
@@ -59,8 +63,6 @@ Route::middleware(['min.role:pengguna'])->group(function () {
         return view('user.orders');
     })->name('user.orders');
     
-    Route::get('/wishlist', function () {
-        return view('user.wishlist');
-    })->name('user.wishlist');
+    Route::get('/wishlist', [LandingPageController::class, 'wishlist'])->name('wishlist.index');
 });
 

@@ -97,4 +97,18 @@ class LandingPageController extends Controller
                                     ->paginate(10);        
         return view('Page.Product-Detail',compact('product','products','relatedProducts'));
     }
+
+    public function contact() {
+        return view('Page.Contact');
+    }
+
+    public function wishlist() {
+        // $user = Auth::user();
+        // $wishlists = $user->wishlists;
+        return view('Page.Wishlist.Index');
+    }
+        
+    public function checkout() {
+        return view('Page.Checkout.Index');
+    }
 }
