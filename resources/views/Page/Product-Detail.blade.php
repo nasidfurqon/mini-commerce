@@ -90,12 +90,18 @@
                         </div>
                         <p class="quickview-para">{{ $product->description }}</p>
                         <div class="pro-details-quality">
-                            <div class="cart-plus-minus">
-                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
-                            </div>
-                            <div class="pro-details-cart">
-                                <button class="add-cart btn btn-primary btn-hover-primary ml-4" href="#">  Add To
-                                    Cart</button>
+                            <div class="quantity-cart-wrapper">
+                                <div class="cart-plus-minus">
+                                    <button type="button" class="dec qtybutton">-</button>
+                                    <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" readonly />
+                                    <button type="button" class="inc qtybutton">+</button>
+                                </div>
+                                <div class="pro-details-cart">
+                                    <button class="add-cart btn btn-primary btn-hover-primary" type="button">
+                                        <i class="ion-bag"></i>
+                                        Add To Cart
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="pro-details-wish-com">

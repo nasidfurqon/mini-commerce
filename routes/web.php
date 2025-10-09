@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\AdminController;
 
 // Public routes (accessible by everyone including guests)
 Route::middleware(['guest.or.auth'])->group(function () {
@@ -26,7 +26,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 // Admin routes (admin role required)
 Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     
     // Admin resource routes
     Route::resource('users', \App\Http\Controllers\UserController::class);

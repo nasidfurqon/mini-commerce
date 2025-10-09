@@ -193,135 +193,153 @@
                      </div>
                   </div>
                   <div class="col-lg-6">
-                     <div class="your-order-checkout">
-                        <h3>Your order</h3>
-                        <div class="your-order-table-checkout table-responsive">
-                           <table>
-                              <thead>
-                                 <tr>
-                                    <th class="product-name">Product</th>
-                                    <th class="product-total">Total</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr class="cart_item">
-                                    <td class="product-name">
-                                       Alexander Sofa<strong class="product-quantity"> × 1</strong>
-                                    </td>
-                                    <td class="product-total">
-                                       <span class="amount">$24.00</span>
-                                    </td>
-                                 </tr>
-                                 <tr class="cart_item">
-                                    <td class="product-name">
-                                       Curaskin Lipgel<strong class="product-quantity"> ×
-                                          1</strong>
-                                    </td>
-                                    <td class="product-total">
-                                       <span class="amount">$12.00</span>
-                                    </td>
-                                 </tr>
-                                 <tr class="cart_item">
-                                    <td class="product-name">
-                                       Leather Chair<strong class="product-quantity"> ×
-                                          1</strong>
-                                    </td>
-                                    <td class="product-total">
-                                       <span class="amount">$22.00</span>
-                                    </td>
-                                 </tr>
-                              </tbody>
-                              <tfoot>
-                                 <tr class="cart-subtotal">
-                                    <th>Cart Subtotal</th>
-                                    <td><span class="amount">$58.00</span></td>
-                                 </tr>
-                                 <tr class="shipping-checkout">
-                                    <th>Shipping</th>
-                                    <td>
-                                       <ul>
-                                          <li>
-                                             <input type="radio">
-                                             <label>
-                                                Flat Rate: <span class="amount">$7.00</span>
-                                             </label>
-                                          </li>
-                                          <li>
-                                             <input type="radio">
-                                             <label>Free Shipping:</label>
-                                          </li>
-                                       </ul>
-                                    </td>
-                                 </tr>
-                                 <tr class="order-total">
-                                    <th>Order Total</th>
-                                    <td><strong><span class="amount">$85.00</span></strong>
-                                    </td>
-                                 </tr>
-                              </tfoot>
-                           </table>
+                     <div class="your-order-checkout-modern">
+                        <!-- Header Section -->
+                        <div class="order-header">
+                           <div class="order-icon">
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z" fill="currentColor"/>
+                                 <path d="M9 8V17H11V8H9ZM13 8V17H15V8H13Z" fill="currentColor"/>
+                              </svg>
+                           </div>
+                           <h3 class="order-title">Ringkasan Pesanan</h3>
+                           <div class="order-badge">
+                              <span class="item-count">3 Items</span>
+                           </div>
                         </div>
 
-                        <div class="payment-method-checkout">
-                           <div class="accordion-checkout" id="checkoutAccordion">
-                              <div class="accordion-item-checkout">
-                                 <h2 class="accordion-header-checkout" id="checkoutOne">
-                                    <button class="accordion-button-checkout" type="button" data-bs-toggle="collapse"
-                                       data-bs-target="#bankOne" aria-expanded="true" aria-controls="bankOne">
-                                       Direct Bank Transfer
-                                    </button>
-                                 </h2>
-                                 <div id="bankOne" class="accordion-collapse collapse show"
-                                    aria-labelledby="checkoutOne" data-bs-parent="#checkoutAccordion">
-                                    <div class="accordion-body-checkout">
-                                       Make your payment directly into our bank account. Please use your
-                                       Order ID
-                                       as the payment reference. Your order won't be shipped until the
-                                       funds have
-                                       cleared in our account.
+                        <!-- Order Items Section -->
+                        <div class="order-items-container">
+                           <div class="order-item">
+                              <div class="item-info">
+                                 <div class="item-image">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <rect width="40" height="40" rx="8" fill="#ff7004" opacity="0.1"/>
+                                       <path d="M12 16H28L26 28H14L12 16Z" stroke="#ff7004" stroke-width="2" fill="none"/>
+                                       <path d="M12 16L10 12H8" stroke="#ff7004" stroke-width="2" stroke-linecap="round"/>
+                                       <circle cx="18" cy="32" r="2" fill="#ff7004"/>
+                                       <circle cx="26" cy="32" r="2" fill="#ff7004"/>
+                                    </svg>
+                                 </div>
+                                 <div class="item-details">
+                                    <h4 class="item-name">Alexander Sofa</h4>
+                                    <div class="item-meta">
+                                       <span class="item-quantity">Qty: 1</span>
+                                       <span class="item-separator">•</span>
+                                       <span class="item-category">Furniture</span>
                                     </div>
                                  </div>
                               </div>
-                              <div class="accordion-item-checkout">
-                                 <h2 class="accordion-header-checkout" id="paymentTwo">
-                                    <button class="accordion-button-checkout collapsed" type="button" data-bs-toggle="collapse"
-                                       data-bs-target="#payment" aria-expanded="false" aria-controls="payment">
-                                       Cheque Payment
-                                    </button>
-                                 </h2>
-                                 <div id="payment" class="accordion-collapse collapse" aria-labelledby="paymentTwo"
-                                    data-bs-parent="#checkoutAccordion">
-                                    <div class="accordion-body-checkout">
-                                       Please send your cheque to Store Name, Store Street, Store Town,
-                                       Store
-                                       State / County, Store
-                                       Postcode.
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="accordion-item-checkout">
-                                 <h2 class="accordion-header-checkout" id="paypalThree">
-                                    <button class="accordion-button-checkout collapsed" type="button" data-bs-toggle="collapse"
-                                       data-bs-target="#paypal" aria-expanded="false" aria-controls="paypal">
-                                       PayPal
-                                    </button>
-                                 </h2>
-                                 <div id="paypal" class="accordion-collapse collapse" aria-labelledby="paypalThree"
-                                    data-bs-parent="#checkoutAccordion">
-                                    <div class="accordion-body-checkout">
-                                       Pay via PayPal; you can pay with your credit card if you don't have
-                                       a
-                                       PayPal account.
-                                    </div>
-                                 </div>
+                              <div class="item-price">
+                                 <span class="price-amount">$24.00</span>
                               </div>
                            </div>
-                           <div class="order-button-payment-checkout mt-20">
-                              <button class="fill-btn" type="submit">
-                                 <span class="fill-btn-inner">
-                                    <span class="fill-btn-normal">Place order</span>
-                                    <span class="fill-btn-hover">Place order</span>
-                                 </span>
+
+                           <div class="order-item">
+                              <div class="item-info">
+                                 <div class="item-image">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <rect width="40" height="40" rx="8" fill="#ff7004" opacity="0.1"/>
+                                       <circle cx="20" cy="20" r="8" stroke="#ff7004" stroke-width="2" fill="none"/>
+                                       <path d="M16 20L18 22L24 16" stroke="#ff7004" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                 </div>
+                                 <div class="item-details">
+                                    <h4 class="item-name">Curaskin Lipgel</h4>
+                                    <div class="item-meta">
+                                       <span class="item-quantity">Qty: 1</span>
+                                       <span class="item-separator">•</span>
+                                       <span class="item-category">Beauty</span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="item-price">
+                                 <span class="price-amount">$12.00</span>
+                              </div>
+                           </div>
+
+                           <div class="order-item">
+                              <div class="item-info">
+                                 <div class="item-image">
+                                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <rect width="40" height="40" rx="8" fill="#ff7004" opacity="0.1"/>
+                                       <path d="M10 30H30V18H10V30Z" stroke="#ff7004" stroke-width="2" fill="none"/>
+                                       <path d="M14 18V14C14 11.79 15.79 10 18 10H22C24.21 10 26 11.79 26 14V18" stroke="#ff7004" stroke-width="2" fill="none"/>
+                                    </svg>
+                                 </div>
+                                 <div class="item-details">
+                                    <h4 class="item-name">Leather Chair</h4>
+                                    <div class="item-meta">
+                                       <span class="item-quantity">Qty: 1</span>
+                                       <span class="item-separator">•</span>
+                                       <span class="item-category">Furniture</span>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="item-price">
+                                 <span class="price-amount">$22.00</span>
+                              </div>
+                           </div>
+                        </div>
+
+                        <!-- Shipping Options Section -->
+                        <div class="shipping-options-modern">
+                           <h4 class="shipping-title">
+                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <path d="M1 4H14L16 8V16H14.5C14.5 17.38 13.38 18.5 12 18.5S9.5 17.38 9.5 16H6.5C6.5 17.38 5.38 18.5 4 18.5S1.5 17.38 1.5 16H1V4Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                 <circle cx="4" cy="16" r="1.5" fill="currentColor"/>
+                                 <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+                              </svg>
+                              Pilihan Pengiriman
+                           </h4>
+                           <div class="shipping-options-list">
+                              <div class="shipping-option">
+                                 <input type="radio" id="flat-rate" name="shipping" value="flat-rate" class="shipping-radio">
+                                 <label for="flat-rate" class="shipping-label">
+                                    <div class="shipping-info">
+                                       <span class="shipping-name">Pengiriman Standar</span>
+                                       <span class="shipping-desc">3-5 hari kerja</span>
+                                    </div>
+                                    <span class="shipping-price">$7.00</span>
+                                 </label>
+                              </div>
+                              <div class="shipping-option">
+                                 <input type="radio" id="free-shipping" name="shipping" value="free-shipping" class="shipping-radio">
+                                 <label for="free-shipping" class="shipping-label">
+                                    <div class="shipping-info">
+                                       <span class="shipping-name">Pengiriman Gratis</span>
+                                       <span class="shipping-desc">7-10 hari kerja</span>
+                                    </div>
+                                    <span class="shipping-price free">Gratis</span>
+                                 </label>
+                              </div>
+                           </div>
+                        </div>
+
+                        <!-- Order Summary Section -->
+                        <div class="order-summary-modern">
+                           <div class="summary-row">
+                              <span class="summary-label">Subtotal</span>
+                              <span class="summary-value">$58.00</span>
+                           </div>
+                           <div class="summary-row">
+                              <span class="summary-label">Pengiriman</span>
+                              <span class="summary-value shipping-cost">$7.00</span>
+                           </div>
+                           <div class="summary-row total-row">
+                              <span class="summary-label total-label">Total Pembayaran</span>
+                              <span class="summary-value total-value">$65.00</span>
+                           </div>
+                        </div>
+
+                        <!-- Promo Code Section -->
+                        <div class="promo-section">
+                           <div class="promo-input-group">
+                              <input type="text" class="promo-input" placeholder="Masukkan kode promo">
+                              <button type="button" class="promo-button">
+                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                 </svg>
                               </button>
                            </div>
                         </div>
