@@ -94,8 +94,13 @@
                                 <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
                             </div>
                             <div class="pro-details-cart">
-                                <button class="add-cart btn btn-primary btn-hover-primary ml-4" href="#">  Add To
-                                    Cart</button>
+                                <!-- <button class="add-cart btn btn-primary btn-hover-primary ml-4" href="#">  Add To
+                                    Cart</button> -->
+                                @guest  
+                                    <button title="Add To Cart" onclick="window.location='{{ route('auth.page') }}'" class=" add-cart btn btn-primary btn-hover-primary ml-4">Add To Cart</button>
+                                @else
+                                    <button title="Add To Cart" class=" add-cart btn btn-primary btn-hover-primary ml-4">Add To Cart</button>
+                                @endguest
                             </div>
                         </div>
                         <div class="pro-details-wish-com">
@@ -313,6 +318,11 @@
                                 </div>
                                 <button title="Add To Cart" class=" add-to-cart">Add
                                     To Cart</button>
+                                @guest
+                                    <button title="Add To Cart" onclick="window.location='{{ route('auth.page') }}'" class=" add-to-cart">Add To Cart</button>
+                                @else
+                                    <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
++                                @endguest
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="{{ route('product.detail',$p->id) }}">{{ $p->name }}</a></h5>
@@ -375,6 +385,11 @@
                                 </div>
                                 <button title="Add To Cart" class=" add-to-cart">Add
                                     To Cart</button>
+                                @guest
+                                    <button title="Add To Cart" onclick="window.location='{{ route('auth.page') }}'" class=" add-to-cart">Add To Cart</button>
+                                @else
+                                    <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
++                                @endguest
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="{{ route('product.detail',$p->id) }}">{{ $p->name }}</a></h5>
