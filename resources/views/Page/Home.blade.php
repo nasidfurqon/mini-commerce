@@ -144,7 +144,17 @@
                                                         class="icon-refresh"></i></a>
                                             </div>
                                             @include('Component.Product-Preview-Modal', ['product' => $product])
+                                            <!-- @guest
+                                                <a title="Add To Cart" href="{{ route('auth.page') }}" class="add-to-cart">Add To Cart</a>
+                                            @else
+                                                <button title="Add To Cart" class="add-to-cart">Add To Cart</button>
+                                            @endguest -->
                                             <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
+                                                @guest
+                                                    <button title="Add To Cart" onclick="window.location='{{ route('auth.page') }}'" class=" add-to-cart">Add To Cart</button>
+                                                @else
+                                                    <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
+            +                                @endguest
                                         </div>
                                         <div class="content">
                                             <h5 class="title"><a href="{{ route('product.detail',$product->id) }}">{{ $product->name }} </a></h5>
