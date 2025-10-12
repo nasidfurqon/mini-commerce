@@ -107,30 +107,8 @@
                             <div class="pro-details-wishlist">
                                 <a href="wishlist.html"><i class="ion-android-favorite-outline"></i>Add to
                                     wishlist</a>
-                            </div>
-                            <div class="pro-details-compare">
-                                <a href="compare.html"><i class="ion-ios-shuffle-strong"></i>Add to compare</a>
-                            </div>
-                        </div>
-                        <div class="pro-details-social-info">
-                            <span>Share</span>
-                            <div class="social-info">
-                                <ul class="d-flex">
-                                    <li>
-                                        <a href="#"><i class="ion-social-facebook"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ion-social-twitter"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ion-social-google"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="ion-social-instagram"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                            </div>  
+                        </div>    
                         <div class="pro-details-policy">
                             <ul>
                                 <li><i class="fas fa-shield-alt" style="margin-right: 8px;"></i><span>Security Policy (Edit With
@@ -322,7 +300,7 @@
                                     <button title="Add To Cart" onclick="window.location='{{ route('auth.page') }}'" class=" add-to-cart">Add To Cart</button>
                                 @else
                                     <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
-+                                @endguest
+                               @endguest
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="{{ route('product.detail',$p->id) }}">{{ $p->name }}</a></h5>
@@ -389,7 +367,7 @@
                                     <button title="Add To Cart" onclick="window.location='{{ route('auth.page') }}'" class=" add-to-cart">Add To Cart</button>
                                 @else
                                     <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
-+                                @endguest
+                                @endguest
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="{{ route('product.detail',$p->id) }}">{{ $p->name }}</a></h5>
