@@ -1,68 +1,88 @@
+@php
+    use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\DB;
+
+    // ambil cart user jika login, jika tidak ambil cart pertama
+    $cart = null;
+    if (Auth::check()) {
+        $cart = DB::table('carts')->where('user_id', Auth::id())->first();
+    }
+    if (!$cart) {
+        $cart = DB::table('carts')->first();
+    }
+
+    $items = collect();
+    if ($cart) {
+        $items = DB::table('cart_items')
+            ->where('cart_items.cart_id', $cart->id)
+            ->join('products', 'cart_items.product_id', '=', 'products.id')
+            ->select('products.id','products.name','products.image','products.price','cart_items.qty')
+            ->get();
+    }
+
+    $subTotal = $items->reduce(function ($carry, $item) {
+        return $carry + ($item->price * $item->qty);
+    }, 0);
+@endphp
 
 <!-- OffCanvas Cart Start -->
-    <div id="cartPreviewModal" class="offcanvas offcanvas-cart">
-        <div class="inner">
-            <div class="head">
-                <span class="title">Cart</span>
-                <button class="offcanvas-close">×</button>
-            </div>
-            <div class="body customScroll">
+<div id="cartPreviewModal" class="offcanvas offcanvas-cart">
+    <div class="inner">
+        <div class="head">
+            <span class="title">Cart</span>
+            <button class="offcanvas-close">×</button>
+        </div>
+
+        <div class="body customScroll">
+            @if($items->isEmpty())
+                <p class="p-3">No items in cart.</p>
+            @else
                 <ul class="minicart-product-list">
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{{ asset('assets/images/product-image/1.jpg') }}" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Walnut Cutting Board</a>
-                            <span class="quantity-price">1 x <span class="amount">$91.86</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{{ asset('assets/images/product-image/2.jpg') }}" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Lucky Wooden Elephant</a>
-                            <span class="quantity-price">1 x <span class="amount">$453.28</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="single-product.html" class="image"><img src="{{ asset('assets/images/product-image/3.jpg') }}" alt="Cart product Image"></a>
-                        <div class="content">
-                            <a href="single-product.html" class="title">Fish Cut Out Set</a>
-                            <span class="quantity-price">1 x <span class="amount">$87.34</span></span>
-                            <a href="#" class="remove">×</a>
-                        </div>
-                    </li>
+                    @foreach($items as $item)
+                        <li>
+                            <a href="{{ route('product.detail', $item->id) }}" class="image">
+                                <img src="{{ asset($item->image) }}" alt="Cart product Image">
+                            </a>
+                            <div class="content">
+                                <a href="{{ route('product.detail', $item->id) }}" class="title">{{ $item->name }}</a>
+                                <span class="quantity-price">{{ $item->qty }} x <span class="amount">${{ number_format($item->price, 2) }}</span></span>
+                                <a href="#" class="remove">×</a>
+                            </div>
+                        </li>
+                    @endforeach
                 </ul>
+            @endif
+        </div>
+
+        <div class="foot">
+            <div class="sub-total">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="text-start">Sub-Total :</td>
+                            <td class="text-end">${{ number_format($subTotal, 2) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Eco Tax (-2.00) :</td>
+                            <td class="text-end">${{ number_format(max(0, $subTotal * 0.02), 2) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">VAT (20%) :</td>
+                            <td class="text-end">${{ number_format($subTotal * 0.20, 2) }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-start">Total :</td>
+                            <td class="text-end theme-color">${{ number_format($subTotal + ($subTotal * 0.02) + ($subTotal * 0.20), 2) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="foot">
-                <div class="sub-total">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="text-start">Sub-Total :</td>
-                                <td class="text-end">$523.30</td>
-                            </tr>
-                            <tr>
-                                <td class="text-start">Eco Tax (-2.00) :</td>
-                                <td class="text-end">$4.52</td>
-                            </tr>
-                            <tr>
-                                <td class="text-start">VAT (20%) :</td>
-                                <td class="text-end">$104.66</td>
-                            </tr>
-                            <tr>
-                                <td class="text-start">Total :</td>
-                                <td class="text-end theme-color">$632.48</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="buttons">
-                    <a href="{{ route('user.cart.index') }}" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
-                    <a href="{{ route('user.checkout.index') }}" class="btn btn-outline-dark current-btn">checkout</a>
-                </div>
-                <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
+            <div class="buttons">
+                <a href="{{ route('user.cart.index') }}" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
+                <a href="{{ route('user.checkout.index') }}" class="btn btn-outline-dark current-btn">checkout</a>
             </div>
+            <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
         </div>
     </div>
-    <!-- OffCanvas Cart End -->
+</div>
+<!-- OffCanvas Cart End -->
