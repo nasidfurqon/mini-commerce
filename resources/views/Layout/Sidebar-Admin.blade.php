@@ -31,7 +31,32 @@
                               </a>
                          </li>
 
+            
                          <li class="nav-item">
+                              <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProducts">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
+                                   </span>
+                                   <span class="nav-text"> Products </span>
+                              </a>
+                              <div class="collapse" id="sidebarProducts">
+                                   <ul class="nav sub-navbar-nav">               
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="{{ route('admin.categories.index') }}">By Categories</a>
+                                        </li>
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="product-details.html">Details</a>
+                                        </li>
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="product-edit.html">Edit</a>
+                                        </li>
+                                        <li class="sub-nav-item">
+                                             <a class="sub-nav-link" href="product-add.html">Create</a>
+                                        </li>
+                                   </ul>
+                              </div>
+                         </li>            
+                         {{-- <li class="nav-item">
                               <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProducts">
                                    <span class="nav-icon">
                                         <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
@@ -57,7 +82,7 @@
                                         </li>
                                    </ul>
                               </div>
-                         </li>
+                         </li> --}}
 
                          <li class="nav-item">
                               <a class="nav-link menu-arrow" href="#sidebarCategory" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCategory">

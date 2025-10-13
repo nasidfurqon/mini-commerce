@@ -2,7 +2,7 @@
 
 @section('content')
 
-          <div class="page-content">
+         
 
                <!-- Start Container Fluid -->
                <div class="container-fluid">
@@ -515,7 +515,7 @@
                          <!-- end col -->
                     </div> <!-- end row -->
 
-               </div>
+               
                <!-- End Container Fluid -->
           </div>
 

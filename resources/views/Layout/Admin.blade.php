@@ -16,6 +16,18 @@
      <!-- Icons css (Require in all Page) -->
      <link href="{{ asset('assets/css2/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
+     <!-- Font Awesome Icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+     <!-- Bootstrap Icons -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+     <!-- Feather Icons -->
+     <script src="https://unpkg.com/feather-icons"></script>
+
+     <!-- Lucide Icons -->
+     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
      <!-- App css (Require in all Page) -->
      <link href="{{ asset('assets/css2/app.min.css') }}" rel="stylesheet" type="text/css" />
 
@@ -221,8 +233,10 @@
           <!-- ============================================================== -->
           <!-- Start Page Content here -->
           <!-- ============================================================== -->
+          <div class="page-content">
+               @yield('content')
+          </div>
 
-        @yield('content')
 
 
                <!-- end Footer -->

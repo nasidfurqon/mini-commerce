@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+use App\Models\Category;
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Category $category)
     {
-        $products = Product::all();
-        return view('products.index', compact('products'));
+        $products = Product::with('category')
+            ->where('category_id', $category->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('Page.Admin.Products.ListProduct', compact('products', 'category'));
     }
 
     /**
@@ -21,7 +24,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        return view('Page.Admin.Products.Create');
     }
 
     /**
@@ -35,10 +38,17 @@ class ProductController extends Controller
             'price'       => 'required|numeric|min:0',
             'stock'       => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
+            'image'       => 'nullable',
         ]);
 
-        Product::create($request->all());
-        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan');
+        $data = $request->only(['name','description','price','stock','category_id','image']);
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $data['image'] = 'storage/'.$path;
+        }
+
+        $product = Product::create($data);
+        return redirect()->route('admin.products.index', $product->category_id)->with('success', 'Produk berhasil ditambahkan');
     }
 
     /**
@@ -46,7 +56,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        return view('products.show', compact('product'));
+        $product = Product::findOrFail($id);
+        return view('Page.Admin.Products.Show', compact('product'));
     }
 
     /**
@@ -54,7 +65,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        return view('products.edit', compact('product'));
+        $product = Product::findOrFail($id);
+        return view('Page.Admin.Products.Edit', compact('product'));
     }
 
     /**
@@ -68,10 +80,22 @@ class ProductController extends Controller
             'price'       => 'required|numeric|min:0',
             'stock'       => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
+            'image'       => 'nullable',
         ]);
 
-        $product->update($request->all());
-        return redirect()->route('products.index')->with('success', 'Produk berhasil diupdate');
+        $data = $request->only(['name','description','price','stock','category_id','image']);
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $data['image'] = 'storage/'.$path;
+        } else {
+            // Jika tidak ada file dan field image kosong, jangan override gambar yang ada
+            if (empty($data['image'])) {
+                unset($data['image']);
+            }
+        }
+
+        $product->update($data);
+        return redirect()->route('admin.products.index', $product->category_id)->with('success', 'Produk berhasil diupdate');
     }
 
     /**
@@ -80,6 +104,11 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus');
+        return redirect()->route('admin.products.index', $product->category_id)->with('success', 'Produk berhasil dihapus');
+    }
+
+    public function detail($id) {
+        $product = Product::findOrFail($id);
+        return view('Page.Admin.Products.DetailProduct', compact('product'));
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -12,8 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('categories.index', compact('categories'));
+        $categories = Category::orderBy('created_at','desc')->paginate(50);
+        return view('Page.Admin.Products.ByCategories', compact('categories'));
     }
 
     /**
@@ -21,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('Page.Admin.Categories.AddCategory');
     }
 
     /**
@@ -30,11 +31,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:categories,name',
+            'icon' => 'required|string|max:255',
         ]);
 
-        Category::create($request->all());
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil dibuat');
+        Category::create($request->only(['name', 'icon']));
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil dibuat');
     }
 
     /**
@@ -42,15 +44,16 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
+        $category = Category::findOrFail($id);
         return view('categories.show', compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        return view('categories.edit', compact('category'));
+        return view('Page.Admin.Categories.EditCategory', compact('category'));
     }
 
     /**
@@ -59,11 +62,17 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('categories', 'name')->ignore($category->id),
+            ],
+            'icon' => 'required|string|max:255',
         ]);
 
-        $category->update($request->all());
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil diupdate');
+        $category->update($request->only(['name', 'icon']));
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil diupdate');
     }
 
     /**
@@ -72,6 +81,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Kategori berhasil dihapus');
+        return redirect()->route('admin.categories.index')->with('success', 'Kategori berhasil dihapus');
     }
 }

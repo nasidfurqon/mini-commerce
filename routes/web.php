@@ -5,7 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 // Public routes (accessible by everyone including guests)
 Route::middleware(['guest.or.auth'])->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
@@ -29,15 +30,28 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     
     // Admin resource routes
-    Route::resource('users', \App\Http\Controllers\UserController::class);
-    Route::resource('products', \App\Http\Controllers\ProductController::class);
-    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
-    Route::resource('orders', \App\Http\Controllers\OrderController::class);
-    Route::resource('order-items', \App\Http\Controllers\OrderItemController::class);
-    Route::resource('carts', \App\Http\Controllers\CartController::class);
-    Route::resource('cart-items', \App\Http\Controllers\CartItemController::class);
-    Route::resource('wishlists', \App\Http\Controllers\WishlistController::class);
-    Route::resource('wishlist-items', \App\Http\Controllers\WishlistItemController::class);
+    Route::resource('users', \App\Http\Controllers\UserController::class)->names([
+        'index' => 'admin.users.index',
+        'create' => 'admin.users.create',
+        'store' => 'admin.users.store',
+        'show' => 'admin.users.show',
+        'edit' => 'admin.users.edit',
+        'update' => 'admin.users.update',
+        'destroy' => 'admin.users.destroy',
+    ]);
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
+    Route::get('/categories/edit/{category}', [CategoryController::class, 'edit'])->name('admin.categories.edit');
+    Route::put('/categories/update/{category}', [CategoryController::class, 'update'])->name('admin.categories.update');
+    Route::delete('/categories/destroy/{category}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+    Route::get('/categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
+    Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin.categories.store');
+
+    // Product listing by category (model binding)
+    Route::get('/products/{category}', [ProductController::class, 'index'])->name('admin.products.index');
+    // Product detail page (use singular path to avoid conflict with listing route)
+    Route::get('/product/{id}', [ProductController::class, 'detail'])->name('admin.products.detail');
+
 });
 
 // User routes (minimum pengguna role required)
