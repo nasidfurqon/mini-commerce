@@ -29,16 +29,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     
-    // Admin resource routes
-    Route::resource('users', \App\Http\Controllers\UserController::class)->names([
-        'index' => 'admin.users.index',
-        'create' => 'admin.users.create',
-        'store' => 'admin.users.store',
-        'show' => 'admin.users.show',
-        'edit' => 'admin.users.edit',
-        'update' => 'admin.users.update',
-        'destroy' => 'admin.users.destroy',
-    ]);
 
     Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
     Route::get('/categories/edit/{category}', [CategoryController::class, 'edit'])->name('admin.categories.edit');
@@ -47,10 +37,14 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin.categories.store');
 
+    // Product add page (place before listing to avoid conflict)
+    Route::get('/products/add', [ProductController::class, 'create'])->name('admin.products.add');
     // Product listing by category (model binding)
     Route::get('/products/{category}', [ProductController::class, 'index'])->name('admin.products.index');
     // Product detail page (use singular path to avoid conflict with listing route)
     Route::get('/product/{id}', [ProductController::class, 'detail'])->name('admin.products.detail');
+    // Product destroy
+    Route::delete('/products/destroy/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
 
 });
 

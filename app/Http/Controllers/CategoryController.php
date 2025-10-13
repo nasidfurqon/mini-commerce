@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Validation\Rule;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -13,8 +14,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('created_at','desc')->paginate(50);
-        return view('Page.Admin.Products.ByCategories', compact('categories'));
+        $productsCount = Product::count();
+        $categoriesCount = Category::count();
+        $activeProducts = Product::where('is_active', true)->count();
+        $inactiveProducts = Product::where('is_active', false)->count();
+
+        $categories = Category::orderBy('created_at','desc')->paginate(10);
+        return view('Page.Admin.Products.ByCategories', compact('categories', 'productsCount', 'categoriesCount', 'activeProducts', 'inactiveProducts'));
     }
 
     /**

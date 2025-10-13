@@ -20,7 +20,7 @@ class ProductRatingController extends Controller
      */
     public function create()
     {
-        return view('product_ratings.create');  
+        return view('Page.Admin.Products.AddProduct',['']);  
     }
 
     /**

@@ -5,50 +5,70 @@
                <!-- Start Container Fluid -->
                <div class="container-xxl">
 
-                    <div class="row">
-                         <div class="col-md-6 col-xl-3">
-                              <div class="card">
-                                   <div class="card-body text-center">
-                                        <div class="rounded bg-secondary-subtle d-flex align-items-center justify-content-center mx-auto">
-                                             <img src="assets/images/product/p-1.png" alt="" class="avatar-xl">
-                                        </div>
-                                        <h4 class="mt-3 mb-0">Fashion Categories</h4>
-                                   </div>
-                              </div>
-                         </div>
-                         <div class="col-md-6 col-xl-3">
-                              <div class="card">
-                                   <div class="card-body text-center">
-                                        <div class="rounded bg-primary-subtle d-flex align-items-center justify-content-center mx-auto">
-                                             <img src="assets/images/product/p-6.png" alt="" class="avatar-xl">
-                                        </div>
-                                        <h4 class="mt-3 mb-0">Electronics Headphone</h4>
-                                   </div>
-                              </div>
-                         </div>
+                   <div class="row">
+                        <div class="col-md-6 col-xl-3">
+                             <div class="card">
+                                  <div class="card-body">
+                                       <div class="d-flex align-items-center">
+                                            <div class="rounded bg-secondary-subtle avatar-md d-flex align-items-center justify-content-center me-3">
+                                                 <iconify-icon icon="solar:tag-linear" class="fs-24 text-secondary"></iconify-icon>
+                                            </div>
+                                            <div>
+                                                 <h4 class="mb-1">{{ $categoriesCount }}</h4>
+                                                 <p class="text-muted mb-0">Total Categories</p>
+                                            </div>
+                                       </div>
+                                  </div>
+                             </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                             <div class="card">
+                                  <div class="card-body">
+                                       <div class="d-flex align-items-center">
+                                            <div class="rounded bg-primary-subtle avatar-md d-flex align-items-center justify-content-center me-3">
+                                                 <iconify-icon icon="solar:box-linear" class="fs-24 text-primary"></iconify-icon>
+                                            </div>
+                                            <div>
+                                                 <h4 class="mb-1">{{ $productsCount }}</h4>
+                                                 <p class="text-muted mb-0">Total Products</p>
+                                            </div>
+                                       </div>
+                                  </div>
+                             </div>
+                        </div>
 
-                         <div class="col-md-6 col-xl-3">
-                              <div class="card">
-                                   <div class="card-body text-center">
-                                        <div class="rounded bg-warning-subtle d-flex align-items-center justify-content-center mx-auto">
-                                             <img src="assets/images/product/p-7.png" alt="" class="avatar-xl">
-                                        </div>
-                                        <h4 class="mt-3 mb-0">Foot Wares</h4>
-                                   </div>
-                              </div>
-                         </div>
+                        <div class="col-md-6 col-xl-3">
+                             <div class="card">
+                                  <div class="card-body">
+                                       <div class="d-flex align-items-center">
+                                            <div class="rounded bg-warning-subtle avatar-md d-flex align-items-center justify-content-center me-3">
+                                                 <iconify-icon icon="solar:check-circle-linear" class="fs-24 text-warning"></iconify-icon>
+                                            </div>
+                                            <div>
+                                                 <h4 class="mb-1">{{ $activeProducts }}</h4>
+                                                 <p class="text-muted mb-0">Active Products</p>
+                                            </div>
+                                       </div>
+                                  </div>
+                             </div>
+                        </div>
 
-                         <div class="col-md-6 col-xl-3">
-                              <div class="card">
-                                   <div class="card-body text-center">
-                                        <div class="rounded bg-info-subtle d-flex align-items-center justify-content-center mx-auto">
-                                             <img src="assets/images/product/p-9.png" alt="" class="avatar-xl">
-                                        </div>
-                                        <h4 class="mt-3 mb-0">Eye Ware & Sunglass</h4>
-                                   </div>
-                              </div>
-                         </div>
-                    </div>
+                        <div class="col-md-6 col-xl-3">
+                             <div class="card">
+                                  <div class="card-body">
+                                       <div class="d-flex align-items-center">
+                                            <div class="rounded bg-info-subtle avatar-md d-flex align-items-center justify-content-center me-3">
+                                                 <iconify-icon icon="solar:close-circle-linear" class="fs-24 text-info"></iconify-icon>
+                                            </div>
+                                            <div>
+                                                 <h4 class="mb-1">{{ $inactiveProducts }}</h4>
+                                                 <p class="text-muted mb-0">Inactive Products</p>
+                                            </div>
+                                       </div>
+                                  </div>
+                             </div>
+                        </div>
+                   </div>
 
                     <div class="row">
                          <div class="col-xl-12">
@@ -59,20 +79,6 @@
                                         <a href="{{ route('admin.categories.create') }}" class="btn btn-sm btn-primary">
                                              Add Category
                                         </a>
-
-                                        <div class="dropdown">
-                                             <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light" data-bs-toggle="dropdown" aria-expanded="false">
-                                                  This Month
-                                             </a>
-                                             <div class="dropdown-menu dropdown-menu-end">
-                                                  <!-- item-->
-                                                  <a href="#!" class="dropdown-item">Download</a>
-                                                  <!-- item-->
-                                                  <a href="#!" class="dropdown-item">Export</a>
-                                                  <!-- item-->
-                                                  <a href="#!" class="dropdown-item">Import</a>
-                                             </div>
-                                        </div>
                                    </div>
                                    <div>
                                         <div class="table-responsive">
@@ -112,12 +118,9 @@
                                                             <td style="text-align: center;">
                                                                  <div class="d-flex gap-2">
                                                                       <a href="{{ route('admin.products.index', $category->id) }}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this category?')">
-                                                                           @csrf
-                                                                           @method('DELETE')
-                                                                           <button type="submit" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>
-                                                                      </form>
+                                                                      <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>                                                            
+                                                                      <button type="button" class="btn btn-soft-danger btn-sm" id="deleteCategory{{ $category->id }}" data-form-id="deleteCategoryForm{{ $category->id }}" data-nama="{{ $category->name }}" data-type="category"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>    
+                                                                      <form action="{{ route('admin.categories.destroy',['category'=>$category->id]) }}" method="POST" id="deleteCategoryForm{{ $category->id }}" hidden>@csrf @method('DELETE')</form>                                                               
                                                                  </div>
                                                             </td>
                                                        </tr>
@@ -134,15 +137,23 @@
                                         <!-- end table-responsive -->
                                    </div>
                                    <div class="card-footer border-top">
+                                        @if ($categories->hasPages())
                                         <nav aria-label="Page navigation example">
                                              <ul class="pagination justify-content-end mb-0">
-                                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                                                  <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+                                                  <li class="page-item {{ $categories->onFirstPage() ? 'disabled' : '' }}">
+                                                       <a class="page-link" href="{{ $categories->previousPageUrl() }}" tabindex="-1">Previous</a>
+                                                  </li>
+                                                  @foreach ($categories->getUrlRange(1, $categories->lastPage()) as $page => $url)
+                                                       <li class="page-item {{ $page == $categories->currentPage() ? 'active' : '' }}">
+                                                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                                       </li>
+                                                  @endforeach
+                                                  <li class="page-item {{ $categories->hasMorePages() ? '' : 'disabled' }}">
+                                                       <a class="page-link" href="{{ $categories->nextPageUrl() }}">Next</a>
+                                                  </li>
                                              </ul>
                                         </nav>
+                                        @endif
                                    </div>
                               </div>
                          </div>

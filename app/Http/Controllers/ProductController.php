@@ -24,7 +24,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('Page.Admin.Products.Create');
+        $categories = Category::orderBy('name')->get();
+        return view('Page.Admin.Products.AddProduct', compact('categories'));
     }
 
     /**

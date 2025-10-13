@@ -103,17 +103,11 @@
                                              <div class="col-lg-6">
                                                   <form>
                                                        <label for="product-categories" class="form-label">Product Categories</label>
-                                                       <select class="form-control" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories" name="choices-single-groups">
+                                                       <select class="form-control" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories" name="category_id">
                                                             <option value="">Choose a categories</option>
-                                                            <option value="Fashion">Fashion</option>
-                                                            <option value="Electronics">Electronics</option>
-                                                            <option value="Footwear">Footwear</option>
-                                                            <option value="Sportswear">Sportswear</option>
-                                                            <option value="Watches">Watches</option>
-                                                            <option value="Furniture">Furniture</option>
-                                                            <option value="Appliances">Appliances</option>
-                                                            <option value="Headphones">Headphones</option>
-                                                            <option value="Other Accessories">Other Accessories</option>
+                                                            @foreach($categories as $cat)
+                                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                            @endforeach
                                                        </select>
                                                   </form>
                                              </div>
@@ -296,4 +290,4 @@
     
 
 
-@endsection               
+@endsection

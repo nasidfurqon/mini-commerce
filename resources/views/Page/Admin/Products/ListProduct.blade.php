@@ -11,24 +11,10 @@
                               <div class="card">
                                    <div class="card-header d-flex justify-content-between align-items-center gap-1">
                                         <h4 class="card-title flex-grow-1">All Product List</h4>
-
-                                        <a href="product-add.html" class="btn btn-sm btn-primary">
+                                        
+                                        <a href="{{ route('admin.products.add') }}" class="btn btn-sm btn-primary">
                                              Add Product
                                         </a>
-
-                                        <div class="dropdown">
-                                             <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light" data-bs-toggle="dropdown" aria-expanded="false">
-                                                  This Month
-                                             </a>
-                                             <div class="dropdown-menu dropdown-menu-end">
-                                                  <!-- item-->
-                                                  <a href="#!" class="dropdown-item">Download</a>
-                                                  <!-- item-->
-                                                  <a href="#!" class="dropdown-item">Export</a>
-                                                  <!-- item-->
-                                                  <a href="#!" class="dropdown-item">Import</a>
-                                             </div>
-                                        </div>
                                    </div>
                                    <div>
                                         <div class="table-responsive">
@@ -80,7 +66,8 @@
                                                                  <div class="d-flex gap-2">
                                                                      <a href="{{ route('admin.products.detail', $product->id) }}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
                                                                       <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                                      <button class="btn btn-soft-danger btn-sm" id="deleteProduct{{ $product->id }}" data-form-id="deleteProductForm{{ $product->id }}" data-nama="{{ $product->name }}" data-type="product"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>
+                                                                      <form action="{{ route('admin.products.destroy',['product'=>$product->id]) }}" method="POST" id="deleteProductForm{{ $product->id }}" hidden>@csrf @method('DELETE')</form>
                                                                  </div>
                                                             </td>
                                                        </tr>
@@ -115,20 +102,7 @@
                     </div>
 
                </div>
-               <!-- End Container Fluid -->
 
-               <!-- ========== Footer Start ========== -->
-               <footer class="footer">
-                   <div class="container-fluid">
-                       <div class="row">
-                           <div class="col-12 text-center">
-                               <script>document.write(new Date().getFullYear())</script> &copy; Larkon. Crafted by <iconify-icon icon="iconamoon:heart-duotone" class="fs-18 align-middle text-danger"></iconify-icon> <a
-                                   href="../../../themeforest.net/user/techzaa/portfolio51cc.html" class="fw-bold footer-text" target="_blank">Techzaa</a>
-                           </div>
-                       </div>
-                   </div>
-               </footer>
-               <!-- ========== Footer End ========== -->
 
 
 

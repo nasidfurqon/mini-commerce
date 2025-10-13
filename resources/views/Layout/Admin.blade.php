@@ -236,15 +236,7 @@
           <div class="page-content">
                @yield('content')
           </div>
-
-
-
-               <!-- end Footer -->
-          </div>
-          <!-- ============================================================== -->
-          <!-- End Page content -->
-          <!-- ============================================================== -->
-
+          @include('Component.Swal')
     </div>
 
      <!-- Vendor Javascript (Require in all Page) -->
@@ -262,3 +254,5 @@
      <script src="{{ asset('assets/js2/pages/dashboard.js') }}"></script>
             
 </body>
+
+</html>
