@@ -17,18 +17,6 @@
 </head>
 
 <body>
-    @php
-        use Illuminate\Support\Facades\Auth;
-        use Illuminate\Support\Facades\DB;
-
-        $cartCount = 0;
-        if(Auth::check()){
-            $cart = DB::table('carts')->where('user_id', Auth::id())->first();
-            if($cart){
-                $cartCount = DB::table('cart_items')->where('cart_id', $cart->id)->sum('qty');
-            }
-        }
-    @endphp
     <!-- Header Area start  -->
     <div class="header section">
         <!-- Header Bottom  Start -->
@@ -93,7 +81,7 @@
                             <!-- Cart Button -->
                             <a href="#cartPreviewModal" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
-                                <span class="header-action-num">{{ $cartCount }}</span>
+                                <span class="header-action-num">{{ $cartCount ?? 0}}</span>
                                 <!-- <span class="cart-amount">€30.00</span> -->
                             </a>
                             
