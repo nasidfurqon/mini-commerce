@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Helpers\AuthHelper;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +37,17 @@ class AppServiceProvider extends ServiceProvider
                 'canAccessUserFeatures' => AuthHelper::canAccessUserFeatures(),
                 'userDisplayName' => AuthHelper::getUserDisplayName(),
             ]);
+        });
+
+        View::composer('Layout.Header', function ($view) {
+            $cartCount = 0;
+            if(Auth::check()){
+                $cart = DB::table('carts')->where('user_id', Auth::id())->first();
+                if($cart){
+                    $cartCount = DB::table('cart_items')->where('cart_id', $cart->id)->sum('qty');
+                }
+            }
+            $view->with('cartCount', $cartCount);
         });
     }
 }
