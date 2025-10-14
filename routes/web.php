@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\CartController;
@@ -46,6 +47,10 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
     // Product destroy
     Route::delete('/products/destroy/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
 
+        // Order listing
+    Route::get('/orders', [OrderController::class, 'listOrder'])->name('admin.orders.index');
+        // Order detail
+    Route::get('/orders/detail/{id}', [OrderController::class, 'detailOrder'])->name('admin.orders.detail');
 });
 
 // User routes (minimum pengguna role required)

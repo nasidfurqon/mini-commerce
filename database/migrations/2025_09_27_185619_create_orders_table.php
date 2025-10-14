@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->integer('total');
             $table->enum('status',['diproses','dikirim','selesai','batal']);
+            $table->enum('paid',['paid','unpaid','refund']);
             $table->text('adress_text');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

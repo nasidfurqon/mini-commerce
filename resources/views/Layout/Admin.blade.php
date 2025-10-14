@@ -22,6 +22,12 @@
      <!-- Bootstrap Icons -->
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+     <!-- Boxicons (for classes like bx bx-*) -->
+     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+
+     <!-- Iconify (for <iconify-icon> elements) -->
+     <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+
      <!-- Feather Icons -->
      <script src="https://unpkg.com/feather-icons"></script>
 

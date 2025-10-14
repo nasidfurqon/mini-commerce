@@ -77,4 +77,17 @@ class OrderController extends Controller
         $order->delete();
         return redirect()->route('orders.index')->with('success', 'Order berhasil dihapus');
     }
+
+    public function listOrder()
+    {
+        $orders = Order::orderBy('created_at', 'desc')->paginate(10);
+        return view('Page.Admin.Orders.ListOrder', compact('orders'));
+    }
+
+    public function detailOrder($id)
+    {
+        $order = Order::findOrFail($id);
+        return view('Page.Admin.Orders.DetailOrder', compact('order'));
+    }
+
 }
