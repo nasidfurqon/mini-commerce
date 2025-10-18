@@ -99,6 +99,81 @@ class CartController extends Controller
         $cart->update($request->all());
         return redirect()->route('carts.index')->with('success', 'Cart berhasil diupdate');
     }
+    public function decrementItem(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthenticated'], 401);
+        }
+
+        $request->validate([
+            'cart_item_id' => 'required|integer|exists:cart_items,id',
+        ]);
+
+        $cartItemId = (int) $request->input('cart_item_id');
+
+        // ensure the cart_item belongs to current user's cart
+        $cartItem = DB::table('cart_items')->where('id', $cartItemId)->first();
+        if (!$cartItem) {
+            return response()->json(['error' => 'Cart item not found'], 404);
+        }
+
+        $cart = DB::table('carts')->where('id', $cartItem->cart_id)->first();
+        if (!$cart || $cart->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        // decrement qty or delete
+        if ($cartItem->qty > 1) {
+            DB::table('cart_items')->where('id', $cartItemId)->update([
+                'qty' => $cartItem->qty - 1,
+                'updated_at' => now(),
+            ]);
+        } else {
+            DB::table('cart_items')->where('id', $cartItemId)->delete();
+        }
+
+        // recompute cart count (sum qty) and return updated preview
+        $cartId = $cartItem->cart_id;
+        $cartCount = (int) DB::table('cart_items')->where('cart_id', $cartId)->sum('qty');
+
+        $html = view('Partial.Cart-Preview')->render();
+
+        return response()->json(['html' => $html, 'count' => $cartCount]);
+    }
+
+    /**
+     * Remove cart item completely.
+     */
+    public function removeItem(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthenticated'], 401);
+        }
+
+        $request->validate([
+            'cart_item_id' => 'required|integer|exists:cart_items,id',
+        ]);
+
+        $cartItemId = (int) $request->input('cart_item_id');
+
+        $cartItem = DB::table('cart_items')->where('id', $cartItemId)->first();
+        if (!$cartItem) {
+            return response()->json(['error' => 'Cart item not found'], 404);
+        }
+
+        $cart = DB::table('carts')->where('id', $cartItem->cart_id)->first();
+        if (!$cart || $cart->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        DB::table('cart_items')->where('id', $cartItemId)->delete();
+
+        $cartCount = (int) DB::table('cart_items')->where('cart_id', $cart->id)->sum('qty');
+
+        $html = view('Partial.Cart-Preview')->render();
+
+        return response()->json(['html' => $html, 'count' => $cartCount]);
+    }
 
     public function destroy(Cart $cart)
     {
