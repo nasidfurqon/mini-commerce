@@ -96,11 +96,18 @@
                             <div class="pro-details-cart">
                                 <!-- <button class="add-cart btn btn-primary btn-hover-primary ml-4" href="#">  Add To
                                     Cart</button> -->
-                                @guest  
-                                    <button title="Add To Cart" onclick="window.location='{{ route('auth.page') }}'" class=" add-cart btn btn-primary btn-hover-primary ml-4">Add To Cart</button>
+                               @include('Component.Product-Preview-Modal', ['product' => $product])
+                               @auth
+                                    <button type="button"
+                                            class="add-to-cart ajax-add-to-cart "
+                                            data-product-id="{{ $product->id }}"
+                                            data-qty="1"
+                                            title="Add To Cart">
+                                        Add To Cart
+                                    </button>
                                 @else
-                                    <button title="Add To Cart" class=" add-cart btn btn-primary btn-hover-primary ml-4">Add To Cart</button>
-                                @endguest
+                                    <a title="Add To Cart" href="{{ route('auth.page') }}" class="add-to-cart">Add To Cart</a>
+                                @endauth
                             </div>
                         </div>
                         <div class="pro-details-wish-com">
@@ -294,13 +301,18 @@
                                     <a href="compare.html" class="action compare" title="Compare"><i
                                             class="icon-refresh"></i></a>
                                 </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                                @guest
-                                    <button title="Add To Cart" onclick="window.location='{{ route('auth.page') }}'" class=" add-to-cart">Add To Cart</button>
+                                @include('Component.Product-Preview-Modal', ['product' => $p])
+                               @auth
+                                    <button type="button"
+                                            class="add-to-cart ajax-add-to-cart "
+                                            data-product-id="{{ $p->id }}"
+                                            data-qty="1"
+                                            title="Add To Cart">
+                                        Add To Cart
+                                    </button>
                                 @else
-                                    <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
-                               @endguest
+                                    <a title="Add To Cart" href="{{ route('auth.page') }}" class="add-to-cart">Add To Cart</a>
+                                @endauth
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="{{ route('product.detail',$p->id) }}">{{ $p->name }}</a></h5>
@@ -361,13 +373,18 @@
                                     <a href="compare.html" class="action compare" title="Compare"><i
                                             class="icon-refresh"></i></a>
                                 </div>
-                                <button title="Add To Cart" class=" add-to-cart">Add
-                                    To Cart</button>
-                                @guest
-                                    <button title="Add To Cart" onclick="window.location='{{ route('auth.page') }}'" class=" add-to-cart">Add To Cart</button>
+                                @include('Component.Product-Preview-Modal', ['product' => $p])
+                               @auth
+                                    <button type="button"
+                                            class="add-to-cart ajax-add-to-cart "
+                                            data-product-id="{{ $p->id }}"
+                                            data-qty="1"
+                                            title="Add To Cart">
+                                        Add To Cart
+                                    </button>
                                 @else
-                                    <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
-                                @endguest
+                                    <a title="Add To Cart" href="{{ route('auth.page') }}" class="add-to-cart">Add To Cart</a>
+                                @endauth
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="{{ route('product.detail',$p->id) }}">{{ $p->name }}</a></h5>

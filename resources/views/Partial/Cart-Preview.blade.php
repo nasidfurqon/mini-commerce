@@ -16,7 +16,7 @@
         $items = DB::table('cart_items')
             ->where('cart_items.cart_id', $cart->id)
             ->join('products', 'cart_items.product_id', '=', 'products.id')
-            ->select('products.id','products.name','products.image','products.price','cart_items.qty')
+            ->select('cart_items.id as cart_item_id','products.id','products.name','products.image','products.price','cart_items.qty')
             ->get();
     }
 
@@ -30,7 +30,7 @@
     <div class="inner">
         <div class="head">
             <span class="title">Cart</span>
-            <button class="offcanvas-close">×</button>
+            <button type="button" class="offcanvas-close" data-bs-dismiss="offcanvas"></button>
         </div>
 
         <div class="body customScroll">
@@ -46,7 +46,19 @@
                             <div class="content">
                                 <a href="{{ route('product.detail', $item->id) }}" class="title">{{ $item->name }}</a>
                                 <span class="quantity-price">{{ $item->qty }} x <span class="amount">${{ number_format($item->price, 2) }}</span></span>
-                                <a href="#" class="remove">×</a>
+                                <!-- <a href="#" class="remove">x</a> -->
+                                 <button type="button"
+                                                class="remove"
+                                                data-cart-item-id="{{ $item->cart_item_id }}"
+                                                aria-label="Remove item">
+                                            ×
+                                        </button>
+                                <!-- <a href="#" class="decrement">-</a> -->
+                                 <button type="button"
+                                                class="decrement"
+                                                data-cart-item-id="{{ $item->cart_item_id }}">
+                                            −
+                                        </button>
                             </div>
                         </li>
                     @endforeach

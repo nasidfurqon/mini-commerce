@@ -149,12 +149,17 @@
                                             @else
                                                 <button title="Add To Cart" class="add-to-cart">Add To Cart</button>
                                             @endguest -->
-                                            <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
-                                                @guest
-                                                    <button title="Add To Cart" onclick="window.location='{{ route('auth.page') }}'" class=" add-to-cart">Add To Cart</button>
-                                                @else
-                                                    <button title="Add To Cart" class=" add-to-cart">Add To Cart</button>
-                                            @endguest
+                                             @auth
+                                                <button type="button"
+                                                        class="add-to-cart ajax-add-to-cart "
+                                                        data-product-id="{{ $product->id }}"
+                                                        data-qty="1"
+                                                        title="Add To Cart">
+                                                    Add To Cart
+                                                </button>
+                                            @else
+                                                <a title="Add To Cart" href="{{ route('auth.page') }}" class="add-to-cart">Add To Cart</a>
+                                            @endauth
                                         </div>
                                         <div class="content">
                                             <h5 class="title"><a href="{{ route('product.detail',$product->id) }}">{{ $product->name }} </a></h5>

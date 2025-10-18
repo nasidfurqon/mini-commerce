@@ -8,6 +8,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Furns - Furniture eCommerce HTML Template</title>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/vendor.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
@@ -231,6 +232,124 @@
         </div>
     </div>
     <!-- Footer Area End -->
+
+    <!-- AJAX SCRIPT -->
+    <script>
+    (function(){
+        const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        document.addEventListener('click', function(e){
+            // Add to cart handler (existing)
+            const addBtn = e.target.closest && e.target.closest('.ajax-add-to-cart');
+            if (addBtn) {
+                e.preventDefault();
+                const productId = addBtn.dataset.productId;
+                const qtyInput = addBtn.closest('.pro-details-quality')?.querySelector('.cart-plus-minus-box');
+                const qty = qtyInput ? parseInt(qtyInput.value) || 1 : (addBtn.dataset.qty || 1);
+
+                if (!productId) return;
+                fetch("{{ route('user.cart.add') }}", {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ product_id: productId, qty: qty })
+                })
+                .then(r => r.json())
+                .then(handleCartResponse)
+                .catch(err => console.error('Add to cart failed', err));
+                return;
+            }
+
+            // Decrement button handler
+            const decBtn = e.target.closest && e.target.closest('.decrement');
+            if (decBtn) {
+                e.preventDefault();
+                const cartItemId = decBtn.dataset.cartItemId;
+                if (!cartItemId) return;
+                fetch("{{ route('cart.item.decrement') }}", {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ cart_item_id: cartItemId })
+                })
+                .then(r => r.json())
+                .then(handleCartResponse)
+                .catch(err => console.error('Decrement failed', err));
+                return;
+            }
+
+            // Remove (x) handler
+            const remBtn = e.target.closest && e.target.closest('.remove');
+            if (remBtn) {
+                e.preventDefault();
+                const cartItemId = remBtn.dataset.cartItemId;
+                if (!cartItemId) return;
+                fetch("{{ route('cart.item.remove') }}", {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrf,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({ cart_item_id: cartItemId })
+                })
+                .then(r => r.json())
+                .then(handleCartResponse)
+                .catch(err => console.error('Remove failed', err));
+                return;
+            }
+        });
+
+        function handleCartResponse(data) {
+            if (!data) return;
+            // If server returned full preview HTML, parse and replace body & foot
+            if (data.html) {
+                const tmp = document.createElement('div');
+                tmp.innerHTML = data.html;
+
+                const newBody = tmp.querySelector('#cartPreviewModal .body');
+                const newFoot  = tmp.querySelector('#cartPreviewModal .foot');
+
+                const root = document.getElementById('cartPreviewModal');
+                if (root) {
+                    const oldBody = root.querySelector('.body');
+                    const oldFoot = root.querySelector('.foot');
+                    if (oldBody && newBody) oldBody.innerHTML = newBody.innerHTML;
+                    if (oldFoot && newFoot) oldFoot.innerHTML = newFoot.innerHTML;
+
+                    // re-init offcanvas instance safely
+                    try {
+                        if (window.bootstrap && bootstrap.Offcanvas) {
+                            const bs = bootstrap.Offcanvas.getOrCreateInstance(root);
+                            // ensure close buttons call hide()
+                            root.querySelectorAll('[data-bs-dismiss="offcanvas"], .offcanvas-close, .btn-close').forEach(btn => {
+                            btn.addEventListener('click', e => {
+                                e.preventDefault();
+                                bs.hide();
+                            });
+                        });
+                        }
+                    } catch (e) {
+                        console.error('Offcanvas rebind failed', e);
+                    }
+                }
+            }
+
+            if (typeof data.count !== 'undefined') {
+                document.querySelectorAll('.header-action-num').forEach(el => el.textContent = data.count);
+            }
+        }
+    })();
+    </script>
 
     <script src="{{ asset('assets/js/vendor/vendor.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/plugins.min.js') }}"></script>

@@ -66,6 +66,8 @@ Route::prefix('user')->middleware(['min.role:pengguna'])->group(function () {
     Route::put('/cart/{id}', [CartController::class, 'update'])->name('user.cart.update');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('user.cart.remove');
     Route::get('/checkout', [LandingPageController::class, 'checkout'])->name('user.checkout.index');
+    Route::post('/cart/item/decrement', [CartController::class, 'decrementItem'])->name('cart.item.decrement')->middleware('auth');
+Route::post('/cart/item/remove', [CartController::class, 'removeItem'])->name('cart.item.remove')->middleware('auth');
 });
 
 // Additional user-only routes that require authentication
