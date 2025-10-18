@@ -6,10 +6,9 @@
                <div class="container-xxl">
 
                     <div class="row">
-
-                         <div >
-
-                              <div class="card">
+                         <form action="#" method="POST" enctype="multipart/form-data">
+                              
+                              <div class="card mb-3">
                                    <div class="card-header">
                                         <h4 class="card-title">Product Information</h4>
                                    </div>
@@ -67,13 +66,11 @@
                                                   </form>
                                              </div>
                                              <div class="col-lg-3 col-md-6">
-                                                  <form>
-                                                       <label for="product-price" class="form-label">Price</label>
-                                                       <div class="input-group mb-3">
-                                                            <span class="input-group-text">Rp</span>
-                                                            <input type="number" id="product-price" class="form-control">
-                                                       </div>
-                                                  </form>
+                                                  <label for="product-price" class="form-label">Price</label>
+                                                  <div class="input-group mb-3">
+                                                       <span class="input-group-text">Rp</span>
+                                                       <input type="number" id="product-price" class="form-control">
+                                                  </div>
                                              </div>
                                         </div>              
                                         <div class="row">
@@ -86,18 +83,20 @@
                                         </div>
                                    </div>
                               </div>
-                              <div class="row g-3">
+
+
+                              <div class="row">
                                    <div class="col-lg-6">
-                                        <div class="card h-100">
+                                        <div class="card h-100 mb-3">
                                              <div class="card-header">
                                                   <h4 class="card-title">Add Product Photo</h4>
                                              </div>
                                              <div class="card-body">
                                                   <!-- File Upload -->
-                                                  <form action="{{ route('admin.products.upload') }}" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews">
+                                                  <form action="{{ route('admin.products.upload') }}" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-max-files="1" data-upload-multiple="false" data-parallel-uploads="1">
                                                        @csrf
                                                        <div class="fallback">
-                                                            <input name="file" type="file" multiple />
+                                                            <input name="file" type="file" accept="image/*"/>
                                                        </div>
                                                        <div class="dz-message needsclick">
                                                             <i class="bx bx-cloud-upload fs-48 text-primary"></i>
@@ -108,37 +107,32 @@
                                                        </div>
                                                   </form>
                                                   <!-- Previews container moved to right card -->
-
                                              </div>
                                         </div>
                                    </div>
                                    <div class="col-lg-6">
-                                        <div class="card h-100">
+                                        <div class="card h-100 mb-3">
                                              <div class="card-header">
                                                   <h4 class="card-title">Upload Previews</h4>
                                              </div>
                                              <div class="card-body">
                                                   <div id="file-previews" class="dz-previews"></div>
                                              </div>
-                                        </div>
+                                         </div>
                                    </div>
-                              </div>
+                              </div>    
 
-
-
-
-                              
-                              <div class="p-3 bg-light mb-3 rounded">
+                              <div class="p-3 bg-light rounded">
                                    <div class="row justify-content-end g-2">
                                         <div class="col-lg-2">
-                                             <a href="#!" class="btn btn-outline-secondary w-100">Cancel</a>
+                                             <a href="{{ request('category') ? route('admin.products.index',['category'=>request('category')]) : route('admin.categories.index') }}" class="btn btn-outline-secondary w-100">Cancel</a>
                                         </div>
                                         <div class="col-lg-2">
                                              <a href="#!" class="btn btn-primary w-100">Create Product</a>
                                         </div>
                                    </div>
                               </div>
-                         </div>
+                         </form>
                     </div>
                </div>
                <!-- End Container Fluid -->
@@ -235,10 +229,13 @@
          paramName: 'file',
          headers: { 'X-CSRF-TOKEN': "{{ csrf_token() }}" },
          maxFilesize: 4,
+         maxFiles: 1,
          acceptedFiles: 'image/*',
          addRemoveLinks: true,
          previewsContainer: '#file-previews',
          params: { path: 'products' },
+         uploadMultiple: false,
+         parallelUploads: 1,
          init: function() {
            this.on('addedfile', function(file) {
              var pv = file.previewElement;
@@ -251,6 +248,10 @@
                  }
                }
              }
+           });
+           this.on('maxfilesexceeded', function(file) {
+             this.removeAllFiles();
+             this.addFile(file);
            });
          }
        });
