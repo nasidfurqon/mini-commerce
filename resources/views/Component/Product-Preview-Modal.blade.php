@@ -91,8 +91,19 @@
                                         <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
                                     </div>
                                     <div class="pro-details-cart btn-hover">
-                                        <button class="add-cart btn btn-primary btn-hover-primary ml-4"> Add To
-                                            Cart</button>
+                                        @auth
+                                        <button type="button"
+                                                class="add-cart ajax-add-to-cart btn btn-primary btn-hover-primary ml-4""
+                                                data-product-id="{{ $product->id }}"
+                                                data-qty="1"
+                                                title="Add To Cart">
+                                            Add To Cart
+                                            </button>
+                                        @else
+                                            <a title="Add To Cart" href="{{ route('auth.page') }}" class="add-to-cart">Add To Cart</a>
+                                        @endauth
+                                        <!-- <button class="add-cart btn btn-primary btn-hover-primary ml-4"> Add To
+                                            Cart</button> -->
                                     </div>
                                 </div>
                                 <div class="pro-details-wish-com">
