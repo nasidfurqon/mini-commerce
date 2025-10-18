@@ -69,7 +69,7 @@ class AuthHelper
      */
     public static function canAccessCart(): bool
     {
-        return self::hasMinimumRole('pengguna');
+        return Auth::check() && Auth::user()->role === 'pengguna';
     }
 
     /**

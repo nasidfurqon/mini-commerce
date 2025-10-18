@@ -112,7 +112,7 @@
                             </div>
                             <div class="submit-area mb-30px">
                                 <button type="submit" class="btn btn-lg btn-primary btn-hover-dark">
-                                    <i class="fas fa-paper-plane"></i> Send Message
+                                    <i class="fas fa-paper-plane"></i> Send
                                 </button>
                                 <div id="loader" style="display: none;">
                                     <i class="fas fa-spinner fa-spin"></i>

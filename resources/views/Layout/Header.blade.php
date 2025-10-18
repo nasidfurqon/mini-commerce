@@ -66,8 +66,7 @@
                                             </form>
                                         </li>
                                     @else
-                                        <li><a class="dropdown-item" href="{{ route('auth.page') }}">Sign in</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('auth.page') }}">Register</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('auth.page') }}">Login / Register</a></li>
                                     @endif
                                 </ul>
                             </div>

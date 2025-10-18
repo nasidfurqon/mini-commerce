@@ -81,7 +81,11 @@ class OrderController extends Controller
     public function listOrder()
     {
         $orders = Order::orderBy('created_at', 'desc')->paginate(10);
-        return view('Page.Admin.Orders.ListOrder', compact('orders'));
+        $totalOrders = $orders->count();
+        $completedOrders = $orders->where('status', 'selesai')->count();
+        $pendingOrders = $orders->where('status', 'diproses')->count();
+        $cancelledOrders = $orders->where('status', 'batal')->count();
+        return view('Page.Admin.Orders.ListOrder', compact('orders', 'totalOrders', 'completedOrders', 'pendingOrders', 'cancelledOrders'));
     }
 
     public function detailOrder($id)

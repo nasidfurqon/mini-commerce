@@ -21,14 +21,12 @@ class OrderSeeder extends Seeder
         }
 
         $statuses = ['diproses', 'dikirim', 'selesai', 'batal'];
-        $paids = ['paid','unpaid','refund'];
 
         foreach (range(1, 5) as $i) {
             Order::create([
                 'user_id' => $userIds[array_rand($userIds)],
                 'total' => rand(50000, 500000),
                 'status' => $statuses[array_rand($statuses)],
-                'paid' => $paids[array_rand($paids)],
                 'adress_text' => 'Jl. Contoh No. ' . rand(1, 200) . ', Jakarta',
             ]);
         }
