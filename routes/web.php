@@ -40,6 +40,8 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
 
     // Product add page (place before listing to avoid conflict)
     Route::get('/products/add', [ProductController::class, 'create'])->name('admin.products.add');
+    // Upload endpoint for Dropzone
+    Route::post('/products/upload', [ProductController::class, 'upload'])->name('admin.products.upload');
     // Product listing by category (model binding)
     Route::get('/products/{category}', [ProductController::class, 'index'])->name('admin.products.index');
     // Product detail page (use singular path to avoid conflict with listing route)

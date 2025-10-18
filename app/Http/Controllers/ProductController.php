@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     /**
@@ -111,5 +112,26 @@ class ProductController extends Controller
     public function detail($id) {
         $product = Product::findOrFail($id);
         return view('Page.Admin.Products.DetailProduct', compact('product'));
+    }
+
+    /**
+     * Handle file upload.
+     */
+    public function upload(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file',
+            'path' => 'nullable|string',
+        ]);
+
+        $dir = $request->input('path', 'uploads');
+        $storedPath = $request->file('file')->store($dir, 'public');
+
+        return response()->json([
+            'path' => $storedPath,
+            'url'  => Storage::url($storedPath),
+            'disk' => 'public',
+            'success' => true,
+        ]);
     }
 }
