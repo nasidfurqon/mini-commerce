@@ -93,8 +93,7 @@
                                              </div>
                                              <div class="card-body">
                                                   <!-- File Upload -->
-                                                  <form action="{{ route('admin.products.upload') }}" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-max-files="1" data-upload-multiple="false" data-parallel-uploads="1">
-                                                       @csrf
+                                                  <div class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-max-files="1" data-upload-multiple="false" data-parallel-uploads="1">
                                                        <div class="fallback">
                                                             <input name="file" type="file" accept="image/*"/>
                                                        </div>
@@ -105,7 +104,7 @@
                                                                  1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed
                                                             </span>
                                                        </div>
-                                                  </form>
+                                                  </div>
                                                   <!-- Previews container moved to right card -->
                                              </div>
                                         </div>
@@ -121,6 +120,12 @@
                                          </div>
                                    </div>
                               </div>    
+
+                              {{-- ini gausah diotak atik --}}
+                              <div class="d-none">
+                                   <input type="boolean" name="is_active" value="1">
+                              </div>
+
 
                               <div class="p-3 bg-light rounded">
                                    <div class="row justify-content-end g-2">
