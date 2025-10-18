@@ -57,6 +57,15 @@
                                    <span class="nav-text"> Log </span>
                               </a>
                          </li>
+
+                         <li class="nav-item">
+                              <a href="{{ route('logout') }}" class="nav-link">
+                                   <span class="nav-icon">
+                                        <iconify-icon icon="solar:logout-bold-duotone"></iconify-icon>
+                                   </span>
+                                   <span class="nav-text"> Logout </span>
+                              </a>
+                         </li>
                     </ul>
                </div>
           </div>

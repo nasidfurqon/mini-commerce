@@ -1,289 +1,269 @@
 @extends('Layout.Admin')
 
 @section('content')
+<div class="container-xxl">
+  <div class="row">
+    <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="w-100">
+      @csrf
+      @method('PUT')
 
-               <!-- Start Container Fluid -->
-               <div class="container-xxl">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h4 class="card-title">Edit Product</h4>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-lg-4">
+              <label for="name" class="form-label">Product Name</label>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Items Name" value="{{ old('name', $product->name) }}">
+            </div>
 
-                    <div class="row">
-                         <div class="col-xl-3 col-lg-4">
-                              <div class="card">
-                                   <div class="card-body">
-                                        <img src="assets/images/product/p-1.png" alt="" class="img-fluid rounded bg-light">
-                                        <div class="mt-3">
-                                             <h4>Men Black Slim Fit T-shirt <span class="fs-14 text-muted ms-1">(Fashion)</span></h4>
-                                             <h5 class="text-dark fw-medium mt-3">Price :</h5>
-                                             <h4 class="fw-semibold text-dark mt-2 d-flex align-items-center gap-2">
-                                                  <span class="text-muted text-decoration-line-through">$100</span> $80 <small class="text-muted"> (30% Off)</small>
-                                             </h4>
-                                             <div class="mt-3">
-                                                  <h5 class="text-dark fw-medium">Size :</h5>
-                                                  <div class="d-flex flex-wrap gap-2" role="group" aria-label="Basic checkbox toggle button group">
-                                                       <input type="checkbox" class="btn-check" id="size-s">
-                                                       <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-s">S</label>
+            <div class="col-lg-4">
+              <label for="product-categories" class="form-label">Product Categories</label>
+              <select class="form-control" id="product-categories" name="category_id" data-choices data-placeholder="Select Categories">
+                <option value="">Choose a categories</option>
+                @foreach($categories as $cat)
+                  <option value="{{ $cat->id }}" {{ old('category_id', $product->category_id) == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                @endforeach
+              </select>
+            </div>
 
-                                                       <input type="checkbox" class="btn-check" id="size-m" checked>
-                                                       <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-m">M</label>
+            <div class="col-lg-2">
+              <label for="stock" class="form-label">Stock</label>
+              <input type="number" id="stock" name="stock" class="form-control" placeholder="Items Stock" value="{{ old('stock', $product->stock) }}">
+            </div>
 
-                                                       <input type="checkbox" class="btn-check" id="size-xl">
-                                                       <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-xl">Xl</label>
+            <div class="col-lg-2">
+              <label for="is_active" class="form-label">Is Active</label>
+              <select class="form-control" id="is_active" name="is_active">
+                <option value="1" {{ old('is_active', $product->is_active) == 1 ? 'selected' : '' }}>Yes</option>
+                <option value="0" {{ old('is_active', $product->is_active) == 0 ? 'selected' : '' }}>No</option>
+              </select>
+            </div>            
+          </div>
 
-                                                       <input type="checkbox" class="btn-check" id="size-xxl">
-                                                       <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-xxl">XXL</label>
+          <div class="row g-3 mt-1">
+            <div class="col-lg-3 col-md-6">
+              <label for="weight" class="form-label">Weight</label>
+              <input type="text" id="weight" name="weight" class="form-control" placeholder="In grams" value="{{ old('weight', $product->weight) }}">
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <label for="dimension" class="form-label">Dimension</label>
+              <input type="text" id="dimension" name="dimension" class="form-control" placeholder="ex: 10x10x10" value="{{ old('dimension', $product->dimension) }}">
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <label for="material" class="form-label">Materials</label>
+              <input type="text" id="material" name="material" class="form-control" placeholder="ex: cotton, polyester" value="{{ old('material', $product->material) }}">
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <label for="product-price" class="form-label">Price</label>
+              <div class="input-group">
+                <span class="input-group-text">Rp</span>
+                <input type="number" id="product-price" name="price" class="form-control" value="{{ old('price', $product->price) }}">
+              </div>
+            </div>
+          </div>
 
-                                                  </div>
-                                             </div>
-                                             <div class="mt-3">
-                                                  <h5 class="text-dark fw-medium">Colors :</h5>
-                                                  <div class="d-flex flex-wrap gap-2" role="group" aria-label="Basic checkbox toggle button group">
-                                                       <input type="checkbox" class="btn-check" id="color-dark">
-                                                       <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-dark"> <i class="bx bxs-circle fs-18 text-dark"></i></label>
+          <div class="row mt-3">
+            <div class="col-lg-12">
+              <label for="description" class="form-label">Description</label>
+              <textarea id="description" name="description" class="form-control bg-light-subtle" rows="7" placeholder="Short description about the product">{{ old('description', $product->description) }}</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
 
-                                                       <input type="checkbox" class="btn-check" id="color-yellow">
-                                                       <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-yellow"> <i class="bx bxs-circle fs-18 text-warning"></i></label>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card h-100 mb-3">
+            <div class="card-header"><h4 class="card-title">Product Photo</h4></div>
+            <div class="card-body">
+              <div class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-max-files="1" data-upload-multiple="false" data-parallel-uploads="1">
+                <div class="fallback">
+                  <input name="file" type="file" accept="image/*" />
+                </div>
+                <div class="dz-message needsclick">
+                  <i class="bx bx-cloud-upload fs-48 text-primary"></i>
+                  <h3 class="mt-4">Drop your images here, or <span class="text-primary">click to browse</span></h3>
+                  <span class="text-muted fs-13">1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card h-100 mb-3">
+            <div class="card-header"><h4 class="card-title">Upload Previews</h4></div>
+            <div class="card-body">
+              <div id="file-previews" class="dz-previews"></div>
+              @if($product->image)
+                <div class="mt-3"><img src="{{ $product->image }}" alt="Current image" class="img-fluid rounded" style="max-height:160px"></div>
+              @endif
+            </div>
+          </div>
+        </div>
+      </div>
 
-                                                       <input type="checkbox" class="btn-check" id="color-white">
-                                                       <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-white"> <i class="bx bxs-circle fs-18 text-white"></i></label>
+      <div class="d-none">
+        <input type="hidden" name="image" id="image" value="{{ old('image', $product->image) }}">
+      </div>
 
-                                                       <input type="checkbox" class="btn-check" id="color-red">
-                                                       <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-red"> <i class="bx bxs-circle fs-18 text-danger"></i></label>
-
-                                                  </div>
-                                             </div>
-                                        </div>
-                                   </div>                                  
-                              </div>
-                         </div>
-
-                         <div class="col-xl-9 col-lg-8 ">
-                              <div class="card">
-                                   <div class="card-header">
-                                        <h4 class="card-title">Add Product Photo</h4>
-                                   </div>
-                                   <div class="card-body">
-                                        <!-- File Upload -->
-                                        <form action="https://techzaa.in/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-upload-preview-template="#uploadPreviewTemplate">
-                                             <div class="fallback">
-                                                  <input name="file" type="file" multiple />
-                                             </div>
-                                             <div class="dz-message needsclick">
-                                                  <i class="bx bx-cloud-upload fs-48 text-primary"></i>
-                                                  <h3 class="mt-4">Drop your images here, or <span class="text-primary">click to browse</span></h3>
-                                                  <span class="text-muted fs-13">
-                                                       1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed
-                                                  </span>
-                                             </div>
-                                        </form>
-                                   </div>
-                              </div>
-                              <div class="card">
-                                   <div class="card-header">
-                                        <h4 class="card-title">Product Information</h4>
-                                   </div>
-                                   <div class="card-body">
-                                        <div class="row">
-                                             <div class="col-lg-6">
-                                                  <form>
-                                                       <div class="mb-3">
-                                                            <label for="product-name" class="form-label">Product Name</label>
-                                                            <input type="text" id="product-name" class="form-control" placeholder="Items Name" value="Men Black Slim Fit T-shirt">
-                                                       </div>
-                                                  </form>
-                                             </div>
-                                             <div class="col-lg-6">
-                                                  <form>
-                                                       <label for="product-categories" class="form-label">Product Categories</label>
-                                                       <select class="form-control" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories" name="choices-single-groups">
-                                                            <option value="">Choose a categories</option>
-                                                            <option value="Fashion" selected>Fashion</option>
-                                                            <option value="Electronics">Electronics</option>
-                                                            <option value="Footwear">Footwear</option>
-                                                            <option value="Sportswear">Sportswear</option>
-                                                            <option value="Watches">Watches</option>
-                                                            <option value="Furniture">Furniture</option>
-                                                            <option value="Appliances">Appliances</option>
-                                                            <option value="Headphones">Headphones</option>
-                                                            <option value="Other Accessories">Other Accessories</option>
-                                                       </select>
-                                                  </form>
-                                             </div>
-                                        </div>
-                                        <div class="row">
-                                             <div class="col-lg-4">
-                                                  <form>
-                                                       <div class="mb-3">
-                                                            <label for="product-brand" class="form-label">Brand</label>
-                                                            <input type="text" id="product-brand" class="form-control" placeholder="Brand Name" value="Larkon Fashion">
-                                                       </div>
-                                                  </form>
-                                             </div>
-                                             <div class="col-lg-4">
-                                                  <form>
-                                                       <div class="mb-3">
-                                                            <label for="product-weight" class="form-label">Weight</label>
-                                                            <input type="text" id="product-weight" class="form-control" placeholder="In gm & kg" value="300gm">
-                                                       </div>
-                                                  </form>
-                                             </div>
-                                             <div class="col-lg-4">
-                                                  <form>
-                                                       <label for="gender" class="form-label">Gender</label>
-                                                       <select class="form-control" id="gender" data-choices data-choices-groups data-placeholder="Select Gender">
-                                                            <option value="">Select Gender</option>
-                                                            <option value="Men" selected>Men</option>
-                                                            <option value="Women">Women</option>
-                                                            <option value="Other">Other</option>
-                                                       </select>
-                                                  </form>
-                                             </div>
-                                        </div>
-                                        <div class="row mb-4">
-                                             <div class="col-lg-4">
-                                                  <div class="mt-3">
-                                                       <h5 class="text-dark fw-medium">Size :</h5>
-                                                       <div class="d-flex flex-wrap gap-2" role="group" aria-label="Basic checkbox toggle button group">
-                                                            <input type="checkbox" class="btn-check" id="size-xs1">
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-xs1">XS</label>
-
-                                                            <input type="checkbox" class="btn-check" id="size-s1" checked>
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-s1">S</label>
-
-                                                            <input type="checkbox" class="btn-check" id="size-m1" checked>
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-m1">M</label>
-
-                                                            <input type="checkbox" class="btn-check" id="size-xl1" checked>
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-xl1">Xl</label>
-
-                                                            <input type="checkbox" class="btn-check" id="size-xxl1" checked>
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-xxl1">XXL</label>
-                                                            <input type="checkbox" class="btn-check" id="size-3xl1">
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="size-3xl1">3XL</label>
-
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                             <div class="col-lg-5">
-                                                  <div class="mt-3">
-                                                       <h5 class="text-dark fw-medium">Colors :</h5>
-                                                       <div class="d-flex flex-wrap gap-2" role="group" aria-label="Basic checkbox toggle button group">
-                                                            <input type="checkbox" class="btn-check" id="color-dark1" checked>
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-dark1"> <i class="bx bxs-circle fs-18 text-dark"></i></label>
-
-                                                            <input type="checkbox" class="btn-check" id="color-yellow1" checked>
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-yellow1"> <i class="bx bxs-circle fs-18 text-warning"></i></label>
-
-                                                            <input type="checkbox" class="btn-check" id="color-white1" checked>
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-white1"> <i class="bx bxs-circle fs-18 text-white"></i></label>
-
-                                                            <input type="checkbox" class="btn-check" id="color-red1" checked>
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-red1"> <i class="bx bxs-circle fs-18 text-primary"></i></label>
-
-                                                            <input type="checkbox" class="btn-check" id="color-green1">
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-green1"> <i class="bx bxs-circle fs-18 text-success"></i></label>
-
-                                                            <input type="checkbox" class="btn-check" id="color-blue1">
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-blue1"> <i class="bx bxs-circle fs-18 text-danger"></i></label>
-
-                                                            <input type="checkbox" class="btn-check" id="color-sky1">
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-sky1"> <i class="bx bxs-circle fs-18 text-info"></i></label>
-
-                                                            <input type="checkbox" class="btn-check" id="color-gray1">
-                                                            <label class="btn btn-light avatar-sm rounded d-flex justify-content-center align-items-center" for="color-gray1"> <i class="bx bxs-circle fs-18 text-secondary"></i></label>
-
-                                                       </div>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="row">
-                                             <div class="col-lg-12">
-                                                  <div class="mb-3">
-                                                       <label for="description" class="form-label">Description</label>
-                                                       <textarea class="form-control bg-light-subtle" id="description" rows="7" placeholder="Short description about the product">Top in sweatshirt fabric made from a cotton blend with a soft brushed inside. Relaxed fit with dropped shoulders, long sleeves and ribbing around the neckline, cuffs and hem. Small metal text applique.</textarea>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                        <div class="row">
-                                             <div class="col-lg-4">
-                                                  <form>
-                                                       <div class="mb-3">
-                                                            <label for="product-id" class="form-label">Tag Number</label>
-                                                            <input type="number" id="product-id" class="form-control" placeholder="#******" value="36294007">
-                                                       </div>
-
-                                                  </form>
-                                             </div>
-                                             <div class="col-lg-4">
-                                                  <form>
-                                                       <div class="mb-3">
-                                                            <label for="product-stock" class="form-label">Stock</label>
-                                                            <input type="number" id="product-stock" class="form-control" placeholder="Quantity" value="465">
-                                                       </div>
-
-                                                  </form>
-                                             </div>
-                                             <div class="col-lg-4">
-                                                  <label for="product-stock" class="form-label">Tag</label>
-                                                  <select class="form-control" id="choices-multiple-remove-button" data-choices data-choices-removeItem name="choices-multiple-remove-button" multiple>
-                                                       <option value="Fashion" selected>Fashion</option>
-                                                       <option value="Electronics">Electronics</option>
-                                                       <option value="Watches">Watches</option>
-                                                       <option value="Headphones">Headphones</option>
-                                                  </select>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </div>
-                              <div class="card">
-                                   <div class="card-header">
-                                        <h4 class="card-title">Pricing Details</h4>
-                                   </div>
-                                   <div class="card-body">
-                                        <div class="row">
-                                             <div class="col-lg-4">
-                                                  <form>
-                                                       <label for="product-price" class="form-label">Price</label>
-                                                       <div class="input-group mb-3">
-                                                            <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
-                                                            <input type="number" id="product-price" class="form-control" placeholder="000" value="80">
-                                                       </div>
-                                                  </form>
-                                             </div>
-                                             <div class="col-lg-4">
-                                                  <form>
-                                                       <label for="product-discount" class="form-label">Discount</label>
-                                                       <div class="input-group mb-3">
-                                                            <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span>
-                                                            <input type="number" id="product-discount" class="form-control" placeholder="000" value="30">
-                                                       </div>
-                                                  </form>
-                                             </div>
-                                             <div class="col-lg-4">
-                                                  <form>
-                                                       <label for="product-tex" class="form-label">Tex</label>
-                                                       <div class="input-group mb-3">
-                                                            <span class="input-group-text fs-20"><i class='bx bxs-file-txt'></i></span>
-                                                            <input type="number" id="product-tex" class="form-control" placeholder="000" value="3">
-                                                       </div>
-                                                  </form>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </div>
-                              <div class="p-3 bg-light mb-3 rounded">
-                                   <div class="row justify-content-end g-2">
-                                        <div class="col-lg-2">
-                                             <a href="#!" class="btn btn-outline-secondary w-100">Reset</a>
-                                        </div>
-                                        <div class="col-lg-2">
-                                             <a href="#!" class="btn btn-primary w-100">Save</a>
-                                        </div>
-                                   </div>
-                              </div>
-                         </div>
-                    </div>
-
-               </div>
-               <!-- End Container Fluid -->
-
+      <div class="p-3 bg-light rounded">
+        <div class="row justify-content-end g-2">
+          <div class="col-lg-2">
+            <a href="{{ route('admin.products.index', $product->category_id) }}" class="btn btn-outline-secondary w-100">Cancel</a>
+          </div>
+          <div class="col-lg-2">
+            <button type="submit" class="btn btn-primary w-100">Update Product</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 @endsection
+
+<style>
+/* Tidy Dropzone preview layout */
+#file-previews.dz-previews {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+#file-previews.row { margin-left: 0 !important; margin-right: 0 !important; }
+#file-previews .dz-preview {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px dashed #dee2e6;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(16,24,40,.05);
+  position: relative;
+}
+#file-previews .dz-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+#file-previews .dz-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#file-previews .dz-details { margin: 0; min-width: 0; overflow: hidden; }
+#file-previews .dz-filename { font-weight: 500; font-size: 14px; color: #212529; overflow: hidden; }
+#file-previews .dz-filename span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; display: inline-block; }
+#file-previews .dz-size { color: #6c757d; font-size: 12px; margin-left: 6px; }
+#file-previews .dz-progress {
+  grid-column: 2;
+  height: 6px;
+  background: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+#file-previews .dz-upload { background: #0d6efd; height: 100%; }
+#file-previews .dz-remove {
+  grid-column: 3;
+  align-self: center;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  background: transparent;
+  transition: .2s;
+}
+#file-previews .dz-remove:hover { background: #dc3545; color: #fff; }
+#file-previews .dz-success .dz-progress { display: none; }
+#file-previews .dz-success-mark, #file-previews .dz-error-mark { display: none; }
+#file-previews .dz-error-message {
+  display: none;
+  position: absolute;
+  left: 12px;
+  bottom: -30px;
+  background: #dc3545;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+#file-previews .dz-preview:hover .dz-error-message { display: none; }
+#file-previews .dz-preview.dz-error .dz-error-message { display: block; }
+@media (max-width: 576px) {
+  #file-previews .dz-preview { grid-template-columns: 56px 1fr auto; }
+  #file-previews .dz-image { width: 56px; height: 56px; }
+}
+</style>
+
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+   if (window.Dropzone) {
+     Dropzone.autoDiscover = false;
+     var dzElem = document.getElementById('myAwesomeDropzone');
+     if (dzElem && !dzElem.dropzone) {
+       new Dropzone(dzElem, {
+         url: "{{ route('admin.products.upload') }}",
+         paramName: 'file',
+         headers: { 'X-CSRF-TOKEN': "{{ csrf_token() }}" },
+         maxFilesize: 4,
+         maxFiles: 1,
+         acceptedFiles: 'image/*',
+         addRemoveLinks: true,
+         previewsContainer: '#file-previews',
+         params: { path: 'products' },
+         uploadMultiple: false,
+         parallelUploads: 1,
+         init: function() {
+           this.on('addedfile', function(file) {
+             var pv = file.previewElement;
+             if (pv) {
+               var nameEl = pv.querySelector('.dz-filename span');
+               if (nameEl) {
+                 nameEl.title = file.name;
+                 if (nameEl.textContent && nameEl.textContent.length > 80) {
+                   nameEl.textContent = file.name.slice(0, 77) + '...';
+                 }
+               }
+             }
+           });
+           this.on('maxfilesexceeded', function(file) {
+             this.removeAllFiles();
+             this.addFile(file);
+           });
+           this.on('success', function(file, response) {
+             var data = response;
+             try { if (typeof response === 'string') { data = JSON.parse(response); } } catch (e) {}
+             var url = data && data.url ? data.url : null;
+             var input = document.querySelector('input[name="image"]');
+             if (input) { input.value = url || ''; }
+           });
+           this.on('removedfile', function(file) {
+             var input = document.querySelector('input[name="image"]');
+             if (input) { input.value = ''; }
+           });
+         }
+       });
+     }
+   }
+ });
+</script>
+
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+   var chk = document.getElementById('is_active');
+   var statusEl = document.getElementById('is_active_status');
+   if (chk && statusEl) {
+     statusEl.textContent = chk.checked ? 'Active' : 'Inactive';
+     chk.addEventListener('change', function () {
+       statusEl.textContent = chk.checked ? 'Active' : 'Inactive';
+     });
+   }
+ });
+</script>
 

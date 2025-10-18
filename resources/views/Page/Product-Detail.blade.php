@@ -14,42 +14,6 @@
                             <div class="swiper-slide">
                                 <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                             </div>
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                            </div>
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                            </div>
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                            </div>
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-container gallery-thumbs slider-nav-style-1 small-nav">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                            </div>
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                            </div>
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                            </div>
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                            </div>
-                            <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                            </div>
-                        </div>
-                        <!-- Add Arrows -->
-                        <div class="swiper-buttons">
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
                         </div>
                     </div>
                 </div>

@@ -9,9 +9,11 @@
                     <div class="row">
                          <div class="col-xl-12">
                               <div class="card">
-                                   <div class="card-header d-flex justify-content-between align-items-center gap-1">
+                                   <div class="card-header d-flex justify-content-between align-items-center gap-1">                                                                                
                                         <h4 class="card-title flex-grow-1">All Product List</h4>
-                                        
+                                        <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary" style="height: 32px; text-align: center;">
+                                             Back
+                                        </a>
                                         <a href="{{ route('admin.products.add', ['category' => $category->id]) }}" class="btn btn-sm btn-primary">
                                              Add Product
                                         </a>
@@ -65,7 +67,7 @@
                                                             <td>
                                                                  <div class="d-flex gap-2">
                                                                      <a href="{{ route('admin.products.detail', $product->id) }}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                                      <a href="{{ route('admin.products.edit', ['id'=>$product->id]) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
                                                                       <button class="btn btn-soft-danger btn-sm" id="deleteProduct{{ $product->id }}" data-form-id="deleteProductForm{{ $product->id }}" data-nama="{{ $product->name }}" data-type="product"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>
                                                                       <form action="{{ route('admin.products.destroy',['product'=>$product->id]) }}" method="POST" id="deleteProductForm{{ $product->id }}" hidden>@csrf @method('DELETE')</form>
                                                                  </div>
