@@ -27,7 +27,7 @@
                     <!-- Header Logo Start -->
                     <div class="col-auto align-self-center">
                         <div>
-                            <a href="{{ route('index') }}"><h2>TOKO KITA</h2></a>
+                            <a href="{{ route('index') }}"><h2>AyceTechStore</h2></a>
                         </div>
                     </div>
                     <!-- Header Logo End -->

@@ -1,21 +1,11 @@
-          <div class="main-nav">
+<div class="main-nav">
                <!-- Sidebar Logo -->
-               <div class="logo-box">
-                    <a href="index.html" class="logo-dark">
-                         <img src="assets/images2/logo-sm.png" class="logo-sm" alt="logo sm">
-                         <img src="assets/images2/logo-dark.png" class="logo-lg" alt="logo dark">
-                    </a>
-
-                    <a href="index.html" class="logo-light">
-                         <img src="assets/images2/logo-sm.png" class="logo-sm" alt="logo sm">
-                         <img src="assets/images2/logo-light.png" class="logo-lg" alt="logo light">
+               <div class="px-3 py-3">
+                    <a href="{{ route('index') }}" class="d-flex align-items-center text-decoration-none">
+                         <span class="brand-text text-white fw-bold fs-3" style="letter-spacing: .5px; font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif;">AyceTechStore</span>
                     </a>
                </div>
 
-               <!-- Menu Toggle Button (sm-hover) -->
-               <button type="button" class="button-sm-hover" aria-label="Show Full Sidebar">
-                    <iconify-icon icon="solar:double-alt-arrow-right-bold-duotone" class="button-sm-hover-icon"></iconify-icon>
-               </button>
 
                <div class="scrollbar" data-simplebar>
                     <ul class="navbar-nav" id="navbar-nav">
@@ -59,12 +49,15 @@
                          </li>
 
                          <li class="nav-item">
-                              <a href="{{ route('logout') }}" class="nav-link">
-                                   <span class="nav-icon">
-                                        <iconify-icon icon="solar:logout-bold-duotone"></iconify-icon>
-                                   </span>
-                                   <span class="nav-text"> Logout </span>
-                              </a>
+                              <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+                                   @csrf
+                                   <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+                                        <span class="nav-icon">
+                                             <iconify-icon icon="solar:logout-bold-duotone"></iconify-icon>
+                                        </span>
+                                        <span class="nav-text"> Logout </span>
+                                   </a>
+                              </form>
                          </li>
                     </ul>
                </div>
