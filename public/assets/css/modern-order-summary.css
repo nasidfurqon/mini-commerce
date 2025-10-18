@@ -521,3 +521,95 @@
         font-size: 12px;
     }
 }
+
+/* Billing Details Spacing Tidy */
+.checkbox-form .row {
+    --bs-gutter-y: 14px;
+    --bs-gutter-x: 14px;
+}
+
+.checkbox-form .checkout-form-list,
+.checkbox-form .country-select,
+.different-address-checkout .checkout-form-list-checkout,
+.different-address-checkout .country-select-checkout {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 0;
+}
+
+.checkbox-form .create-acc {
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    align-items: center;
+    gap: 8px;
+}
+
+.ship-different-title-checkout {
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+#ship-box-info-checkout .row {
+    --bs-gutter-y: 12px;
+}
+
+.order-notes-checkout .checkout-form-list-checkout {
+    gap: 6px;
+}
+
+/* Checkout Action Buttons */
+.checkout-action-buttons {
+    padding: 24px 28px;
+    background: #fff;
+    border-top: 1px solid #e0e6ed;
+    border-radius: 0 0 16px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.checkout-btn {
+    flex: 1;
+    padding: 14px 16px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.checkout-btn-ghost {
+    background: #fff;
+    border: 2px solid #e0e6ed;
+    color: #212121;
+}
+.checkout-btn-ghost:hover {
+    background: #f8f9fa;
+    border-color: #ff8c42;
+    box-shadow: 0 2px 12px rgba(255, 112, 4, 0.1);
+}
+
+.checkout-btn-primary {
+    background: linear-gradient(135deg, #ff7004, #ff8c42);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 16px rgba(255, 112, 4, 0.25);
+}
+.checkout-btn-primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(255, 112, 4, 0.35);
+}
+
+@media (max-width: 480px) {
+    .checkout-action-buttons {
+        flex-direction: column;
+    }
+}
