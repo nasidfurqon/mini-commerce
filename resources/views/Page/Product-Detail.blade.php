@@ -301,11 +301,11 @@
                                     <a href="compare.html" class="action compare" title="Compare"><i
                                             class="icon-refresh"></i></a>
                                 </div>
-                                @include('Component.Product-Preview-Modal', ['product' => $product])
+                                @include('Component.Product-Preview-Modal', ['product' => $p])
                                @auth
                                     <button type="button"
                                             class="add-to-cart ajax-add-to-cart "
-                                            data-product-id="{{ $product->id }}"
+                                            data-product-id="{{ $p->id }}"
                                             data-qty="1"
                                             title="Add To Cart">
                                         Add To Cart
@@ -373,11 +373,11 @@
                                     <a href="compare.html" class="action compare" title="Compare"><i
                                             class="icon-refresh"></i></a>
                                 </div>
-                                @include('Component.Product-Preview-Modal', ['product' => $product])
+                                @include('Component.Product-Preview-Modal', ['product' => $p])
                                @auth
                                     <button type="button"
                                             class="add-to-cart ajax-add-to-cart "
-                                            data-product-id="{{ $product->id }}"
+                                            data-product-id="{{ $p->id }}"
                                             data-qty="1"
                                             title="Add To Cart">
                                         Add To Cart

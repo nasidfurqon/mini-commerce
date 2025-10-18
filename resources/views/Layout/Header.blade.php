@@ -244,7 +244,9 @@
             if (addBtn) {
                 e.preventDefault();
                 const productId = addBtn.dataset.productId;
-                const qty = addBtn.dataset.qty || 1;
+                const qtyInput = addBtn.closest('.pro-details-quality')?.querySelector('.cart-plus-minus-box');
+                const qty = qtyInput ? parseInt(qtyInput.value) || 1 : (addBtn.dataset.qty || 1);
+
                 if (!productId) return;
                 fetch("{{ route('user.cart.add') }}", {
                     method: 'POST',
