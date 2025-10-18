@@ -66,7 +66,8 @@ Route::prefix('user')->middleware(['min.role:pengguna'])->group(function () {
     Route::put('/cart/{id}', [CartController::class, 'update'])->name('user.cart.update');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('user.cart.remove');
     Route::post('/cart/onAdd', [CartController::class, 'storeOnCart'])->name('user.onCart.add');
-    Route::get('/checkout', [LandingPageController::class, 'checkout'])->name('user.checkout.index');
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('user.checkout.index');
+    Route::post('/checkout/place', [CartController::class, 'placeOrder'])->name('user.checkout.place'); 
     Route::post('/cart/item/decrement', [CartController::class, 'decrementItem'])->name('cart.item.decrement')->middleware('auth');
     Route::post('/cart/item/remove', [CartController::class, 'removeItem'])->name('cart.item.remove')->middleware('auth');
     Route::post('/cart/item/onDecrement', [CartController::class, 'decrementItemOnCart'])->name('cart.item.onDecrement')->middleware('auth');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -343,5 +344,109 @@ class CartController extends Controller
     {
          $cart->delete();
         return redirect()->route('carts.index')->with('success', 'Cart berhasil dihapus');
+    }
+
+    public function checkout()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $cart = DB::table('carts')->where('user_id', Auth::id())->first();
+        if (!$cart) {
+            $items = collect();
+            $subTotal = 0;
+        } else {
+            $items = DB::table('cart_items')
+                ->where('cart_items.cart_id', $cart->id)
+                ->join('products', 'cart_items.product_id', '=', 'products.id')
+                ->select('cart_items.id as cart_item_id','products.id','products.name','products.image','products.price','cart_items.qty')
+                ->get();
+
+            if ($items->isEmpty()) {
+                return redirect()->route('user.cart.index')->with('error', 'Keranjang belanja Anda kosong.');
+            }
+            $subTotal = $items->reduce(function ($carry, $item) {
+                return $carry + ($item->price * $item->qty);
+            }, 0);
+        }
+
+        return view('Page.Checkout.index', compact('items', 'subTotal'));
+    }
+
+    /**
+     * Place order: validate address, create order + order_items, clear cart items.
+     */
+    public function placeOrder(Request $request)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $data = $request->validate([
+            'address' => 'required|string|max:1000',
+        ]);
+
+        $userId = Auth::id();
+
+        // load cart and items
+        $cart = DB::table('carts')->where('user_id', $userId)->first();
+        if (!$cart) {
+            return redirect()->route('user.cart.index')->with('error', 'Cart is empty.');
+        }
+
+        $items = DB::table('cart_items')
+            ->where('cart_items.cart_id', $cart->id)
+            ->join('products', 'cart_items.product_id', '=', 'products.id')
+            ->select('cart_items.id as cart_item_id','products.id as product_id','products.name','products.price','cart_items.qty')
+            ->get();
+
+        if ($items->isEmpty()) {
+            return redirect()->route('user.cart.index')->with('error', 'Cart is empty.');
+        }
+
+        // compute totals
+        $subTotal = $items->reduce(function ($carry, $item) {
+            return $carry + ($item->price * $item->qty);
+        }, 0);
+
+        $ecoTax = max(0, $subTotal * 0.02);
+        $vat = $subTotal * 0.20;
+        $total = $subTotal + $ecoTax + $vat;
+
+        // transaction: create order and order_items, then clear cart_items
+        DB::beginTransaction();
+        try {
+            $orderId = DB::table('orders')->insertGetId([
+                'user_id' => $userId,
+                'adress_text' => $data['address'],
+                'total' => $total,
+                'status' => 'diproses',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            foreach ($items as $it) {
+                DB::table('order_items')->insert([
+                    'order_id' => $orderId,
+                    'product_id' => $it->product_id,
+                    'price' => $it->price,
+                    'qty' => $it->qty,
+                    'subtotal' => ($it->price * $it->qty),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+
+            // clear cart items
+            DB::table('cart_items')->where('cart_id', $cart->id)->delete();
+
+            DB::commit();
+            return redirect()->route('user.cart.index')->with('success', 'Pesanan berhasil dibuat! Order ID: ' . $orderId);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Place Order Failed: ' . $e->getMessage());
+            return redirect()->route('user.cart.index')->with('error', 'Failed to place order.');
+        }
     }
 }

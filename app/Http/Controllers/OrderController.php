@@ -54,11 +54,11 @@ class OrderController extends Controller
         return view('orders.edit', compact('order'));
     }
 
-    /**
+    /**                                                                                                                                                                                                 
      * Update the specified resource in storage.
      */
     public function update(Request $request, Order $order)
-    {
+    {                                   
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'total'   => 'required|numeric|min:0',
@@ -74,7 +74,7 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        $order->delete();
+        $order->delete();                                                                                                                                                                                                                                                       
         return redirect()->route('orders.index')->with('success', 'Order berhasil dihapus');
     }
 
