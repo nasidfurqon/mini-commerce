@@ -175,6 +175,170 @@ class CartController extends Controller
         return response()->json(['html' => $html, 'count' => $cartCount]);
     }
 
+
+    public function storeOnCart(Request $request)
+    {
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthenticated'], 401);
+        }
+
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'qty' => 'nullable|integer|min:1'
+        ]);
+
+        $userId = Auth::id();
+        $productId = (int) $request->input('product_id');
+        $qty = max(1, (int) $request->input('qty', 1));
+
+        $cart = DB::table('carts')->where('user_id', $userId)->first();
+        if (!$cart) {
+            $cartId = DB::table('carts')->insertGetId([
+                'user_id' => $userId,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        } else {
+            $cartId = $cart->id;
+        }
+
+        $cartItem = DB::table('cart_items')
+            ->where('cart_id', $cartId)
+            ->where('product_id', $productId)
+            ->first();
+
+        if ($cartItem) {
+            DB::table('cart_items')->where('id', $cartItem->id)->update([
+                'qty' => $cartItem->qty + $qty,
+                'updated_at' => now(),
+            ]);
+            $newQty = $cartItem->qty + $qty;
+        } else {
+            $cartItemId = DB::table('cart_items')->insertGetId([
+                'cart_id' => $cartId,
+                'product_id' => $productId,
+                'qty' => $qty,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            $cartItem = DB::table('cart_items')->where('id', $cartItemId)->first();
+            $newQty = $qty;
+        }
+
+        // ambil harga produk
+        $product = DB::table('products')->where('id', $productId)->first();
+        $price = (float) $product->price;
+
+        // hitung ulang subtotal seluruh cart
+        $subTotal = DB::table('cart_items')
+            ->join('products', 'cart_items.product_id', '=', 'products.id')
+            ->where('cart_items.cart_id', $cartId)
+            ->sum(DB::raw('cart_items.qty * products.price'));
+
+        $cartCount = (int) DB::table('cart_items')->where('cart_id', $cartId)->sum('qty');
+
+        return response()->json([
+            'updated_item' => [
+                'cart_item_id' => $cartItem->id,
+                'qty' => $newQty,
+                'price' => $price,
+            ],
+            'subtotal' => $subTotal,
+            'count' => $cartCount,
+        ]);
+    }
+
+    public function decrementItemOnCart(Request $request)
+    {
+        if (!Auth::check()) return response()->json(['error' => 'Unauthenticated'], 401);
+
+        $request->validate(['cart_item_id' => 'required|integer|exists:cart_items,id']);
+        $cartItemId = (int) $request->input('cart_item_id');
+
+        $cartItem = DB::table('cart_items')->where('id', $cartItemId)->first();
+        if (!$cartItem) return response()->json(['error' => 'Cart item not found'], 404);
+
+        $cart = DB::table('carts')->where('id', $cartItem->cart_id)->first();
+        if (!$cart || $cart->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        // ambil harga produk
+        $product = DB::table('products')->where('id', $cartItem->product_id)->first();
+        $price = (float) $product->price;
+
+        // decrement / hapus
+        if ($cartItem->qty > 1) {
+            $newQty = $cartItem->qty - 1;
+            DB::table('cart_items')->where('id', $cartItemId)->update([
+                'qty' => $newQty,
+                'updated_at' => now(),
+            ]);
+
+            $updated_item = [
+                'cart_item_id' => $cartItem->id,
+                'qty' => $newQty,
+                'price' => $price,
+            ];
+        } else {
+            DB::table('cart_items')->where('id', $cartItemId)->delete();
+            $updated_item = null;
+        }
+
+        // subtotal seluruh cart
+        $subTotal = DB::table('cart_items')
+            ->join('products', 'cart_items.product_id', '=', 'products.id')
+            ->where('cart_items.cart_id', $cart->id)
+            ->sum(DB::raw('cart_items.qty * products.price'));
+
+        $cartCount = (int) DB::table('cart_items')->where('cart_id', $cart->id)->sum('qty');
+
+        if ($updated_item === null) {
+            return response()->json([
+                'removed_item_id' => $cartItemId,
+                'subtotal' => $subTotal,
+                'count' => $cartCount,
+            ]);
+        }
+
+        return response()->json([
+            'updated_item' => $updated_item,
+            'subtotal' => $subTotal,
+            'count' => $cartCount,
+        ]);
+    }
+
+    public function removeItemOnCart(Request $request)
+    {
+        if (!Auth::check()) return response()->json(['error' => 'Unauthenticated'], 401);
+
+        $request->validate(['cart_item_id' => 'required|integer|exists:cart_items,id']);
+        $cartItemId = (int) $request->input('cart_item_id');
+
+        $cartItem = DB::table('cart_items')->where('id', $cartItemId)->first();
+        if (!$cartItem) return response()->json(['error' => 'Cart item not found'], 404);
+
+        $cart = DB::table('carts')->where('id', $cartItem->cart_id)->first();
+        if (!$cart || $cart->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        DB::table('cart_items')->where('id', $cartItemId)->delete();
+
+        $subTotal = DB::table('cart_items')
+            ->join('products', 'cart_items.product_id', '=', 'products.id')
+            ->where('cart_items.cart_id', $cart->id)
+            ->sum(DB::raw('cart_items.qty * products.price'));
+
+        $cartCount = (int) DB::table('cart_items')->where('cart_id', $cart->id)->sum('qty');
+
+        return response()->json([
+            'removed_item_id' => $cartItemId,
+            'subtotal' => $subTotal,
+            'count' => $cartCount,
+        ]);
+    }
+
     public function destroy(Cart $cart)
     {
          $cart->delete();

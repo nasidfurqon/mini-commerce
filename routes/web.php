@@ -65,9 +65,12 @@ Route::prefix('user')->middleware(['min.role:pengguna'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'store'])->name('user.cart.add');
     Route::put('/cart/{id}', [CartController::class, 'update'])->name('user.cart.update');
     Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('user.cart.remove');
+    Route::post('/cart/onAdd', [CartController::class, 'storeOnCart'])->name('user.onCart.add');
     Route::get('/checkout', [LandingPageController::class, 'checkout'])->name('user.checkout.index');
     Route::post('/cart/item/decrement', [CartController::class, 'decrementItem'])->name('cart.item.decrement')->middleware('auth');
-Route::post('/cart/item/remove', [CartController::class, 'removeItem'])->name('cart.item.remove')->middleware('auth');
+    Route::post('/cart/item/remove', [CartController::class, 'removeItem'])->name('cart.item.remove')->middleware('auth');
+    Route::post('/cart/item/onDecrement', [CartController::class, 'decrementItemOnCart'])->name('cart.item.onDecrement')->middleware('auth');
+    Route::post('/cart/item/onRemove', [CartController::class, 'removeItemOnCart'])->name('cart.item.onRemove')->middleware('auth');
 });
 
 // Additional user-only routes that require authentication
