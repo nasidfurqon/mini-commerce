@@ -30,7 +30,7 @@
     <div class="inner">
         <div class="head">
             <span class="title">Cart</span>
-            <button class="offcanvas-close">×</button>
+            <button type="button" class="offcanvas-close" data-bs-dismiss="offcanvas"></button>
         </div>
 
         <div class="body customScroll">

@@ -8,6 +8,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Furns - Furniture eCommerce HTML Template</title>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/vendor.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
@@ -231,6 +232,90 @@
         </div>
     </div>
     <!-- Footer Area End -->
+
+    <!-- AJAX SCRIPT -->
+     // ...existing code...
+    // ...existing code...
+    <script>
+    (function(){
+        const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        document.addEventListener('click', function(e){
+            const btn = e.target.closest && e.target.closest('.ajax-add-to-cart');
+            if (!btn) return;
+            e.preventDefault();
+
+            const productId = btn.dataset.productId;
+            const qty = btn.dataset.qty || 1;
+            if (!productId) return;
+
+            fetch("{{ route('user.cart.add') }}", {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ product_id: productId, qty: qty })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.html) {
+                    // parse returned html
+                    const tmp = document.createElement('div');
+                    tmp.innerHTML = data.html;
+
+                    const newBody = tmp.querySelector('#cartPreviewModal .body');
+                    const newFoot  = tmp.querySelector('#cartPreviewModal .foot');
+
+                    const root = document.getElementById('cartPreviewModal');
+                    if (root) {
+                        // replace only body and foot contents — keep plugin-initialized container intact
+                        const oldBody = root.querySelector('.body');
+                        const oldFoot = root.querySelector('.foot');
+                        if (oldBody && newBody) oldBody.innerHTML = newBody.innerHTML;
+                        if (oldFoot && newFoot) oldFoot.innerHTML = newFoot.innerHTML;
+
+                        // // rebind close buttons to offcanvas instance (safe)
+                        // try {
+                        //     if (window.bootstrap && bootstrap.Offcanvas) {
+                        //         const bsInstance = bootstrap.Offcanvas.getOrCreateInstance(root);
+                        //         root.querySelectorAll('[data-bs-dismiss="offcanvas"], .offcanvas-close, .btn-close').forEach(btn => {
+                        //             const newBtn = btn.cloneNode(true);
+                        //             btn.parentNode.replaceChild(newBtn, btn);
+                        //             newBtn.addEventListener('click', () => bsInstance.hide());
+                        //         });
+                        //     }
+                        // } catch (err) {
+                        //     console.error('Offcanvas rebind failed', err);
+                        // }
+
+                        // dispatch event so other scripts (plugins) may re-init only necessary parts
+                        // document.dispatchEvent(new CustomEvent('cart:updated', { detail: { root } }));
+                    }
+                     const rootModal = document.getElementById('cartPreviewModal');
+                    if (window.bootstrap && bootstrap.Offcanvas) {
+                        const bsInstance = bootstrap.Offcanvas.getOrCreateInstance(rootModal);
+                        rootModal.querySelectorAll('[data-bs-dismiss="offcanvas"], .offcanvas-close, .btn-close')
+                            .forEach(btn => {
+                                btn.addEventListener('click', e => {
+                                    e.preventDefault();
+                                    bsInstance.hide();
+                                });
+                            });
+                    }
+                    document.dispatchEvent(new CustomEvent('cart:updated', { detail: { rootModal } }));
+                }
+
+                if (typeof data.count !== 'undefined') {
+                    document.querySelectorAll('.header-action-num').forEach(el => el.textContent = data.count);
+                }
+            })
+            .catch(err => console.error('Add to cart failed', err));
+        });
+    })();
+    </script>
 
     <script src="{{ asset('assets/js/vendor/vendor.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/plugins.min.js') }}"></script>
