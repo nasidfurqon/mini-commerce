@@ -56,8 +56,17 @@
                                                     class="icon-refresh"></i></a>
                                         </div>
                                         @include('Component.Product-Preview-Modal', ['product' => $p])
-                                        <button title="Add To Cart" class=" add-to-cart">Add
-                                            To Cart</button>
+                                        @auth
+                                                <button type="button"
+                                                        class="add-to-cart ajax-add-to-cart "
+                                                        data-product-id="{{ $p->id }}"
+                                                        data-qty="1"
+                                                        title="Add To Cart">
+                                                    Add To Cart
+                                                </button>
+                                            @else
+                                                <a title="Add To Cart" href="{{ route('auth.page') }}" class="add-to-cart">Add To Cart</a>
+                                            @endauth
                                     </div>
                                     <div class="content">
                                         <h5 class="title"><a href="{{ route('product.detail',$p->id) }}">{{ $p->name }}</a></h5>
