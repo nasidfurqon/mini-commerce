@@ -22,12 +22,17 @@
                                              </div>
                                              <div class="col-lg-4">
                                                   <label for="product-categories" class="form-label">Product Categories</label>
-                                                  <select class="form-control" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories" name="category_id">
+                                                  @php $selectedCategoryId = request('category'); @endphp
+                                                  <select class="form-control" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories" name="category_id" {{ $selectedCategoryId ? 'disabled' : '' }}>
                                                        <option value="">Choose a categories</option>
                                                        @foreach($categories as $cat)
-                                                           <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                           <option value="{{ $cat->id }}" {{ $selectedCategoryId == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                                                        @endforeach
                                                   </select>
+                                                  @if($selectedCategoryId)
+                                                       <input type="hidden" name="category_id" value="{{ $selectedCategoryId }}">
+                                                       <small class="text-muted">Kategori telah dipilih dari halaman sebelumnya.</small>
+                                                  @endif
                                              </div>
                                              <div class="col-lg-4">
                                                   <div class="mb-3">

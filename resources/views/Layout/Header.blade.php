@@ -26,9 +26,11 @@
                 <div class="row align-self-center">
                     <!-- Header Logo Start -->
                     <div class="col-auto align-self-center">
-                        <div>
-                            <a href="{{ route('index') }}"><h2>AyceTechStore</h2></a>
-                        </div>
+               <div class="px-3 py-3">
+                    <a href="{{ route('index') }}" class="d-flex align-items-center text-decoration-none">
+                         <span class="brand-text fw-bold fs-3" style="letter-spacing: .5px; font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif;">AyceTechStore</span>
+                    </a>
+               </div>
                     </div>
                     <!-- Header Logo End -->
 

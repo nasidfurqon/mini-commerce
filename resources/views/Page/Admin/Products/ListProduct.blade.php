@@ -25,51 +25,36 @@
                                              <table class="table align-middle mb-0 table-hover table-centered">
                                                   <thead class="bg-light-subtle">
                                                        <tr>
-                                                            <th style="width: 20px;">
-                                                                 <div class="form-check ms-1">
-                                                                      <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                                      <label class="form-check-label" for="customCheck1"></label>
-                                                                 </div>
-                                                            </th>
-                                                            <th>Product Name & Size</th>
-                                                            <th>Price</th>
-                                                            <th>Stock</th>
+                                                            <th>Product Name</th>
+                                                            <th class="text-end">Price</th>
+                                                            <th class="text-center">Stock</th>
                                                             <th>Category</th>
-                                                            <th>Rating</th>
-                                                            <th>Action</th>
+                                                            <th class="text-center">Action</th>
                                                        </tr>
                                                   </thead>
                                                   <tbody>
                                                        @foreach ($products as $product)                                                            
-                                                       <tr>
-                                                            <td>
-                                                                 <div class="form-check ms-1">
-                                                                      <input type="checkbox" class="form-check-input" id="customCheck2">
-                                                                      <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                                                 </div>
-                                                            </td>
+                                                       <tr>                                                           
                                                             <td>
                                                                  <div class="d-flex align-items-center gap-2">
                                                                      <div class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
                                                                          <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="img-fluid rounded" style="width: 50px; height: 50px; object-fit: cover;" />
                                                                      </div>
                                                                       <div>
-                                                                           <a href="#!" class="text-dark fw-medium fs-15">{{ $product->name }}</a>
+                                                                           <a href="{{ route('admin.products.detail',['id'=>$product->id]) }}" class="text-dark fw-medium fs-15">{{ $product->name }}</a>
                                                                       </div>
                                                                  </div>
 
                                                             </td>
-                                                            <td>$ {{ $product->price }}</td>
-                                                            <td>
+                                                            <td class="text-end">$ {{ $product->price }}</td>
+                                                            <td class="text-center">
                                                                  <p class="mb-1 text-muted"><span class="text-dark fw-medium">{{ $product->stock }} Item</span> Left</p>
-                                                                 <p class="mb-0 text-muted">155 Sold</p>
                                                             </td>
-                                                            <td> {{ $product->category->name }}</td>
-                                                            <td> <span class="badge p-1 bg-light text-dark fs-12 me-1"><i class="bx bxs-star align-text-top fs-14 text-warning me-1"></i> 4.5</span> 55 Review</td>
-                                                            <td>
-                                                                 <div class="d-flex gap-2">
+                                                            <td>{{ $product->category->name }}</td>
+                                                            <td class="text-center">
+                                                                 <div class="d-inline-flex gap-2 align-items-center justify-content-center">
                                                                      <a href="{{ route('admin.products.detail', $product->id) }}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="{{ route('admin.products.edit', ['id'=>$product->id]) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                                      <a href="{{ route('admin.products.edit', ['id'=>$product->id, 'category'=>$category->id]) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
                                                                       <button class="btn btn-soft-danger btn-sm" id="deleteProduct{{ $product->id }}" data-form-id="deleteProductForm{{ $product->id }}" data-nama="{{ $product->name }}" data-type="product"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>
                                                                       <form action="{{ route('admin.products.destroy',['product'=>$product->id]) }}" method="POST" id="deleteProductForm{{ $product->id }}" hidden>@csrf @method('DELETE')</form>
                                                                  </div>

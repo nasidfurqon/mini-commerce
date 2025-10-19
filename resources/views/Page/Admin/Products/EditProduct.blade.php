@@ -20,12 +20,20 @@
 
             <div class="col-lg-4">
               <label for="product-categories" class="form-label">Product Categories</label>
-              <select class="form-control" id="product-categories" name="category_id" data-choices data-placeholder="Select Categories">
+              @php
+                $selectedCategoryId = request('category') ?: old('category_id', $product->category_id);
+                $mutedCategory = request()->has('category');
+              @endphp
+              <select class="form-control" id="product-categories" name="category_id" data-choices data-placeholder="Select Categories" {{ $mutedCategory ? 'disabled' : '' }}>
                 <option value="">Choose a categories</option>
                 @foreach($categories as $cat)
-                  <option value="{{ $cat->id }}" {{ old('category_id', $product->category_id) == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                  <option value="{{ $cat->id }}" {{ $selectedCategoryId == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                 @endforeach
               </select>
+              @if($mutedCategory)
+                <input type="hidden" name="category_id" value="{{ $selectedCategoryId }}">
+                <small class="text-muted">Kategori telah dipilih dari halaman sebelumnya.</small>
+              @endif
             </div>
 
             <div class="col-lg-2">
