@@ -4,13 +4,27 @@
 <link rel="stylesheet" href="{{ asset('assets/css/cart-modern.css') }}">
 <style>
 /* Scoped fix for cart card collisions */
-.cart-list .cart-item { display:grid; grid-template-columns: 100px 1fr auto; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid #eee; }
-.cart-list .product-thumbnail img { width:100%; max-width:90px; height:90px; object-fit:cover; border-radius:8px; }
-.cart-list .item-content .product-name { display:block; font-weight:600; margin-bottom:6px; }
-.cart-list .item-actions { display:grid; grid-auto-flow:column; gap:12px; align-items:center; justify-content:end; }
+.cart-list .cart-item { display:grid; grid-template-columns: 100px 1fr auto; gap:16px; align-items:center; padding:12px 0; border-bottom:1px solid #eee; }
+.cart-list .product-thumbnail { border: none; }
+.cart-list .product-thumbnail img { width:100%; max-width:90px; height:90px; object-fit:cover; border-radius:8px; border:none; outline:none; }
+.cart-list .item-content .product-name { display:block; font-weight:600; margin-bottom:4px; }
+.cart-list .item-content .product-price-cart .amount { font-weight:600; }
+.cart-list .item-actions { display:grid; grid-auto-flow:column; gap:12px; align-items:center; justify-content:end; padding-right:12px; }
 .cart-list .item-actions .product-quantity { min-width:150px; }
 .cart-list .product-subtotal { min-width:140px; text-align:right; white-space:nowrap; }
-.cart-list .product-remove { min-width:48px; text-align:right; }
+.cart-list .product-remove { min-width:40px; text-align:right; }
+
+/* Minify quantity control */
+.cart-list .cart-plus-minus { background: transparent !important; border: 1px solid #e9ecef; border-radius: 8px; padding: 4px 6px; height:auto; display:inline-flex; align-items:center; gap:4px; }
+.cart-list .cart-plus-minus .btn.btn-sm { width: 28px; height: 28px; padding: 0; line-height: 28px; display: inline-flex; align-items: center; justify-content: center; }
+.cart-list .cart-plus-minus .btn.btn-sm.btn-outline-secondary { border-color:#e9ecef; color:#6c757d; }
+.cart-list .cart-plus-minus .btn.btn-sm.btn-outline-secondary:hover { background:#f3f4f6; }
+.cart-list .qty-box { width: 36px !important; height: 28px; padding: 0; margin: 0 2px; text-align:center; border: none; background: transparent; }
+
+/* Remove button tidy */
+.cart-list .product-remove .remove-link { width:28px; height:28px; border:1px solid #f1aeb5; border-radius:50%; color:#dc3545; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; background:transparent; }
+.cart-list .product-remove .remove-link:hover { background:#f8d7da; }
+.cart-list .product-remove .remove-link .icon { font-size:14px; line-height:1; }
 
 @media (max-width: 576px) {
   .cart-list .cart-item { grid-template-columns: 80px 1fr; }
@@ -42,15 +56,17 @@
                                 </div>
                                 <div class="item-actions">
                                     <div class="product-quantity">
-                                        <div class="cart-plus-minus" style="display:flex;gap:8px;align-items:center;">
+                                        <div class="cart-plus-minus">
                                             <button type="button" class="btn btn-sm btn-outline-secondary decrement-btn" data-cart-item-id="{{ $item->cart_item_id }}">−</button>
-                                            <input class="cart-plus-minus-box qty-box" type="text" name="qtybutton" value="{{ $item->qty }}" data-cart-item-id="{{ $item->cart_item_id }}" style="width:48px;text-align:center"/>
+                                            <input class="cart-plus-minus-box qty-box" type="text" name="qtybutton" value="{{ $item->qty }}" data-cart-item-id="{{ $item->cart_item_id }}" />
                                             <button type="button" class="btn btn-sm btn-outline-secondary increment-btn" data-product-id="{{ $item->id }}">+</button>
                                         </div>
                                     </div>
                                     <div class="product-subtotal" data-subtotal-for="{{ $item->cart_item_id }}">Rp{{ number_format($item->price * $item->qty, 2, ',', '.') }}</div>
                                     <div class="product-remove">
-                                        <button type="button" class="remove-link btn btn-link text-danger" aria-label="Remove item" data-cart-item-id="{{ $item->cart_item_id }}"><i class="icon-close">×</i></button>
+                                        <button type="button" class="remove-link" aria-label="Remove item" data-cart-item-id="{{ $item->cart_item_id }}">
+                                            <span class="icon" aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +202,6 @@
             e.preventDefault(); e.stopImmediatePropagation();
             const id = rem.dataset.cartItemId;
             if (!id) return;
-            if (!confirm('Remove this item from cart?')) return;
             const res = await fetchJson("{{ route('cart.item.onRemove') }}", { cart_item_id: id });
             if (!res.ok) {
                 if (res.status === 401 || res.status === 419) { alert('Session expired. Login again.'); return; }
