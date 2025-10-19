@@ -396,10 +396,17 @@ class CartController extends Controller
         }
 
         $items = DB::table('cart_items')
-            ->where('cart_items.cart_id', $cart->id)
-            ->join('products', 'cart_items.product_id', '=', 'products.id')
-            ->select('cart_items.id as cart_item_id','products.id as product_id','products.name','products.price','cart_items.qty')
-            ->get();
+        ->where('cart_items.cart_id', $cart->id)
+        ->join('products', 'cart_items.product_id', '=', 'products.id')
+        ->select(
+            'cart_items.id as cart_item_id',
+            'products.id as product_id',
+            'products.name',
+            'products.price',
+            'products.stock as product_qty',
+            'cart_items.qty as order_qty'
+        )
+        ->get();
 
         if ($items->isEmpty()) {
             return redirect()->route('user.cart.index')->with('error', 'Cart is empty.');
@@ -407,16 +414,23 @@ class CartController extends Controller
 
         // compute totals
         $subTotal = $items->reduce(function ($carry, $item) {
-            return $carry + ($item->price * $item->qty);
+            return $carry + ($item->price * $item->order_qty);
         }, 0);
 
         $ecoTax = max(0, $subTotal * 0.02);
         $vat = $subTotal * 0.20;
-        $total = $subTotal + $ecoTax + $vat;
+        $total = $subTotal + $ecoTax + $vat;    
 
         // transaction: create order and order_items, then clear cart_items
         DB::beginTransaction();
-        try {
+            try {
+                foreach ($items as $item) {
+                if ($item->product_qty < $item->order_qty) {
+                    return redirect()->route('user.cart.index')->with('error', 'Failed to place order.');
+                    throw new \Exception("Stok produk '{$item->name}' tidak mencukupi. Stok tersedia: {$item->product_qty}, diminta: {$item->order_qty}");
+                }
+            }
+
             $orderId = DB::table('orders')->insertGetId([
                 'user_id' => $userId,
                 'adress_text' => $data['address'],
@@ -431,14 +445,17 @@ class CartController extends Controller
                     'order_id' => $orderId,
                     'product_id' => $it->product_id,
                     'price' => $it->price,
-                    'qty' => $it->qty,
-                    'subtotal' => ($it->price * $it->qty),
+                    'qty' => $it->order_qty,
+                    'subtotal' => ($it->price * $it->order_qty),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
             }
 
             // clear cart items
+            DB::table('products')
+                ->where('id', $item->product_id)
+                ->decrement('stock', $item->order_qty);
             DB::table('cart_items')->where('cart_id', $cart->id)->delete();
 
             DB::commit();
