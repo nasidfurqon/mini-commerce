@@ -53,7 +53,6 @@
                             </div>
                             <div class="pro-details-cart">
                                 
-                               @include('Component.Product-Preview-Modal', ['product' => $product])
                                @auth
                                     <button type="button"
                                             class="add-to-cart ajax-add-to-cart "
@@ -103,19 +102,14 @@
                         <div class="product">
                             <div class="thumb">
                                 <a href="{{ route('product.detail',$p->id) }}" class="image">
-                                    <img src="{{ $p->image_url }}" alt="Product" />
-                                    <img class="hover-image" src="{{ $p->image_url }}" alt="Product" />
+                                    <img src="{{ asset('storage/' . ltrim($p->image, '/')) }}" alt="Product" />
+                                    <img class="hover-image" src="{{ asset('storage/' . ltrim($p->image, '/')) }}" alt="Product" />
                                 </a>
                                 <span class="badges">
                                 @if($p->created_at->diffInDays(now()) <= 2)
                                     <span class="new">New</span>
                                 @endif                                    
-                                </span>
-                                <div class="actions">                                   
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#previewProduct{{ $product->id }}"><i
-                                            class="icon-size-fullscreen"></i></a>                          
-                                </div>
-                                @include('Component.Product-Preview-Modal', ['product' => $p])
+                                </span>                 
                                @auth
                                     <button type="button"
                                             class="add-to-cart ajax-add-to-cart "
@@ -170,20 +164,15 @@
                         <div class="product">
                             <div class="thumb">
                                 <a href="{{ route('product.detail',$p->id) }}" class="image">
-                                    <img src="{{ $p->image_url }}" alt="Product" />
-                                    <img class="hover-image" src="{{ $p->image_url }}" alt="Product" />
+                                    <img src="{{ asset('storage/' . ltrim($p->image, '/')) }}" alt="Product" />
+                                    <img class="hover-image" src="{{ asset('storage/' . ltrim($p->image, '/')) }}" alt="Product" />
                                 </a>
                                 <span class="badges">
                                 
                                 @if($p->created_at->diffInDays(now()) <= 2)
                                     <span class="new">New</span>
                                 @endif
-                                </span>
-                                <div class="actions">                                   
-                                    <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#previewProduct{{ $p->id }}"><i
-                                            class="icon-size-fullscreen"></i></a>                                   
-                                </div>
-                                @include('Component.Product-Preview-Modal', ['product' => $p])
+                                </span>        
                                @auth
                                     <button type="button"
                                             class="add-to-cart ajax-add-to-cart "
@@ -216,5 +205,62 @@
         </div>
     </div>
 
+
+    <style>
+      /* Konsistenkan ukuran kartu di slider pada halaman Product Detail */
+      .new-product-slider .product .thumb {
+        aspect-ratio: 1 / 1;
+        position: relative;
+        overflow: hidden;
+      }
+      .new-product-slider .product .thumb .image {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .new-product-slider .product .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+
+      /* Terapkan juga ke gallery-top (gambar utama detail produk) */
+      .gallery-top {
+        aspect-ratio: 1 / 1;
+        position: relative;
+        overflow: hidden;
+      }
+      .gallery-top .swiper-wrapper,
+      .gallery-top .swiper-slide {
+        height: 100%;
+      }
+      .gallery-top .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+    </style>
+
+    <script>
+      (function() {
+        // Fallback untuk browser yang belum mendukung CSS aspect-ratio
+        var supportsAspect = window.CSS && CSS.supports && CSS.supports('aspect-ratio', '1 / 1');
+        if (supportsAspect) return;
+        function adjustAll() {
+          document.querySelectorAll('.new-product-slider .product .thumb').forEach(function(thumb) {
+            thumb.style.height = thumb.clientWidth + 'px';
+          });
+          document.querySelectorAll('.gallery-top').forEach(function(gallery) {
+            gallery.style.height = gallery.clientWidth + 'px';
+          });
+        }
+        adjustAll();
+        window.addEventListener('resize', adjustAll);
+      })();
+    </script>
 
 @endsection

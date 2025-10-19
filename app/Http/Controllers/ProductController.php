@@ -55,6 +55,17 @@ class ProductController extends Controller
         // Normalize is_active to boolean
         $data['is_active'] = (bool) ($data['is_active'] ?? true);
 
+        // Normalize image path to 'products/<filename>' if provided as '/storage/...'
+        if (!empty($data['image'])) {
+            $img = $data['image'];
+            if (str_starts_with($img, '/storage/')) {
+                $img = ltrim(substr($img, strlen('/storage/')), '/');
+            } elseif (str_starts_with($img, 'storage/')) {
+                $img = substr($img, strlen('storage/'));
+            }
+            $data['image'] = $img;
+        }
+
         $product = Product::create($data);
         return redirect()->route('admin.products.index', $product->category_id)
             ->with('success', 'Produk berhasil ditambahkan');
@@ -110,6 +121,15 @@ class ProductController extends Controller
 
         if (empty($data['image'])) {
             unset($data['image']);
+        } else {
+            // Normalize image path to 'products/<filename>' if provided as '/storage/...'
+            $img = $data['image'];
+            if (str_starts_with($img, '/storage/')) {
+                $img = ltrim(substr($img, strlen('/storage/')), '/');
+            } elseif (str_starts_with($img, 'storage/')) {
+                $img = substr($img, strlen('storage/'));
+            }
+            $data['image'] = $img;
         }
 
         $product->update($data);

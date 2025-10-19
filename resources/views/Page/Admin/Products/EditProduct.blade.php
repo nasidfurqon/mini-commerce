@@ -88,7 +88,51 @@
             <div class="card-body">
               <div class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-max-files="1" data-upload-multiple="false" data-parallel-uploads="1">
                 <div class="fallback">
-                  <input name="file" type="file" accept="image
+                  <input name="file" type="file" accept="image/*" />
+                </div>
+                <div class="dz-message needsclick">
+                  <i class="bx bx-cloud-upload fs-48 text-primary"></i>
+                  <h3 class="mt-4">Drop your images here, or <span class="text-primary">click to browse</span></h3>
+                  <span class="text-muted fs-13">1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card h-100 mb-3">
+            <div class="card-header"><h4 class="card-title">Upload Previews</h4></div>
+            <div class="card-body">
+              <div id="file-previews" class="dz-previews"></div>
+              @if($product->image)
+                <div class="mt-3"><img src="{{ $product->image_url }}" alt="Current image" class="img-fluid rounded" style="max-height:160px"></div>
+              @endif
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-none">
+        <input type="hidden" name="image" id="image" value="{{ old('image', $product->image) }}">
+      </div>
+
+      <div class="p-3 bg-light rounded">
+        <div class="row justify-content-end g-2">
+          <div class="col-lg-2">
+            <a href="{{ route('admin.products.index', $product->category_id) }}" class="btn btn-outline-secondary w-100">Cancel</a>
+          </div>
+          <div class="col-lg-2">
+            <button type="submit" class="btn btn-primary w-100">Update Product</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+@endsection
+
+<style>
+/* Tidy Dropzone preview layout */
 #file-previews.dz-previews {
   display: flex;
   flex-direction: column;
@@ -203,9 +247,9 @@
            this.on('success', function(file, response) {
              var data = response;
              try { if (typeof response === 'string') { data = JSON.parse(response); } } catch (e) {}
-             var url = data && data.url ? data.url : null;
+             var path = data && data.path ? data.path : null;
              var input = document.querySelector('input[name="image"]');
-             if (input) { input.value = url || ''; }
+             if (input) { input.value = path || ''; }
            });
            this.on('removedfile', function(file) {
              var input = document.querySelector('input[name="image"]');
@@ -230,4 +274,3 @@
    }
  });
 </script>
-
