@@ -38,7 +38,7 @@
                         </div>                                             
                         <div class="pricing-meta">
                             <ul>
-                                <li class="old-price not-cut">${{ number_format($product->price / 100, 2) }}</li>
+                                <li class="old-price not-cut">Rp {{ number_format($product->price, 2, ',', '.') }}</li>
                             </ul>
                         </div>
                             <div class="mt-3">
@@ -132,7 +132,7 @@
                             <div class="content">
                                 <h5 class="title"><a href="{{ route('product.detail',$p->id) }}">{{ $p->name }}</a></h5>
                                 <span class="price">
-                                    <span class="new">${{ number_format($p->price / 100, 2) }}</span>
+                                    <span class="new">Rp {{ number_format($p->price, 2, ',', '.') }}</span>
                                 </span>
                             </div>
                         </div>
@@ -201,7 +201,7 @@
                             <div class="content">
                                 <h5 class="title"><a href="{{ route('product.detail',$p->id) }}">{{ $p->name }}</a></h5>
                                 <span class="price">
-                                    <span class="new">${{ number_format($p->price / 100, 2) }}</span>
+                                    <span class="new">Rp {{ number_format($p->price, 2, ',', '.') }}</span>
                                 </span>
                             </div>
                         </div>
