@@ -43,7 +43,7 @@ class ProductSeeder extends Seeder
                     'material' => 'Metal',
                     'price' => rand(10000, 100000),
                     'stock' => rand(10, 100),
-                    'image' => $productImages[array_rand($productImages)], // Random product image
+                    'image' => $productImages[array_rand($productImages)], 
                     'created_at'=> date('Y-m-d H:i:s', rand(strtotime('2025-01-01'), strtotime('2025-12-31'))),
                     'updated_at'=> date('Y-m-d H:i:s', rand(strtotime('2025-01-01'), strtotime('2025-12-31'))),
                 ]);
