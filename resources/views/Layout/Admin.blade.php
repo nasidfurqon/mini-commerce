@@ -34,6 +34,9 @@
      <!-- Lucide Icons -->
      <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
+     <!-- Google Fonts for brand logo -->
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+
      <!-- App css (Require in all Page) -->
      <link href="{{ asset('assets/css2/app.min.css') }}" rel="stylesheet" type="text/css" />
 
@@ -50,16 +53,11 @@
                <div class="container-fluid">
                     <div class="navbar-header">
                          <div class="d-flex align-items-center">
-                              <!-- Menu Toggle Button -->
-                              <div class="topbar-item">
-                                   <button type="button" class="button-toggle-menu me-2">
-                                        <iconify-icon icon="solar:hamburger-menu-broken" class="fs-24 align-middle"></iconify-icon>
-                                   </button>
-                              </div>
+             
 
                               <!-- Menu Toggle Button -->
                               <div class="topbar-item">
-                                   <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Welcome!</h4>
+                                   <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Dashboard Admin</h4>
                               </div>
                          </div>
                     </div>

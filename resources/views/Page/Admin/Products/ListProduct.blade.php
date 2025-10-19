@@ -9,14 +9,16 @@
                     <div class="row">
                          <div class="col-xl-12">
                               <div class="card">
-                                   <div class="card-header d-flex justify-content-between align-items-center gap-1">                                                                                
-                                        <h4 class="card-title flex-grow-1">All Product List</h4>
-                                        <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary" style="height: 32px; text-align: center;">
-                                             Back
-                                        </a>
-                                        <a href="{{ route('admin.products.add', ['category' => $category->id]) }}" class="btn btn-sm btn-primary">
-                                             Add Product
-                                        </a>
+                                   <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h4 class="card-title mb-0">All Product List</h4>
+                                        <div class="d-flex align-items-center gap-2">
+                                             <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary btn-sm d-flex align-items-center">
+                                                  <span>Back</span>
+                                             </a>
+                                             <a href="{{ route('admin.products.add', ['category' => $category->id]) }}" class="btn btn-primary btn-sm">
+                                                  Add Product
+                                             </a>
+                                        </div>
                                    </div>
                                    <div>
                                         <div class="table-responsive">
