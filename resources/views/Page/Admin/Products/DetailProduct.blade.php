@@ -17,20 +17,6 @@
                                                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="img-fluid bg-light rounded">
                                               </div>
                                          </div>
-                                         <div class="carousel-indicators m-0 mt-2 d-lg-flex d-none position-static h-100">
-                                              <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1" class="w-auto h-auto rounded bg-light active">
-                                                   <img src="{{ asset($product->image) }}" class="d-block avatar-xl" alt="swiper-indicator-img">
-                                              </button>
-                                              <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="1" aria-label="Slide 2" class="w-auto h-auto rounded bg-light">
-                                                   <img src="{{ asset($product->image) }}" class="d-block avatar-xl" alt="swiper-indicator-img">
-                                              </button>
-                                              <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="2" aria-label="Slide 3" class="w-auto h-auto rounded bg-light">
-                                                   <img src="{{ asset($product->image) }}" class="d-block avatar-xl" alt="swiper-indicator-img">
-                                              </button>
-                                              <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="3" aria-label="Slide 3" class="w-auto h-auto rounded bg-light">
-                                                   <img src="{{ asset($product->image) }}" class="d-block avatar-xl" alt="swiper-indicator-img">
-                                              </button>
-                                         </div>
                                     </div>
                                </div>
                           </div>

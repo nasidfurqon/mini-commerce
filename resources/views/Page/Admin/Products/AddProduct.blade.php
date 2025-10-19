@@ -6,8 +6,8 @@
                <div class="container-xxl">
 
                     <div class="row">
-                         <form action="#" method="POST" enctype="multipart/form-data">
-                              
+                         <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="card mb-3">
                                    <div class="card-header">
                                         <h4 class="card-title">Product Information</h4>
@@ -15,61 +15,51 @@
                                    <div class="card-body">
                                         <div class="row">
                                              <div class="col-lg-4">
-                                                  <form>
-                                                       <div class="mb-3">
-                                                            <label for="name" class="form-label">Product Name</label>
-                                                            <input type="text" id="name" class="form-control" placeholder="Items Name">
-                                                       </div>
-                                                  </form>
+                                                  <div class="mb-3">
+                                                       <label for="name" class="form-label">Product Name</label>
+                                                       <input type="text" id="name" class="form-control" placeholder="Items Name" name="name">
+                                                  </div>
                                              </div>
                                              <div class="col-lg-4">
-                                                  <form>
-                                                       <label for="product-categories" class="form-label">Product Categories</label>
-                                                       <select class="form-control" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories" name="category_id">
-                                                            <option value="">Choose a categories</option>
-                                                            @foreach($categories as $cat)
-                                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                                            @endforeach
-                                                       </select>
-                                                  </form>
+                                                  <label for="product-categories" class="form-label">Product Categories</label>
+                                                  <select class="form-control" id="product-categories" data-choices data-choices-groups data-placeholder="Select Categories" name="category_id">
+                                                       <option value="">Choose a categories</option>
+                                                       @foreach($categories as $cat)
+                                                           <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                       @endforeach
+                                                  </select>
                                              </div>
                                              <div class="col-lg-4">
-                                                  <form>
-                                                       <div class="mb-3">
-                                                            <label for="stock" class="form-label">Stock</label>
-                                                            <input type="number" id="stock" class="form-control" placeholder="Items Stock">
-                                                       </div>
-                                                  </form>
+                                                  <div class="mb-3">
+                                                       <label for="stock" class="form-label">Stock</label>
+                                                       <input type="number" id="stock" class="form-control" placeholder="Items Stock" name="stock">
+                                                  </div>
                                              </div>                                             
                                         </div>
                                         <div class="row">
                                              <div class="col-lg-3 col-md-6">
-                                                  <form>
-                                                       <div class="mb-3">
-                                                            <label for="weight" class="form-label">Weight</label>
-                                                            <input type="text" id="weight" class="form-control" placeholder="In grams">
-                                                       </div>
-                                                  </form>
+                                                  <div class="mb-3">
+                                                       <label for="weight" class="form-label">Weight</label>
+                                                       <input type="number" id="weight" class="form-control" placeholder="In grams" name="weight" step="0.01">
+                                                  </div>
                                              </div>
                                              <div class="col-lg-3 col-md-6">
-                                                  <form>
-                                                       <div class="mb-3">
-                                                            <label for="dimension" class="form-label">Dimension</label>
-                                                            <input type="text" id="dimension" class="form-control" placeholder="ex: 10x10x10">
-                                                       </div>
-                                                  </form>
+                                                  <div class="mb-3">
+                                                       <label for="dimension" class="form-label">Dimension</label>
+                                                       <input type="text" id="dimension" class="form-control" placeholder="ex: 10x10x10" name="dimension">
+                                                  </div>
                                              </div>
                                              <div class="col-lg-3 col-md-6">
-                                                  <form>
+                                                  <div class="mb-3">
                                                        <label for="material" class="form-label">Materials</label>
                                                        <input type="text" name="material" id="material" class="form-control" placeholder="ex: cotton, polyester">
-                                                  </form>
+                                                  </div>
                                              </div>
                                              <div class="col-lg-3 col-md-6">
                                                   <label for="product-price" class="form-label">Price</label>
                                                   <div class="input-group mb-3">
                                                        <span class="input-group-text">Rp</span>
-                                                       <input type="number" id="product-price" class="form-control">
+                                                       <input type="number" id="product-price" class="form-control" name="price">
                                                   </div>
                                              </div>
                                         </div>              
@@ -77,7 +67,7 @@
                                              <div class="col-lg-12">
                                                   <div class="mb-3">
                                                        <label for="description" class="form-label">Description</label>
-                                                       <textarea class="form-control bg-light-subtle" id="description" rows="7" placeholder="Short description about the product"></textarea>
+                                                       <textarea class="form-control bg-light-subtle" id="description" rows="7" placeholder="Short description about the product" name="description"></textarea>
                                                   </div>
                                              </div>
                                         </div>
@@ -123,7 +113,8 @@
 
                               {{-- ini gausah diotak atik --}}
                               <div class="d-none">
-                                   <input type="boolean" name="is_active" value="1">
+                                   <input type="hidden" name="is_active" value="1">
+                                   <input type="hidden" name="image" id="image">
                               </div>
 
 
@@ -133,7 +124,7 @@
                                              <a href="{{ request('category') ? route('admin.products.index',['category'=>request('category')]) : route('admin.categories.index') }}" class="btn btn-outline-secondary w-100">Cancel</a>
                                         </div>
                                         <div class="col-lg-2">
-                                             <a href="#!" class="btn btn-primary w-100">Create Product</a>
+                                             <button type="submit" class="btn btn-primary w-100">Create Product</button>
                                         </div>
                                    </div>
                               </div>
@@ -257,6 +248,17 @@
            this.on('maxfilesexceeded', function(file) {
              this.removeAllFiles();
              this.addFile(file);
+           });
+           this.on('success', function(file, response) {
+             var data = response;
+             try { if (typeof response === 'string') { data = JSON.parse(response); } } catch (e) {}
+             var url = data && data.url ? data.url : null;
+             var input = document.querySelector('input[name="image"]');
+             if (input) { input.value = url || ''; }
+           });
+           this.on('removedfile', function(file) {
+             var input = document.querySelector('input[name="image"]');
+             if (input) { input.value = ''; }
            });
          }
        });

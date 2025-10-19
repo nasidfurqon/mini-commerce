@@ -1,0 +1,8 @@
+/* Order Detail page tweaks */
+.card .card-header .card-title{font-weight:600}
+.list-unstyled.small li{padding:6px 0;border-bottom:1px dashed #eee}
+.list-unstyled.small li:last-child{border-bottom:none}
+.badge.bg-warning-subtle{background-color:#fff3cd!important;color:#856404!important}
+.badge.bg-info-subtle{background-color:#d1ecf1!important;color:#0c5460!important}
+.badge.bg-success-subtle{background-color:#d4edda!important;color:#155724!important}
+.badge.bg-danger-subtle{background-color:#f8d7da!important;color:#721c24!important}

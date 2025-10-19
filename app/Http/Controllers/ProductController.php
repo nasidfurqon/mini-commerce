@@ -36,21 +36,28 @@ class ProductController extends Controller
     {
         $request->validate([
             'name'        => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price'       => 'required|numeric|min:0',
+            'description' => 'required|string',
+            'weight'      => 'required|numeric|min:0',
+            'dimension'   => 'required|string|max:255',
+            'material'    => 'required|string|max:255',
+            'price'       => 'required|integer|min:0',
             'stock'       => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
-            'image'       => 'nullable',
+            'is_active'   => 'nullable|boolean',
+            'image'       => 'nullable|string',
         ]);
 
-        $data = $request->only(['name','description','price','stock','category_id','image']);
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'public');
-            $data['image'] = 'storage/'.$path;
-        }
+        $data = $request->only([
+            'name','description','weight','dimension','material',
+            'price','stock','category_id','image','is_active'
+        ]);
+
+        // Normalize is_active to boolean
+        $data['is_active'] = (bool) ($data['is_active'] ?? true);
 
         $product = Product::create($data);
-        return redirect()->route('admin.products.index', $product->category_id)->with('success', 'Produk berhasil ditambahkan');
+        return redirect()->route('admin.products.index', $product->category_id)
+            ->with('success', 'Produk berhasil ditambahkan');
     }
 
     /**
@@ -68,32 +75,41 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
-        return view('Page.Admin.Products.Edit', compact('product'));
+        $categories = Category::orderBy('name')->get();
+        return view('Page.Admin.Products.EditProduct', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
+        $product = Product::findOrFail($id);
+
         $request->validate([
             'name'        => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price'       => 'required|numeric|min:0',
+            'description' => 'required|string',
+            'weight'      => 'required|numeric|min:0',
+            'dimension'   => 'required|string|max:255',
+            'material'    => 'required|string|max:255',
+            'price'       => 'required|integer|min:0',
             'stock'       => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
-            'image'       => 'nullable',
+            'is_active'   => 'nullable|boolean',
+            'image'       => 'nullable|string',
         ]);
 
-        $data = $request->only(['name','description','price','stock','category_id','image']);
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'public');
-            $data['image'] = 'storage/'.$path;
-        } else {
-            // Jika tidak ada file dan field image kosong, jangan override gambar yang ada
-            if (empty($data['image'])) {
-                unset($data['image']);
-            }
+        $data = $request->only([
+            'name','description','weight','dimension','material',
+            'price','stock','category_id','image','is_active'
+        ]);
+
+        if (isset($data['is_active'])) {
+            $data['is_active'] = (bool) $data['is_active'];
+        }
+
+        if (empty($data['image'])) {
+            unset($data['image']);
         }
 
         $product->update($data);

@@ -51,22 +51,32 @@ class OrderController extends Controller
      */
     public function edit(string $id)
     {
-        return view('orders.edit', compact('order'));
+        $order = Order::findOrFail($id);
+        return view('Page.Admin.Orders.EditOrder', compact('order'));
     }
 
     /**                                                                                                                                                                                                 
      * Update the specified resource in storage.
      */
+<<<<<<< HEAD
     public function update(Request $request, Order $order)
     {                                   
+=======
+    public function update(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+
+>>>>>>> 867b1c6fdd200fac78c3acd47dda3caf4a6628c2
         $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'total'   => 'required|numeric|min:0',
-            'status'  => 'required|string',
+            'status'      => 'required|in:diproses,dikirim,selesai,batal',
+            'total'       => 'nullable|numeric|min:0',
+            'adress_text' => 'nullable|string',
         ]);
 
-        $order->update($request->all());
-        return redirect()->route('orders.index')->with('success', 'Order berhasil diupdate');
+        $data = $request->only(['status', 'total', 'adress_text']);
+
+        $order->update($data);
+        return redirect()->route('admin.orders.index')->with('success', 'Order berhasil diupdate');
     }
 
     /**
@@ -74,8 +84,13 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
+<<<<<<< HEAD
         $order->delete();                                                                                                                                                                                                                                                       
         return redirect()->route('orders.index')->with('success', 'Order berhasil dihapus');
+=======
+        $order->delete();
+        return redirect()->route('admin.orders.index')->with('success', 'Order berhasil dihapus');
+>>>>>>> 867b1c6fdd200fac78c3acd47dda3caf4a6628c2
     }
 
     public function listOrder()

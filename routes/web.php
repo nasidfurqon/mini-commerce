@@ -43,16 +43,20 @@ Route::prefix('admin')->middleware(['auth','role:admin'])->group(function () {
     // Upload endpoint for Dropzone
     Route::post('/products/upload', [ProductController::class, 'upload'])->name('admin.products.upload');
     // Product listing by category (model binding)
+    Route::post('/products/store', [ProductController::class, 'store'])->name('admin.products.store');
     Route::get('/products/{category}', [ProductController::class, 'index'])->name('admin.products.index');
     // Product detail page (use singular path to avoid conflict with listing route)
     Route::get('/product/{id}', [ProductController::class, 'detail'])->name('admin.products.detail');
     // Product destroy
     Route::delete('/products/destroy/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
-
+    Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('admin.products.edit');
+    Route::put('/products/update/{id}',[ProductController::class, 'update'])->name('admin.products.update');
         // Order listing
     Route::get('/orders', [OrderController::class, 'listOrder'])->name('admin.orders.index');
-        // Order detail
+    Route::put('/orders/update/{id}',[OrderController::class, 'update'])->name('admin.orders.update');
+    Route::get('/orders/edit/{id}', [OrderController::class, 'edit'])->name('admin.orders.edit');
     Route::get('/orders/detail/{id}', [OrderController::class, 'detailOrder'])->name('admin.orders.detail');
+    Route::delete('/orders/destroy/{order}', [OrderController::class, 'destroy'])->name('admin.orders.destroy');
 });
 
 // User routes (minimum pengguna role required)

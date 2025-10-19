@@ -90,7 +90,7 @@
                                                             <th>Billing Name</th>
                                                             <th>Order Date</th>
                                                             <th>Total</th>
-                                                            <th>Status</th>
+                                                            <th class="text-center">Status</th>
                                                             <th>Action</th>
                                                        </tr>
                                                   </thead>
@@ -102,192 +102,28 @@
                                                             <td>{{ $order->user->name }}</td>
                                                             <td> {{ $order->created_at->format('d M, Y') }}</td>
                                                             <td> ${{ $order->total }}</td>
-                                                            <td> <span class="badge bg-success-subtle text-success py-1 px-2">{{ $order->status }}</span> </td> 
+                                                            <td class="text-center">
+                                                                 @php
+                                                                      $statusColors = [
+                                                                           'diproses' => 'bg-warning-subtle text-warning',
+                                                                           'dikirim' => 'bg-info-subtle text-info',
+                                                                           'selesai' => 'bg-success-subtle text-success',
+                                                                           'batal' => 'bg-danger-subtle text-danger',
+                                                                      ];
+                                                                      $badgeClass = $statusColors[$order->status] ?? 'bg-secondary-subtle text-secondary';
+                                                                 @endphp
+                                                                 <span class="badge {{ $badgeClass }} py-1 px-2">{{ ucfirst($order->status) }}</span>
+                                                            </td> 
                                                             <td>
                                                                  <div class="d-flex gap-2">
-                                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                                      <a href="{{ route('admin.orders.detail',['id'=>$order->id]) }}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                                      <a href="{{ route('admin.orders.edit',['id'=>$order->id]) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                                      <button class="btn btn-soft-danger btn-sm" id="deleteOrder{{ $order->id }}" data-form-id="deleteOrderForm{{ $order->id }}" data-nama="Order #{{ $order->id }}" data-type="order"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>
+                                                                       <form action="{{ route('admin.orders.destroy', ['order' => $order->id]) }}" method="POST" id="deleteOrderForm{{ $order->id }}" hidden>@csrf @method('DELETE')</form>
                                                                  </div>
                                                             </td>
                                                        </tr>
                                                        @endforeach
-
-                                                       <tr>
-                                                            <td>
-                                                                 <div class="form-check">
-                                                                      <input type="checkbox" class="form-check-input" id="customCheck3">
-                                                                      <label class="form-check-label" for="customCheck3">&nbsp;</label>
-                                                                 </div>
-                                                            </td>
-                                                            <td><a href="javascript: void(0);" class="text-body">#INV3924</a> </td>
-                                                            <td><img src="assets/images/users/avatar-3.jpg" class="avatar-sm rounded-circle me-2" alt="..."> Theresa T. Brose</td>
-                                                            <td> 03 Dec, 2023</td>
-                                                            <td> $783 </td>
-                                                            <td> Visa </td>
-                                                            <td> <span class="badge bg-danger-subtle text-danger px-2 py-1">Cancel</span> </td>
-                                                            <td>
-                                                                 <div class="d-flex gap-2">
-                                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                 </div>
-                                                            </td>
-                                                       </tr>
-
-                                                       <tr>
-                                                            <td>
-                                                                 <div class="form-check">
-                                                                      <input type="checkbox" class="form-check-input" id="customCheck4">
-                                                                      <label class="form-check-label" for="customCheck4">&nbsp;</label>
-                                                                 </div>
-                                                            </td>
-                                                            <td><a href="javascript: void(0);" class="text-body">#INV5032</a> </td>
-                                                            <td><img src="assets/images/users/avatar-4.jpg" class="avatar-sm rounded-circle me-2" alt="..."> James L. Erickson</td>
-                                                            <td> 28 Sep, 2023 </td>
-                                                            <td> $134 </td>
-                                                            <td> Paypal </td>
-                                                            <td>
-                                                                 <span class="badge bg-success-subtle text-success py-1 px-2">Completed</span>
-                                                            </td>
-                                                            <td>
-                                                                 <div class="d-flex gap-2">
-                                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                 </div>
-                                                            </td>
-                                                       </tr>
-                                                       <tr>
-                                                            <td>
-                                                                 <div class="form-check">
-                                                                      <input type="checkbox" class="form-check-input" id="customCheck5">
-                                                                      <label class="form-check-label" for="customCheck5">&nbsp;</label>
-                                                                 </div>
-                                                            </td>
-                                                            <td><a href="javascript: void(0);" class="text-body">#INV1695</a> </td>
-                                                            <td><img src="assets/images/users/avatar-5.jpg" class="avatar-sm rounded-circle me-2" alt="..."> Lily W. Wilson</td>
-                                                            <td>10 Aug, 2023</td>
-                                                            <td> $945 </td>
-                                                            <td> Mastercard</td>
-                                                            <td><span class="badge bg-primary-subtle text-primary py-1 px-2">Pending</span></td>
-                                                            <td>
-                                                                 <div class="d-flex gap-2">
-                                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                 </div>
-                                                            </td>
-                                                       </tr>
-                                                       <tr>
-                                                            <td>
-                                                                 <div class="form-check">
-                                                                      <input type="checkbox" class="form-check-input" id="customCheck6">
-                                                                      <label class="form-check-label" for="customCheck6">&nbsp;</label>
-                                                                 </div>
-                                                            </td>
-                                                            <td><a href="javascript: void(0);" class="text-body">#INV8473</a> </td>
-                                                            <td><img src="assets/images/users/avatar-6.jpg" class="avatar-sm rounded-circle me-2" alt="..."> Sarah M. Brooks</td>
-                                                            <td> 22 May, 2023 </td>
-                                                            <td> $421</td>
-                                                            <td> Visa</td>
-                                                            <td> <span class="badge bg-danger-subtle text-danger px-2 py-1 ">Cancel</span></td>
-                                                            <td>
-                                                                 <div class="d-flex gap-2">
-                                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                 </div>
-                                                            </td>
-                                                       </tr>
-                                                       <tr>
-                                                            <td>
-                                                                 <div class="form-check">
-                                                                      <input type="checkbox" class="form-check-input" id="customCheck7">
-                                                                      <label class="form-check-label" for="customCheck7">&nbsp;</label>
-                                                                 </div>
-                                                            </td>
-                                                            <td><a href="javascript: void(0);" class="text-body">#INV2150</a> </td>
-                                                            <td><img src="assets/images/users/avatar-7.jpg" class="avatar-sm rounded-circle me-2" alt="..."> Joe K. Hall</td>
-                                                            <td>15 Mar, 2023
-                                                            </td>
-                                                            <td>$251 </td>
-                                                            <td> Paypal </td>
-                                                            <td> <span class="badge bg-success-subtle text-success py-1 px-2">Completed</span> </td>
-                                                            <td>
-                                                                 <div class="d-flex gap-2">
-                                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                 </div>
-                                                            </td>
-                                                       </tr>
-                                                       <tr>
-                                                            <td>
-                                                                 <div class="form-check">
-                                                                      <input type="checkbox" class="form-check-input" id="customCheck7">
-                                                                      <label class="form-check-label" for="customCheck7">&nbsp;</label>
-                                                                 </div>
-                                                            </td>
-                                                            <td><a href="javascript: void(0);" class="text-body">#INV5636</a> </td>
-                                                            <td><img src="assets/images/users/avatar-8.jpg" class="avatar-sm rounded-circle me-2" alt="...">Ralph Hueber</td>
-                                                            <td>15 Mar, 2023
-                                                            </td>
-                                                            <td>$310 </td>
-                                                            <td> Visa </td>
-                                                            <td> <span class="badge bg-success-subtle text-success py-1 px-2">Completed</span> </td>
-                                                            <td>
-                                                                 <div class="d-flex gap-2">
-                                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                 </div>
-                                                            </td>
-                                                       </tr>
-                                                       <tr>
-                                                            <td>
-                                                                 <div class="form-check">
-                                                                      <input type="checkbox" class="form-check-input" id="customCheck7">
-                                                                      <label class="form-check-label" for="customCheck7">&nbsp;</label>
-                                                                 </div>
-                                                            </td>
-                                                            <td><a href="javascript: void(0);" class="text-body">#INV2940</a> </td>
-                                                            <td><img src="assets/images/users/avatar-9.jpg" class="avatar-sm rounded-circle me-2" alt="...">Sarah  Drescher</td>
-                                                            <td>15 Mar, 2023
-                                                            </td>
-                                                            <td>$241 </td>
-                                                            <td> Mastercard </td>
-                                                            <td> <span class="badge bg-success-subtle text-success py-1 px-2">Completed</span> </td>
-                                                            <td>
-                                                                 <div class="d-flex gap-2">
-                                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                 </div>
-                                                            </td>
-                                                       </tr>
-                                                       <tr>
-                                                            <td>
-                                                                 <div class="form-check">
-                                                                      <input type="checkbox" class="form-check-input" id="customCheck7">
-                                                                      <label class="form-check-label" for="customCheck7">&nbsp;</label>
-                                                                 </div>
-                                                            </td>
-                                                            <td><a href="javascript: void(0);" class="text-body">#INV9027</a> </td>
-                                                            <td><img src="assets/images/users/avatar-10.jpg" class="avatar-sm rounded-circle me-2" alt="...">Leonie Meister</td>
-                                                            <td>15 Mar, 2023
-                                                            </td>
-                                                            <td>$136 </td>
-                                                            <td> Paypal </td>
-                                                            <td><span class="badge bg-primary-subtle text-primary py-1 px-2">Pending</span></td>
-                                                            <td>
-                                                                 <div class="d-flex gap-2">
-                                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                                 </div>
-                                                            </td>
-                                                       </tr>
                                                   </tbody>
                                              </table>
                                         </div>
@@ -311,18 +147,5 @@
 
                </div>
                <!-- End Container Fluid -->
-
-               <!-- ========== Footer Start ========== -->
-               <footer class="footer">
-                   <div class="container-fluid">
-                       <div class="row">
-                           <div class="col-12 text-center">
-                               <script>document.write(new Date().getFullYear())</script> &copy; Larkon. Crafted by <iconify-icon icon="iconamoon:heart-duotone" class="fs-18 align-middle text-danger"></iconify-icon> <a
-                                   href="../../../themeforest.net/user/techzaa/portfolio51cc.html" class="fw-bold footer-text" target="_blank">Techzaa</a>
-                           </div>
-                       </div>
-                   </div>
-               </footer>
-               <!-- ========== Footer End ========== -->
 
 @endsection
