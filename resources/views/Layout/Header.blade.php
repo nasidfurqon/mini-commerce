@@ -73,13 +73,7 @@
                                 </ul>
                             </div>
                             <!-- Single Wedge End -->
-                            @if($canAccessCart)
-                            <!-- Wishlist Button -->
-                            <a href="{{ route('wishlist.index') }}" class="header-action-btn header-action-btn-wishlist pr-15px">
-                                <i class="icon-heart"></i>
-                                <span class="header-action-num">03</span>
-                            </a>
-                            
+                            @if($canAccessCart)                           
                             <!-- Cart Button -->
                             <a href="#cartPreviewModal" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
@@ -106,7 +100,6 @@
                             <ul>
                                 <li class="dropdown"><a href="{{ route('index') }}">Home</a></li>
                                 <li><a href="{{ route('shop',['category'=>'all']) }}">Shop</a></li>                         
-                                <li><a href="{{ route('contact') }}">Contact us</a></li>´
                             </ul>
                         </div>
                     </div>
