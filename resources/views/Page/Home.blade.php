@@ -108,7 +108,7 @@
     <div class="section product-tab-area">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center" data-aos="fade-up">
+                <div class="col-md-12 text-center" data-aos="fade-up">  
                     <div class="section-title mb-0">
                         <h2 class="title">Our Products</h2>
                         <p class="sub-title mb-30px">Torem ipsum dolor sit amet, consectetur adipisicing elitsed do eiusmo tempor incididunt ut labore</p>
