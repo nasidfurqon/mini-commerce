@@ -1,9 +1,8 @@
-    <div class="modal fade" id="previewProduct{{ $product->id }}" tabindex="-1" role="dialog">
+<div class="modal fade" id="previewProduct{{ $product->id }}" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">x</span></button>
+                <div class="modal-header justify-content-end">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -14,44 +13,8 @@
                                     <div class="swiper-slide">
                                         <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="">
                                     </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="">
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="swiper-container gallery-thumbs slider-nav-style-1 small-nav">
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="">
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="">
-                                    </div>
-                                </div>
-                                <!-- Add Arrows -->
-                                <div class="swiper-buttons">
-                                    <div class="swiper-button-next"></div>
-                                    <div class="swiper-button-prev"></div>
-                                </div>
-                            </div>
+                            </div>                         
                         </div>
                         <div class="col-md-7 col-sm-12 col-xs-12">
                             <div class="product-details-content quickview-content">
@@ -69,21 +32,16 @@
                                 </span>
                                 <span class="meta-value stock-count" style="font-weight: 600; font-size: 14px; margin-left: 8px;">{{ $product->stock }} units</span>
                             </div>
-                        </div>                                
-                                <div class="pro-details-rating-wrap">
-                                    <div class="rating-product">
-                                        <i class="ion-android-star"></i>
-                                        <i class="ion-android-star"></i>
-                                        <i class="ion-android-star"></i>
-                                        <i class="ion-android-star"></i>
-                                        <i class="ion-android-star"></i>
-                                    </div>
-                                    <span class="read-review"><a class="reviews" href="#">Read reviews (1)</a></span>
-                                </div>
+                        </div>                                                               
                                 <div class="pricing-meta">
                                     <ul>
-                                        <li class="old-price not-cut">${{ $product->price }}</li>
+                                        <li class="old-price not-cut">${{ number_format($product->price / 100, 2) }}</li>
                                     </ul>
+                                </div>
+                                <div class="mt-3">
+                                    <p class="mb-1"><span class="text-muted">Weight:</span> <span class="fw-semibold">{{ $product->weight }} g</span></p>
+                                    <p class="mb-1"><span class="text-muted">Dimensions:</span> <span class="fw-semibold">{{ $product->dimension }}</span></p>
+                                    <p class="mb-1"><span class="text-muted">Materials:</span> <span class="fw-semibold">{{ $product->material }}</span></p>
                                 </div>
                                 <p class="quickview-para">{{ $product->description }}</p>
                                 <div class="pro-details-quality">
@@ -93,9 +51,10 @@
                                     <div class="pro-details-cart btn-hover">
                                         @auth
                                         <button type="button"
-                                                class="add-cart ajax-add-to-cart btn btn-primary btn-hover-primary ml-4""
+                                                class="add-cart ajax-add-to-cart btn btn-primary btn-hover-primary ml-4"
                                                 data-product-id="{{ $product->id }}"
                                                 data-qty="1"
+                                                data-stock="{{ $product->stock }}"
                                                 title="Add To Cart">
                                             Add To Cart
                                             </button>
@@ -141,3 +100,9 @@
             </div>
         </div>
     </div>
+<style>
+/* Scoped adjustments to ensure close button visible and tidy in Product Detail */
+#previewProduct{{ $product->id }} .modal-header { border-bottom: 0; padding: .75rem .75rem 0 .75rem; }
+#previewProduct{{ $product->id }} .btn-close { opacity: .7; width: 1.125rem; height: 1.125rem; }
+#previewProduct{{ $product->id }} .btn-close:hover { opacity: 1; }
+</style>

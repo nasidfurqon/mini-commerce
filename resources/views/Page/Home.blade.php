@@ -136,12 +136,8 @@
                                                 @endif                                    
                                             </span>
                                             <div class="actions">
-                                                <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                        class="icon-heart"></i></a>
                                                 <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#previewProduct{{ $product->id }}"><i
-                                                        class="icon-size-fullscreen"></i></a>
-                                                <a href="compare.html" class="action compare" title="Compare"><i
-                                                        class="icon-refresh"></i></a>
+                                                        class="icon-size-fullscreen"></i></a>                            
                                             </div>
                                             @include('Component.Product-Preview-Modal', ['product' => $product])
                                             <!-- @guest
