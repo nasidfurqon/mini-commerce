@@ -84,38 +84,44 @@
                                         <div class="table-responsive">
                                              <table class="table align-middle mb-0 table-hover table-centered">
                                                   <thead class="bg-light-subtle">
-                                                       <tr>  
-                                                            <th>No</th>                                           
+                                                       <tr>
+                                                            <th class="text-center">No</th>
                                                             <th>Order ID</th>
                                                             <th>Billing Name</th>
-                                                            <th>Order Date</th>
-                                                            <th>Total</th>
+                                                            <th class="text-nowrap">Order Date</th>
+                                                            <th class="text-end">Total</th>
                                                             <th class="text-center">Status</th>
-                                                            <th>Action</th>
+                                                            <th class="text-center">Action</th>
                                                        </tr>
                                                   </thead>
                                                   <tbody>
                                                        @foreach ($orders as $order)                                                            
                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td><a href="javascript: void(0);" class="text-body">{{ $order->id }}</a> </td>
+                                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                                            <td><a href="javascript:void(0);" class="text-body">{{ $order->id }}</a></td>
                                                             <td>{{ $order->user->name }}</td>
-                                                            <td> {{ $order->created_at->format('d M, Y') }}</td>
-                                                            <td> ${{ $order->total }}</td>
+                                                            <td class="text-nowrap">{{ $order->created_at->format('d M, Y') }}</td>
+                                                            <td class="text-end">${{ $order->total }}</td>
                                                             <td class="text-center">
-                                                                 @php
-                                                                      $statusColors = [
-                                                                           'diproses' => 'bg-warning-subtle text-warning',
-                                                                           'dikirim' => 'bg-info-subtle text-info',
-                                                                           'selesai' => 'bg-success-subtle text-success',
-                                                                           'batal' => 'bg-danger-subtle text-danger',
-                                                                      ];
-                                                                      $badgeClass = $statusColors[$order->status] ?? 'bg-secondary-subtle text-secondary';
-                                                                 @endphp
-                                                                 <span class="badge {{ $badgeClass }} py-1 px-2">{{ ucfirst($order->status) }}</span>
-                                                            </td> 
-                                                            <td>
-                                                                 <div class="d-flex gap-2">
+                                                                 @switch($order->status)
+                                                                  @case('dikirim')
+                                                                       <span class="badge bg-soft-warning text-warning">Dikirim</span>
+                                                                  @break
+                                                                  @case('diproses')
+                                                                       <span class="badge bg-soft-info text-info">Diproses</span>
+                                                                  @break
+                                                                  @case('selesai')
+                                                                       <span class="badge bg-soft-success text-success">Selesai</span>
+                                                                  @break
+                                                                  @case('batal')
+                                                                       <span class="badge bg-soft-danger text-danger">Batal</span>
+                                                                  @break
+                                                                  @default
+                                                                       <span class="badge bg-soft-secondary text-secondary">Unknown</span>
+                                                                 @endswitch
+                                                            </td>
+                                                            <td class="text-center">
+                                                                 <div class="d-inline-flex gap-2 align-items-center justify-content-center">
                                                                       <a href="{{ route('admin.orders.detail',['id'=>$order->id]) }}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
                                                                       <a href="{{ route('admin.orders.edit',['id'=>$order->id]) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
                                                                       <button class="btn btn-soft-danger btn-sm" id="deleteOrder{{ $order->id }}" data-form-id="deleteOrderForm{{ $order->id }}" data-nama="Order #{{ $order->id }}" data-type="order"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>
@@ -130,15 +136,11 @@
                                         <!-- end table-responsive -->
                                    </div>
                                    <div class="card-footer border-top">
-                                        <nav aria-label="Page navigation example">
-                                             <ul class="pagination justify-content-end mb-0">
-                                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                                                  <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-                                             </ul>
-                                        </nav>
+                                        @if ($orders->hasPages())
+                                            <div class="d-flex justify-content-end">
+                                                {{ $orders->links('pagination::bootstrap-5') }}
+                                            </div>
+                                        @endif
                                    </div>
                               </div>
                          </div>

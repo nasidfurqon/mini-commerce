@@ -69,6 +69,9 @@
                           </div>
                      </div>
                 </div>
+                <div class="text-end mt-3">
+                     <a href="{{ route('admin.products.index', $product->category_id) }}" class="btn btn-outline-secondary btn-lg">Back to List</a>
+                 </div>
             </div>
 
-@endsection        
+@endsection
