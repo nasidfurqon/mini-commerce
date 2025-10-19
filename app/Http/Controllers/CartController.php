@@ -124,14 +124,21 @@ class CartController extends Controller
         }
 
         // decrement qty or delete
-        if ($cartItem->qty > 1) {
-            DB::table('cart_items')->where('id', $cartItemId)->update([
-                'qty' => $cartItem->qty - 1,
-                'updated_at' => now(),
-            ]);
-        } else {
-            DB::table('cart_items')->where('id', $cartItemId)->delete();
+        // decrement / hapus
+        if ($cartItem->qty <= 1) {
+            return response()->json([
+                'error' => 'Minimal kuantitas 1',
+                'cart_item_id' => $cartItem->id,
+                'qty' => $cartItem->qty,
+                ], 422);
         }
+
+        // kalau lebih dari 1, baru dikurangi
+        $newQty = $cartItem->qty - 1;
+        DB::table('cart_items')->where('id', $cartItemId)->update([
+            'qty' => $newQty,
+            'updated_at' => now(),
+        ]);
 
         // recompute cart count (sum qty) and return updated preview
         $cartId = $cartItem->cart_id;
@@ -269,22 +276,22 @@ class CartController extends Controller
         $price = (float) $product->price;
 
         // decrement / hapus
-        if ($cartItem->qty > 1) {
-            $newQty = $cartItem->qty - 1;
-            DB::table('cart_items')->where('id', $cartItemId)->update([
-                'qty' => $newQty,
-                'updated_at' => now(),
-            ]);
-
-            $updated_item = [
+        if ($cartItem->qty <= 1) {
+            return response()->json([
+                'error' => 'Minimal kuantitas 1',
                 'cart_item_id' => $cartItem->id,
-                'qty' => $newQty,
+                'qty' => $cartItem->qty,
                 'price' => $price,
-            ];
-        } else {
-            DB::table('cart_items')->where('id', $cartItemId)->delete();
-            $updated_item = null;
+                ], 422);
         }
+
+        // kalau lebih dari 1, baru dikurangi
+        $newQty = $cartItem->qty - 1;
+        DB::table('cart_items')->where('id', $cartItemId)->update([
+            'qty' => $newQty,
+            'updated_at' => now(),
+        ]);
+
 
         // subtotal seluruh cart
         $subTotal = DB::table('cart_items')
@@ -294,16 +301,12 @@ class CartController extends Controller
 
         $cartCount = (int) DB::table('cart_items')->where('cart_id', $cart->id)->sum('qty');
 
-        if ($updated_item === null) {
-            return response()->json([
-                'removed_item_id' => $cartItemId,
-                'subtotal' => $subTotal,
-                'count' => $cartCount,
-            ]);
-        }
-
         return response()->json([
-            'updated_item' => $updated_item,
+            'updated_item' => [
+                'cart_item_id' => $cartItem->id,
+                'qty' => $newQty,
+                'price' => $price,
+            ],
             'subtotal' => $subTotal,
             'count' => $cartCount,
         ]);
@@ -396,10 +399,17 @@ class CartController extends Controller
         }
 
         $items = DB::table('cart_items')
-            ->where('cart_items.cart_id', $cart->id)
-            ->join('products', 'cart_items.product_id', '=', 'products.id')
-            ->select('cart_items.id as cart_item_id','products.id as product_id','products.name','products.price','cart_items.qty')
-            ->get();
+        ->where('cart_items.cart_id', $cart->id)
+        ->join('products', 'cart_items.product_id', '=', 'products.id')
+        ->select(
+            'cart_items.id as cart_item_id',
+            'products.id as product_id',
+            'products.name',
+            'products.price',
+            'products.stock as product_qty',
+            'cart_items.qty as order_qty'
+        )
+        ->get();
 
         if ($items->isEmpty()) {
             return redirect()->route('user.cart.index')->with('error', 'Cart is empty.');
@@ -407,16 +417,23 @@ class CartController extends Controller
 
         // compute totals
         $subTotal = $items->reduce(function ($carry, $item) {
-            return $carry + ($item->price * $item->qty);
+            return $carry + ($item->price * $item->order_qty);
         }, 0);
 
         $ecoTax = max(0, $subTotal * 0.02);
         $vat = $subTotal * 0.20;
-        $total = $subTotal + $ecoTax + $vat;
+        $total = $subTotal + $ecoTax + $vat;    
 
         // transaction: create order and order_items, then clear cart_items
         DB::beginTransaction();
-        try {
+            try {
+                foreach ($items as $item) {
+                if ($item->product_qty < $item->order_qty) {
+                    return redirect()->route('user.cart.index')->with('error', 'Failed to place order.');
+                    throw new \Exception("Stok produk '{$item->name}' tidak mencukupi. Stok tersedia: {$item->product_qty}, diminta: {$item->order_qty}");
+                }
+            }
+
             $orderId = DB::table('orders')->insertGetId([
                 'user_id' => $userId,
                 'adress_text' => $data['address'],
@@ -431,14 +448,17 @@ class CartController extends Controller
                     'order_id' => $orderId,
                     'product_id' => $it->product_id,
                     'price' => $it->price,
-                    'qty' => $it->qty,
-                    'subtotal' => ($it->price * $it->qty),
+                    'qty' => $it->order_qty,
+                    'subtotal' => ($it->price * $it->order_qty),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
             }
 
             // clear cart items
+            DB::table('products')
+                ->where('id', $item->product_id)
+                ->decrement('stock', $item->order_qty);
             DB::table('cart_items')->where('cart_id', $cart->id)->delete();
 
             DB::commit();
