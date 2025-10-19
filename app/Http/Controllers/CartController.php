@@ -124,14 +124,21 @@ class CartController extends Controller
         }
 
         // decrement qty or delete
-        if ($cartItem->qty > 1) {
-            DB::table('cart_items')->where('id', $cartItemId)->update([
-                'qty' => $cartItem->qty - 1,
-                'updated_at' => now(),
-            ]);
-        } else {
-            DB::table('cart_items')->where('id', $cartItemId)->delete();
+        // decrement / hapus
+        if ($cartItem->qty <= 1) {
+            return response()->json([
+                'error' => 'Minimal kuantitas 1',
+                'cart_item_id' => $cartItem->id,
+                'qty' => $cartItem->qty,
+                ], 422);
         }
+
+        // kalau lebih dari 1, baru dikurangi
+        $newQty = $cartItem->qty - 1;
+        DB::table('cart_items')->where('id', $cartItemId)->update([
+            'qty' => $newQty,
+            'updated_at' => now(),
+        ]);
 
         // recompute cart count (sum qty) and return updated preview
         $cartId = $cartItem->cart_id;
@@ -269,22 +276,22 @@ class CartController extends Controller
         $price = (float) $product->price;
 
         // decrement / hapus
-        if ($cartItem->qty > 1) {
-            $newQty = $cartItem->qty - 1;
-            DB::table('cart_items')->where('id', $cartItemId)->update([
-                'qty' => $newQty,
-                'updated_at' => now(),
-            ]);
-
-            $updated_item = [
+        if ($cartItem->qty <= 1) {
+            return response()->json([
+                'error' => 'Minimal kuantitas 1',
                 'cart_item_id' => $cartItem->id,
-                'qty' => $newQty,
+                'qty' => $cartItem->qty,
                 'price' => $price,
-            ];
-        } else {
-            DB::table('cart_items')->where('id', $cartItemId)->delete();
-            $updated_item = null;
+                ], 422);
         }
+
+        // kalau lebih dari 1, baru dikurangi
+        $newQty = $cartItem->qty - 1;
+        DB::table('cart_items')->where('id', $cartItemId)->update([
+            'qty' => $newQty,
+            'updated_at' => now(),
+        ]);
+
 
         // subtotal seluruh cart
         $subTotal = DB::table('cart_items')
@@ -294,16 +301,12 @@ class CartController extends Controller
 
         $cartCount = (int) DB::table('cart_items')->where('cart_id', $cart->id)->sum('qty');
 
-        if ($updated_item === null) {
-            return response()->json([
-                'removed_item_id' => $cartItemId,
-                'subtotal' => $subTotal,
-                'count' => $cartCount,
-            ]);
-        }
-
         return response()->json([
-            'updated_item' => $updated_item,
+            'updated_item' => [
+                'cart_item_id' => $cartItem->id,
+                'qty' => $newQty,
+                'price' => $price,
+            ],
             'subtotal' => $subTotal,
             'count' => $cartCount,
         ]);
