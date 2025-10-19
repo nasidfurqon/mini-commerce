@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="item-content">
                                     <a href="{{ route('product.detail', $item->id) }}" class="product-name">{{ $item->name }}</a>
-                                    <div class="product-price-cart"><span class="amount">${{ number_format($item->price,2) }}</span></div>
+                                    <div class="product-price-cart"><span class="amount">Rp {{ number_format($item->price, 2, ',', '.') }}</span></div>
                                 </div>
                                 <div class="item-actions">
                                     <div class="product-quantity">
@@ -58,7 +58,7 @@
                                             <button type="button" class="btn btn-sm btn-outline-secondary increment-btn" data-product-id="{{ $item->id }}">+</button>
                                         </div>
                                     </div>
-                                    <div class="product-subtotal" data-subtotal-for="{{ $item->cart_item_id }}">${{ number_format($item->price * $item->qty,2) }}</div>
+                                    <div class="product-subtotal" data-subtotal-for="{{ $item->cart_item_id }}">Rp{{ number_format($item->price * $item->qty, 2, ',', '.') }}</div>
                                     <div class="product-remove">
                                         <button type="button" class="remove-link btn btn-link text-danger" aria-label="Remove item" data-cart-item-id="{{ $item->cart_item_id }}"><i class="icon-close">×</i></button>
                                     </div>
@@ -74,7 +74,7 @@
                     <div class="title-wrap">
                         <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                     </div>
-                    <h5>Total products <span id="cart-index-total">${{ number_format($subTotal,2) }}</span></h5>
+                    <h5>Total products <span id="cart-index-total">Rp{{ number_format($subTotal,2, ',', '.') }}</span></h5>
                     <a href="{{ route('user.checkout.index') }}">Proceed to Checkout</a>
                 </div>
             </div>
@@ -129,12 +129,13 @@
                 const qtyBox = row.querySelector('.qty-box');
                 if (qtyBox) qtyBox.value = qty;
                 const sub = row.querySelector(`[data-subtotal-for="${cart_item_id}"]`);
-                if (sub) sub.textContent = `$${(price * qty).toFixed(2)}`;
+                if (sub) sub.textContent = `Rp${(price * qty).toFixed(2)       
+                .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
             }
 
             // update di offcanvas modal (kalau ada)
             const mini = document.querySelector(`#cartPreviewModal [data-cart-item-id="${cart_item_id}"] .quantity-price`);
-            if (mini) mini.innerHTML = `${qty} x <span class="amount">$${price.toFixed(2)}</span>`;
+            if (mini) mini.innerHTML = `${qty} x <span class="amount">Rp${price.toFixed(2)}</span>`;
         }
 
         if (data.removed_item_id) {
@@ -143,15 +144,16 @@
 
         if (typeof data.subtotal !== 'undefined') {
             const totalEl = document.getElementById('cart-index-total');
-            if (totalEl) totalEl.textContent = `$${parseFloat(data.subtotal).toFixed(2)}`;
+            if (totalEl) totalEl.textContent = `Rp${parseFloat(data.subtotal).toFixed(2)       
+                .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
 
             // update di offcanvas subtotal & total kalau ada
             const subEl = document.getElementById('cart-preview-subtotal');
             const totalOffEl = document.getElementById('cart-preview-total');
             if (subEl && totalOffEl) {
                 const sub = parseFloat(data.subtotal);
-                subEl.textContent = `$${sub.toFixed(2)}`;
-                totalOffEl.textContent = `$${(sub + sub * 0.22).toFixed(2)}`;
+                subEl.textContent = `Rp${sub.toFixed(2)}`;
+                totalOffEl.textContent = `Rp${(sub + sub * 0.22).toFixed(2)}`;
             }
         }
 

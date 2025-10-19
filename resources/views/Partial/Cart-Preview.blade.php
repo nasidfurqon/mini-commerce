@@ -45,7 +45,7 @@
                             </a>
                             <div class="content">
                                 <a href="{{ route('product.detail', $item->id) }}" class="title">{{ $item->name }}</a>
-                                <span class="quantity-price">{{ $item->qty }} x <span class="amount">${{ number_format($item->price, 2) }}</span></span>
+                                <span class="quantity-price">{{ $item->qty }} x <span class="amount">Rp{{ number_format($item->price, 2, ',', '.') }}</span></span>
                                 <!-- <a href="#" class="remove">x</a> -->
                                  <button type="button"
                                                 class="remove"
@@ -72,19 +72,19 @@
                     <tbody>
                         <tr>
                             <td class="text-start">Sub-Total :</td>
-                            <td class="text-end">${{ number_format($subTotal, 2) }}</td>
+                            <td class="text-end">Rp{{ number_format($subTotal, 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td class="text-start">Eco Tax (-2.00) :</td>
-                            <td class="text-end">${{ number_format(max(0, $subTotal * 0.02), 2) }}</td>
+                            <td class="text-end">Rp{{ number_format(max(0, $subTotal * 0.02), 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td class="text-start">VAT (20%) :</td>
-                            <td class="text-end">${{ number_format($subTotal * 0.20, 2) }}</td>
+                            <td class="text-end">Rp{{ number_format($subTotal * 0.20, 2, ',', '.') }}</td>
                         </tr>
                         <tr>
                             <td class="text-start">Total :</td>
-                            <td class="text-end theme-color">${{ number_format($subTotal + ($subTotal * 0.02) + ($subTotal * 0.20), 2) }}</td>
+                            <td class="text-end theme-color">Rp{{ number_format($subTotal + ($subTotal * 0.02) + ($subTotal * 0.20), 2, ',', '.') }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -93,7 +93,7 @@
                 <a href="{{ route('user.cart.index') }}" class="btn btn-dark btn-hover-primary mb-30px">view cart</a>
                 <a href="{{ route('user.checkout.index') }}" class="btn btn-outline-dark current-btn">checkout</a>
             </div>
-            <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
+            <!-- <p class="minicart-message">Free Shipping on All Orders Over $100!</p> -->
         </div>
     </div>
 </div>

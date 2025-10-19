@@ -160,7 +160,7 @@
                                         <div class="content">
                                             <h5 class="title"><a href="{{ route('product.detail',$product->id) }}">{{ $product->name }} </a></h5>
                                             <span class="price">
-                                                <span class="new">${{$product->price}}</span>
+                                                <span class="new">Rp {{ number_format($product->price, 2, ',', '.') }}</span>
                                             </span>
                                         </div>
                                     </div>

@@ -47,7 +47,7 @@
                               </div>
                            </div>
                            <div class="item-price">
-                              <span class="price-amount">${{ number_format($item->price * $item->qty, 2) }}</span>
+                              <span class="price-amount">Rp{{ number_format($item->price * $item->qty, 2, ',', '.') }}</span>
                            </div>
                         </div>
                      @endforeach
@@ -56,19 +56,19 @@
                   <div class="order-summary-modern">
                      <div class="summary-row">
                         <span class="summary-label">Sub-Total</span>
-                        <span class="summary-value">${{ number_format($subTotal, 2) }}</span>
+                        <span class="summary-value">Rp{{ number_format($subTotal, 2, ',', '.') }}</span>
                      </div>
                      <div class="summary-row">
                         <span class="summary-label">Eco Tax (2%)</span>
-                        <span class="summary-value">${{ number_format(max(0, $subTotal * 0.02), 2) }}</span>
+                        <span class="summary-value">Rp{{ number_format(max(0, $subTotal * 0.02), 2, ',', '.') }}</span>
                      </div>
                      <div class="summary-row">
                         <span class="summary-label">VAT (20%)</span>
-                        <span class="summary-value">${{ number_format($subTotal * 0.20, 2) }}</span>
+                        <span class="summary-value">Rp{{ number_format($subTotal * 0.20, 2, ',', '.') }}</span>
                      </div>
                      <div class="summary-row total-row">
                         <span class="summary-label total-label">Total Pembayaran</span>
-                        <span class="summary-value total-value">${{ number_format($subTotal + max(0, $subTotal * 0.02) + ($subTotal * 0.20), 2) }}</span>
+                        <span class="summary-value total-value">Rp{{ number_format($subTotal + max(0, $subTotal * 0.02) + ($subTotal * 0.20), 2, ',', '.') }}</span>
                      </div>
                   </div>
 
