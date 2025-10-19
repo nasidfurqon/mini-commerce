@@ -101,7 +101,7 @@
                                                             <td><a href="javascript:void(0);" class="text-body">{{ $order->id }}</a></td>
                                                             <td>{{ $order->user->name }}</td>
                                                             <td class="text-nowrap">{{ $order->created_at->format('d M, Y') }}</td>
-                                                            <td class="text-end">${{ $order->total }}</td>
+                                                            <td class="text-end">Rp{{ number_format($order->total,2,',','.') }}</td>
                                                             <td class="text-center">
                                                                  @switch($order->status)
                                                                   @case('dikirim')
