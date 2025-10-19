@@ -18,22 +18,18 @@ class ProductSeeder extends Seeder
         
         // Array of available product images
         $productImages = [
-            'assets/images/product-image/1.jpg',
-            'assets/images/product-image/2.jpg',
-            'assets/images/product-image/3.jpg',
-            'assets/images/product-image/4.jpg',
-            'assets/images/product-image/5.jpg',
-            'assets/images/product-image/6.jpg',
-            'assets/images/product-image/7.jpg',
-            'assets/images/product-image/8.jpg',
-            'assets/images/product-image/9.jpg',
-            'assets/images/product-image/10.jpg',
-            'assets/images/product-image/11.jpg',
-            'assets/images/product-image/12.jpg',
-            'assets/images/product-image/13.jpg',
-            'assets/images/product-image/14.jpg',
-            'assets/images/product-image/15.jpg',
-            'assets/images/product-image/16.jpg',
+            'assets/images/product-image/prod-1.png',
+            'assets/images/product-image/prod-2.jpg',
+            'assets/images/product-image/prod-3.jpeg',
+            'assets/images/product-image/prod-4.jpeg',
+            'assets/images/product-image/prod-5.jpeg',
+            'assets/images/product-image/prod-6.jpeg',
+            'assets/images/product-image/prod-7.png',
+            'assets/images/product-image/prod-8.jpeg',
+            'assets/images/product-image/prod-9.jpg',
+            'assets/images/product-image/prod-10.jpeg',
+            'assets/images/product-image/prod-11.webp',
+            'assets/images/product-image/prod-12.jpg',
         ];
         
         foreach ($categories as $category) {
