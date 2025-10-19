@@ -12,7 +12,7 @@
                     <div class="swiper-container gallery-top mb-20px">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ $product->image_url }}" alt="{{ $product->name }}">
+                                <img class="img-responsive m-auto" src="{{ asset('storage/' . ltrim($product->image, '/')) }}" alt="{{ $product->name }}">
                             </div>
                         </div>
                     </div>

@@ -37,6 +37,8 @@ class CartController extends Controller
                     $item->image_url = $img;
                 } elseif (str_starts_with($img, '/storage') || str_starts_with($img, 'storage/')) {
                     $item->image_url = url($img);
+                } elseif (str_starts_with($img, '/assets/') || str_starts_with($img, 'assets/')) {
+                    $item->image_url = asset(ltrim($img, '/'));
                 } else {
                     $item->image_url = Storage::url($img);
                 }
@@ -413,6 +415,8 @@ class CartController extends Controller
                     $item->image_url = $img;
                 } elseif (str_starts_with($img, '/storage') || str_starts_with($img, 'storage/')) {
                     $item->image_url = url($img);
+                } elseif (str_starts_with($img, '/assets/') || str_starts_with($img, 'assets/')) {
+                    $item->image_url = asset(ltrim($img, '/'));
                 } else {
                     $item->image_url = Storage::url($img);
                 }

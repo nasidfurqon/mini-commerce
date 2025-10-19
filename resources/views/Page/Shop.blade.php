@@ -12,7 +12,7 @@
                         <p>There Are {{ $productsCount }} Products.</p>
                         <!-- Left Side End -->
                         <!-- Right Side Start -->
-                        <div class="select-shoing-wrap d-flex align-items-center">
+                        <div class="select-shoing-wrap d-flex align-items-center" style="visibility: hidden">
                             <div class="shot-product">
                                 <p>Sort By:</p>
                             </div>
@@ -24,7 +24,6 @@
                                     <option value="3"> Price, low to high</option>
                                     <option value="4"> Price, high to low</option>
                                 </select>
-
                             </div>
                         </div>
                         <!-- Right Side End -->
@@ -40,20 +39,16 @@
                                 <div class="product mb-25px">
                                     <div class="thumb">
                                         <a href="{{ route('product.detail',$p->id) }}" class="image">
-                                            <img src="{{ $p->image_url }}" alt="Product" />
-                                            <img class="hover-image" src="{{ $p->image_url }}" alt="Product" />
+                                            <img src="{{ asset('storage/' . ltrim($p->image, '/')) }}" alt="Product" />
+                                            <img class="hover-image" src="{{ asset('storage/' . ltrim($p->image, '/')) }}" alt="Product" />
                                         </a>
                                         <span class="badges">
                                             @if($p->created_at->diffInDays(now()) <= 2)
                                                 <span class="new">New</span>
                                             @endif
                                         </span>
-                                        <div class="actions">
-                                            <a href="wishlist.html" class="action wishlist" title="Wishlist"><i
-                                                    class="icon-heart"></i></a>
-                                            <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#previewProduct{{ $p->id }}"><i class="icon-size-fullscreen"></i></a>
-                                            <a href="compare.html" class="action compare" title="Compare"><i
-                                                    class="icon-refresh"></i></a>
+                                        <div class="actions">                                         
+                                            <a href="#" class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#previewProduct{{ $p->id }}"><i class="icon-size-fullscreen"></i></a>                                        
                                         </div>
                                         @include('Component.Product-Preview-Modal', ['product' => $p])
                                         @auth
@@ -133,5 +128,41 @@
             </div>
         </div>
     </div>
+
+    <!-- Page-specific styles: product card layout -->
+    <style>
+      /* Kartu konstan terlepas dari dimensi gambar */
+      .shop-bottom-area .product .thumb {
+        aspect-ratio: 1 / 1;
+        position: relative;
+        overflow: hidden;
+      }
+      .shop-bottom-area .product .thumb .image {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .shop-bottom-area .product .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+    </style>
+
+    <script>
+      (function() {
+        var supportsAspect = window.CSS && CSS.supports && CSS.supports('aspect-ratio', '1 / 1');
+        if (supportsAspect) return;
+        function adjustAll() {
+          document.querySelectorAll('.shop-bottom-area .product .thumb').forEach(function(thumb) {
+            thumb.style.height = thumb.clientWidth + 'px';
+          });
+        }
+        adjustAll();
+        window.addEventListener('resize', adjustAll);
+      })();
+    </script>
 
 @endsection

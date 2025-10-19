@@ -1,6 +1,7 @@
 @extends('Layout.Header')
 
 @section('content')
+<div id="user-dashboard">
 <div class="breadcrumb-area">
     <div class="container">
         <div class="row">
@@ -50,7 +51,7 @@
                         <p class="p-3 mb-0">Belum ada pesanan.</p>
                     @else
                     <div class="table-responsive">
-                        <table class="table align-middle mb-0">
+                        <table class="table align-middle mb-0 orders-table">
                             <thead>
                                 <tr>
                                     <th>#Order</th>
@@ -168,9 +169,97 @@
 @endforeach
 
 <style>
-/* Scoped styles untuk kerapian dashboard */
-.profile-info p { margin-bottom: .25rem; }
-.table thead th { font-weight: 600; }
-.badge { font-weight: 500; }
+/* Dashboard scoped styles */
+#user-dashboard {
+  --dash-accent: #6366f1; /* indigo-500 */
+  --dash-muted: #6b7280;  /* gray-500 */
+  --dash-bg: #f8fafc;     /* slate-50 */
+  --dash-card-bg: #ffffff;
+}
+#user-dashboard .breadcrumb-area {
+  background: linear-gradient(135deg, rgba(99,102,241,.08), rgba(99,102,241,.02));
+  padding: 24px 0;
+}
+#user-dashboard .breadcrumb-title { font-weight: 700; letter-spacing: .2px; }
+#user-dashboard .breadcrumb-list .breadcrumb-item a { color: var(--dash-muted); }
+
+#user-dashboard .card {
+  border: none;
+  border-radius: 16px;
+  background: var(--dash-card-bg);
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+#user-dashboard .card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.08); }
+#user-dashboard .card .btn { border-radius: 10px; }
+#user-dashboard .btn-outline-primary { border-color: var(--dash-accent); color: var(--dash-accent); }
+#user-dashboard .btn-outline-primary:hover { background: var(--dash-accent); color: #fff; }
+
+#user-dashboard .profile-info p { margin-bottom: .35rem; }
+#user-dashboard .profile-info .fw-semibold { color: #111827; }
+
+#user-dashboard .table thead th { font-weight: 600; background: rgba(99,102,241,.08); border-bottom: 1px solid rgba(0,0,0,.06); }
+#user-dashboard .table tbody tr { transition: background-color .2s ease; }
+#user-dashboard .table tbody tr:hover { background-color: rgba(99,102,241,.04); }
+#user-dashboard .table td, #user-dashboard .table th { vertical-align: middle; }
+
+#user-dashboard .badge { font-weight: 600; border-radius: 999px; padding: .35rem .6rem; }
+
+/* Modal polish */
+#user-dashboard .modal-content { border: none; border-radius: 16px; box-shadow: 0 16px 48px rgba(0,0,0,.14); }
+@keyframes modalZoomIn { from { transform: scale(.96); opacity: .0; } to { transform: scale(1); opacity: 1; } }
+#user-dashboard .modal.fade.show .modal-dialog { animation: modalZoomIn .18s ease-out; }
+@media (prefers-reduced-motion: reduce) { #user-dashboard .modal.fade.show .modal-dialog { animation: none; } }
+
+/* Copy toast */
+.copy-toast { position: fixed; top: 16px; right: 16px; background: var(--dash-accent); color: #fff; padding: .5rem .75rem; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.25); opacity: 0; transform: translateY(-6px); transition: opacity .2s ease, transform .2s ease; z-index: 1056; }
+.copy-toast.show { opacity: 1; transform: translateY(0); }
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+  #user-dashboard .breadcrumb-area { padding: 16px 0; }
+  #user-dashboard .card { border-radius: 14px; }
+}
 </style>
+
+<script>
+(function(){
+  var root = document.getElementById('user-dashboard');
+  if (!root) return;
+
+  // Match card heights across the two columns for neat layout
+  function matchHeights(){
+    var cards = root.querySelectorAll('.row.g-4 > [class*="col-"] .card');
+    var max = 0;
+    cards.forEach(function(c){ c.style.minHeight = ''; max = Math.max(max, c.offsetHeight); });
+    cards.forEach(function(c){ c.style.minHeight = max + 'px'; });
+  }
+  window.addEventListener('load', matchHeights);
+  window.addEventListener('resize', matchHeights);
+
+  // Copy order id on click for quick sharing
+  function showToast(text){
+    var toast = document.createElement('div');
+    toast.className = 'copy-toast';
+    toast.textContent = text;
+    document.body.appendChild(toast);
+    requestAnimationFrame(function(){ toast.classList.add('show'); });
+    setTimeout(function(){ toast.classList.remove('show'); }, 1800);
+    setTimeout(function(){ toast.remove(); }, 2300);
+  }
+  root.querySelectorAll('.orders-table tbody tr td:first-child').forEach(function(td){
+    td.classList.add('order-id-cell');
+    td.addEventListener('click', function(){
+      var id = td.textContent.trim();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(id).then(function(){ showToast('Order #' + id + ' disalin'); }).catch(function(){ showToast('Gagal menyalin'); });
+      } else {
+        // Fallback
+        var ta = document.createElement('textarea'); ta.value = id; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); showToast('Order #' + id + ' disalin'); } catch(e){ showToast('Gagal menyalin'); } document.body.removeChild(ta);
+      }
+    });
+  });
+})();
+</script>
+</div>
 @endsection

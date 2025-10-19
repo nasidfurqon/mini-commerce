@@ -11,9 +11,10 @@ class LandingPageController extends Controller
     public function index() {
         $user = Auth::user();
         $categories = Category::all();
+        $newProducts = Product::where('is_active',true)->orderBy('created_at','desc')->limit(5)->get();
         $products = Product::where('is_active',true)->orderBy('created_at','desc')->paginate(16);
         return view('Page.Home',
-                    compact('user','categories','products')
+                    compact('user','categories','products','newProducts')
                     );
     }
     public function shop($category = 'all') {
@@ -98,9 +99,6 @@ class LandingPageController extends Controller
         return view('Page.Product-Detail',compact('product','products','relatedProducts'));
     }
 
-    public function contact() {
-        return view('Page.Contact');
-    }
 
     public function wishlist() {
         // $user = Auth::user();

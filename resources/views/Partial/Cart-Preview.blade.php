@@ -14,12 +14,11 @@
                     @foreach($items as $item)
                         <li>
                             <a href="{{ route('product.detail', $item->id) }}" class="image">
-                                <img src="{{ $item->image_url }}" alt="Cart product Image">
+                                <img src="{{ asset('storage/' . ltrim($item->image, '/')) }}" alt="Cart product Image">
                             </a>
                             <div class="content">
                                 <a href="{{ route('product.detail', $item->id) }}" class="title">{{ $item->name }}</a>
                                 <span class="quantity-price">{{ $item->qty }} x <span class="amount">Rp{{ number_format($item->price, 2, ',', '.') }}</span></span>
-                                <!-- <a href="#" class="remove">x</a> -->
                                  <button type="button"
                                                 class="remove"
                                                 data-cart-item-id="{{ $item->cart_item_id }}"

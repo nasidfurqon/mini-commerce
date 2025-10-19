@@ -31,15 +31,6 @@
                          </li>                              
 
                          <li class="nav-item">
-                              <a class="nav-link" href="#sidebarInvoice" role="button" aria-expanded="false" aria-controls="sidebarInvoice">
-                                   <span class="nav-icon">
-                                        <iconify-icon icon="solar:bill-list-bold-duotone"></iconify-icon>
-                                   </span>
-                                   <span class="nav-text"> Log </span>
-                              </a>
-                         </li>
-
-                         <li class="nav-item">
                               <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                                    @csrf
                                    <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">

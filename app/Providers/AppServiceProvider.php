@@ -68,20 +68,6 @@ class AppServiceProvider extends ServiceProvider
                     ->select('cart_items.id as cart_item_id','products.id','products.name','products.image','products.price','cart_items.qty')
                     ->get();
 
-                // Tambahkan image_url konsisten untuk setiap item
-                $items = $items->map(function ($item) {
-                    $img = $item->image;
-                    if (!$img) {
-                        $item->image_url = asset('assets/images/product-image/placeholder.png');
-                    } elseif (preg_match('#^https?://#', $img)) {
-                        $item->image_url = $img;
-                    } elseif (str_starts_with($img, '/storage') || str_starts_with($img, 'storage/')) {
-                        $item->image_url = url($img);
-                    } else {
-                        $item->image_url = Storage::url($img);
-                    }
-                    return $item;
-                });
             }
 
             $subTotal = $items->reduce(function ($carry, $item) {
