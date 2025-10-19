@@ -46,7 +46,7 @@
                                                                  </div>
 
                                                             </td>
-                                                            <td class="text-end">$ {{ $product->price }}</td>
+                                                            <td class="text-end">Rp {{ number_format($product->price,2,',','.') }}</td>
                                                             <td class="text-center">
                                                                  <p class="mb-1 text-muted"><span class="text-dark fw-medium">{{ $product->stock }} Item</span> Left</p>
                                                             </td>

@@ -50,7 +50,7 @@
                                          </ul>
                                          <p class="mb-0 fw-medium fs-18 text-dark">4.5 <span class="text-muted fs-13">(55 Review)</span></p>
                                     </div>
-                                    <h2 class="fw-medium my-3">${{ $product->price }}</h2>
+                                    <h2 class="fw-medium my-3">Rp{{ number_format($product->price,2,',','.') }}</h2>
 
                                     <div class="quantity mt-4">
                                          <h4 class="text-dark fw-medium mt-3">Quantity : <span>{{ $product->stock }}</span> </h4>

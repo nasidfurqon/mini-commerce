@@ -29,7 +29,7 @@
             <div class="col-md-6">
               <div class="d-flex align-items-center gap-2">
                 <span class="text-muted">Total</span>
-                <span class="fw-medium">Rp {{ number_format((float)$order->total,0,',','.') }}</span>
+                <span class="fw-medium">Rp {{ number_format((float)$order->total,2,',','.') }}</span>
               </div>
             </div>
             <div class="col-md-6">
@@ -95,8 +95,8 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ optional($item->product)->name ?? '-' }}</td>
                     <td class="text-center">{{ $item->qty }}</td>
-                    <td class="text-end">Rp {{ number_format((float)$item->price,0,',','.') }}</td>
-                    <td class="text-end">Rp {{ number_format((float)$item->subtotal,0,',','.') }}</td>
+                    <td class="text-end">Rp {{ number_format((float)$item->price,2,',','.') }}</td>
+                    <td class="text-end">Rp {{ number_format((float)$item->subtotal,2,',','.') }}</td>
                   </tr>
                 @empty
                   <tr>
