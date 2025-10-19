@@ -33,6 +33,7 @@ class ProductSeeder extends Seeder
         ];
         
         foreach ($categories as $category) {
+            $image = $productImages[($category->id - 1) % count($productImages)];
             foreach (range(1, 10) as $index) {
                 Product::create([
                     'category_id' => $category->id,
@@ -43,7 +44,7 @@ class ProductSeeder extends Seeder
                     'material' => 'Metal',
                     'price' => rand(10000, 100000),
                     'stock' => rand(10, 100),
-                    'image' => $productImages[array_rand($productImages)], 
+                    'image' => $image, 
                     'created_at'=> date('Y-m-d H:i:s', rand(strtotime('2025-01-01'), strtotime('2025-12-31'))),
                     'updated_at'=> date('Y-m-d H:i:s', rand(strtotime('2025-01-01'), strtotime('2025-12-31'))),
                 ]);
