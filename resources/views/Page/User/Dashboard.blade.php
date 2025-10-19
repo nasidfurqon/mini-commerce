@@ -10,12 +10,6 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 text-center text-md-start">
                         <h2 class="breadcrumb-title">Dashboard Pengguna</h2>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <ul class="breadcrumb-list text-center text-md-end">
-                            <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -145,7 +139,7 @@
                     @foreach($order->orderItems as $it)
                     <tr>
                         <td class="d-flex align-items-center gap-2">
-                            <img src="{{ $it->product?->image_url }}" alt="{{ $it->product?->name }}" style="width:40px;height:40px;object-fit:cover;border-radius:4px;">
+                            <img src="{{ asset('storage/' . ltrim($it->product?->image, '/')) }}" alt="{{ $it->product?->name }}" style="width:40px;height:40px;object-fit:cover;border-radius:4px;">
                             <span>{{ $it->product?->name }}</span>
                         </td>
                         <td>{{ $it->qty }}</td>
@@ -171,25 +165,30 @@
 <style>
 /* Dashboard scoped styles */
 #user-dashboard {
-  --dash-accent: #6366f1; /* indigo-500 */
-  --dash-muted: #6b7280;  /* gray-500 */
-  --dash-bg: #f8fafc;     /* slate-50 */
-  --dash-card-bg: #ffffff;
+  --dash-accent: var(--bs-primary);
+  --dash-accent-rgb: var(--bs-primary-rgb);
+  --dash-muted: var(--bs-secondary-color);
+  --dash-surface: var(--bs-body-bg);
 }
 #user-dashboard .breadcrumb-area {
-  background: linear-gradient(135deg, rgba(99,102,241,.08), rgba(99,102,241,.02));
+  background: linear-gradient(135deg, rgba(var(--bs-primary-rgb), .08), rgba(var(--bs-primary-rgb), .02));
   padding: 24px 0;
 }
-#user-dashboard .breadcrumb-title { font-weight: 700; letter-spacing: .2px; }
-#user-dashboard .breadcrumb-list .breadcrumb-item a { color: var(--dash-muted); }
+#user-dashboard .breadcrumb-list .breadcrumb-item a { color: var(--bs-secondary-color); }
 
 #user-dashboard .card {
   border: none;
   border-radius: 16px;
-  background: var(--dash-card-bg);
+  background: var(--bs-body-bg);
   box-shadow: 0 8px 24px rgba(0,0,0,.06);
   transition: transform .2s ease, box-shadow .2s ease;
 }
+#user-dashboard .btn-outline-primary { border-color: var(--bs-primary); color: var(--bs-primary); }
+#user-dashboard .btn-outline-primary:hover { background: var(--bs-primary); color: #fff; }
+#user-dashboard .profile-info .fw-semibold { color: var(--bs-emphasis-color); }
+#user-dashboard .table thead th { font-weight: 600; background: rgba(var(--bs-primary-rgb), .08); border-bottom: 1px solid rgba(0,0,0,.06); }
+#user-dashboard .table tbody tr:hover { background-color: rgba(var(--bs-primary-rgb), .04); }
+.copy-toast { position: fixed; top: 16px; right: 16px; background: var(--bs-primary); color: #fff; padding: .5rem .75rem; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.25); opacity: 0; transform: translateY(-6px); transition: opacity .2s ease, transform .2s ease; z-index: 1056; }
 #user-dashboard .card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,.08); }
 #user-dashboard .card .btn { border-radius: 10px; }
 #user-dashboard .btn-outline-primary { border-color: var(--dash-accent); color: var(--dash-accent); }
