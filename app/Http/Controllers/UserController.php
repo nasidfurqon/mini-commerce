@@ -3,90 +3,45 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-
+use App\Models\Order;
+use Illuminate\Support\Facades\Auth;    
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display user dashboard: profile info and orders
      */
-    public function index()
+    public function dashboard()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        $user = Auth::user();
+        $orders = Order::with(['orderItems.product'])
+            ->where('user_id', $user?->id)
+            ->orderBy('created_at','desc')
+            ->get();
+        return view('Page.User.Dashboard', compact('user','orders'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Update user profile: name and email
      */
-    public function create()
+    public function updateProfile(Request $request)
     {
-        return view('users.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-        ]);
-
-        $data = $request->all();
-        $data['password'] = bcrypt($data['password']); 
-
-        User::create($data);
-        return redirect()->route('users.index')->with('success', 'User berhasil dibuat');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        return view('users.edit', compact('user'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email,'.$user->id,
-            'password' => 'nullable|string|min:6',
-        ]);
-
-        $data = $request->all();
-        if (!empty($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
-        } else {
-            unset($data['password']);
+        if (!Auth::check()) {
+            return redirect()->route('login');
         }
 
-        $user->update($data);
-        return redirect()->route('users.index')->with('success', 'User berhasil diupdate');
-    }
+        $user = Auth::user();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(User $user)
-    {
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'User berhasil dihapus');
+        $validated = $request->validate([
+            'name' => ['required','string','max:255'],
+            'email' => ['required','email','max:255', Rule::unique('users','email')->ignore($user->id)],
+        ]);
+
+        $user->fill($validated);
+        $user->save();
+
+        return back()->with('success', 'Profil berhasil diperbarui.');
     }
 }

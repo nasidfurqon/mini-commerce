@@ -6,14 +6,49 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CartController extends Controller
 {
     private $views = 'Page.Cart';
     public function index()
     {
-        $carts = Cart::all();
-        return view($this->views . '.Index', compact('carts'));
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $cart = DB::table('carts')->where('user_id', Auth::id())->first();
+        if (!$cart) {
+            $items = collect();
+            $subTotal = 0;
+        } else {
+            $items = DB::table('cart_items')
+                ->where('cart_items.cart_id', $cart->id)
+                ->join('products', 'cart_items.product_id', '=', 'products.id')
+                ->select('cart_items.id as cart_item_id','products.id','products.name','products.image','products.price','cart_items.qty')
+                ->get();
+
+            // Tambahkan image_url konsisten untuk setiap item
+            $items = $items->map(function ($item) {
+                $img = $item->image;
+                if (!$img) {
+                    $item->image_url = asset('assets/images/product-image/placeholder.png');
+                } elseif (preg_match('#^https?://#', $img)) {
+                    $item->image_url = $img;
+                } elseif (str_starts_with($img, '/storage') || str_starts_with($img, 'storage/')) {
+                    $item->image_url = url($img);
+                } else {
+                    $item->image_url = Storage::url($img);
+                }
+                return $item;
+            });
+
+            $subTotal = $items->reduce(function ($carry, $item) {
+                return $carry + ($item->price * $item->qty);
+            }, 0);
+        }
+
+        return view($this->views . '.Index', compact('items', 'subTotal'));
     }
 
     
@@ -182,7 +217,6 @@ class CartController extends Controller
 
         return response()->json(['html' => $html, 'count' => $cartCount]);
     }
-
 
     public function storeOnCart(Request $request)
     {
@@ -369,12 +403,28 @@ class CartController extends Controller
             if ($items->isEmpty()) {
                 return redirect()->route('user.cart.index')->with('error', 'Keranjang belanja Anda kosong.');
             }
+
+            // Tambahkan image_url konsisten untuk setiap item
+            $items = $items->map(function ($item) {
+                $img = $item->image;
+                if (!$img) {
+                    $item->image_url = asset('assets/images/product-image/placeholder.png');
+                } elseif (preg_match('#^https?://#', $img)) {
+                    $item->image_url = $img;
+                } elseif (str_starts_with($img, '/storage') || str_starts_with($img, 'storage/')) {
+                    $item->image_url = url($img);
+                } else {
+                    $item->image_url = Storage::url($img);
+                }
+                return $item;
+            });
+
             $subTotal = $items->reduce(function ($carry, $item) {
                 return $carry + ($item->price * $item->qty);
             }, 0);
         }
 
-        return view('Page.Checkout.index', compact('items', 'subTotal'));
+        return view('Page.Checkout.Index', compact('items', 'subTotal'));
     }
 
     /**

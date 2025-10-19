@@ -12,7 +12,7 @@
                     <div class="swiper-container gallery-top mb-20px">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img class="img-responsive m-auto" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+                                <img class="img-responsive m-auto" src="{{ $product->image_url }}" alt="{{ $product->name }}">
                             </div>
                         </div>
                     </div>
@@ -104,8 +104,8 @@
                         <div class="product">
                             <div class="thumb">
                                 <a href="{{ route('product.detail',$p->id) }}" class="image">
-                                    <img src="{{ asset($p->image) }}" alt="Product" />
-                                    <img class="hover-image" src="{{ asset($p->image) }}" alt="Product" />
+                                    <img src="{{ $p->image_url }}" alt="Product" />
+                                    <img class="hover-image" src="{{ $p->image_url }}" alt="Product" />
                                 </a>
                                 <span class="badges">
                                 @if($p->created_at->diffInDays(now()) <= 2)
@@ -171,8 +171,8 @@
                         <div class="product">
                             <div class="thumb">
                                 <a href="{{ route('product.detail',$p->id) }}" class="image">
-                                    <img src="{{ asset($p->image) }}" alt="Product" />
-                                    <img class="hover-image" src="{{ asset($p->image) }}" alt="Product" />
+                                    <img src="{{ $p->image_url }}" alt="Product" />
+                                    <img class="hover-image" src="{{ $p->image_url }}" alt="Product" />
                                 </a>
                                 <span class="badges">
                                 {{--<span class="sale">-10%</span>--}}

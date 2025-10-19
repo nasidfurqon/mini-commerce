@@ -40,8 +40,8 @@
                                 <div class="product mb-25px">
                                     <div class="thumb">
                                         <a href="{{ route('product.detail',$p->id) }}" class="image">
-                                            <img src="{{ asset($p->image) }}" alt="Product" />
-                                            <img class="hover-image" src="{{ asset($p->image) }}" alt="Product" />
+                                            <img src="{{ $p->image_url }}" alt="Product" />
+                                            <img class="hover-image" src="{{ $p->image_url }}" alt="Product" />
                                         </a>
                                         <span class="badges">
                                             @if($p->created_at->diffInDays(now()) <= 2)

@@ -1,5 +1,9 @@
 @extends('Layout.Header')
 @section('content')
+@php
+    if (!isset($items)) $items = collect();
+    if (!isset($subTotal)) $subTotal = 0;
+@endphp
 
 
       <!-- checkout-area start -->
@@ -37,7 +41,7 @@
                         <div class="order-item">
                            <div class="item-info">
                               <div class="item-image">
-                                 <img src="{{ asset($item->image ?? '') }}" alt="" width="40" height="40"/>
+                                 <img src="{{ $item->image_url }}" alt="" width="40" height="40"/>
                               </div>
                               <div class="item-details">
                                  <h4 class="item-name">{{ $item->name }}</h4>

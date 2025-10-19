@@ -2,32 +2,22 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('assets/css/cart-modern.css') }}">
+<style>
+/* Scoped fix for cart card collisions */
+.cart-list .cart-item { display:grid; grid-template-columns: 100px 1fr auto; gap:12px; align-items:center; padding:12px 0; border-bottom:1px solid #eee; }
+.cart-list .product-thumbnail img { width:100%; max-width:90px; height:90px; object-fit:cover; border-radius:8px; }
+.cart-list .item-content .product-name { display:block; font-weight:600; margin-bottom:6px; }
+.cart-list .item-actions { display:grid; grid-auto-flow:column; gap:12px; align-items:center; justify-content:end; }
+.cart-list .item-actions .product-quantity { min-width:150px; }
+.cart-list .product-subtotal { min-width:140px; text-align:right; white-space:nowrap; }
+.cart-list .product-remove { min-width:48px; text-align:right; }
 
-@php
-    use Illuminate\Support\Facades\Auth;
-    use Illuminate\Support\Facades\DB;
-
-    $cart = null;
-    if (Auth::check()) {
-        $cart = DB::table('carts')->where('user_id', Auth::id())->first();
-    }
-    if (!$cart) {
-        $cart = DB::table('carts')->first();
-    }
-
-    $items = collect();
-    if ($cart) {
-        $items = DB::table('cart_items')
-            ->where('cart_items.cart_id', $cart->id)
-            ->join('products', 'cart_items.product_id', '=', 'products.id')
-            ->select('cart_items.id as cart_item_id','products.id','products.name','products.image','products.price','cart_items.qty')
-            ->get();
-    }
-
-    $subTotal = $items->reduce(function ($carry, $item) {
-        return $carry + ($item->price * $item->qty);
-    }, 0);
-@endphp
+@media (max-width: 576px) {
+  .cart-list .cart-item { grid-template-columns: 80px 1fr; }
+  .cart-list .item-actions { grid-column: 1 / -1; justify-content:flex-start; gap:8px; }
+  .cart-list .product-subtotal, .cart-list .product-remove { text-align:left; }
+}
+</style>
 
 <!-- Cart Area Start -->
 <div class="cart-main-area pt-100px pb-100px">
@@ -43,7 +33,7 @@
                             <div class="cart-item" data-cart-item-id="{{ $item->cart_item_id }}" data-product-id="{{ $item->id }}">
                                 <div class="product-thumbnail">
                                     <a href="{{ route('product.detail', $item->id) }}">
-                                        <img class="img-responsive" src="{{ asset($item->image) }}" alt="" />
+                                        <img class="img-responsive" src="{{ $item->image_url }}" alt="" />
                                     </a>
                                 </div>
                                 <div class="item-content">
@@ -165,13 +155,10 @@
             const tmp = document.createElement('div');
             tmp.innerHTML = data.html;
             const preview = document.getElementById('cartPreviewModal');
-            const newList = tmp.querySelector('#cartPreviewModal .minicart-product-list');
-            const newSub  = tmp.querySelector('#cartPreviewModal .sub-total');
-            if (preview && newList && newSub) {
-                const oldList = preview.querySelector('.minicart-product-list');
-                if (oldList) oldList.replaceWith(newList);
-                const oldSub = preview.querySelector('.sub-total');
-                if (oldSub) oldSub.replaceWith(newSub);
+            const newBody = tmp.querySelector('#cartPreviewModal .body');
+            if (preview && newBody) {
+                const oldBody = preview.querySelector('.body');
+                if (oldBody) oldBody.innerHTML = newBody.innerHTML;
             }
         }
     }

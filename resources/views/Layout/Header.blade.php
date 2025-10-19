@@ -57,9 +57,7 @@
                                             <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
                                         @endif
                                         @if($canAccessUserFeatures)
-                                            <li><a class="dropdown-item" href="{{ route('user.index') }}">Dashboard</a></li>
-                                            <li><a class="dropdown-item" href="#">My Account</a></li>
-                                            <li><a class="dropdown-item" href="#">My Orders</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('user.dashboard') }}">Dashboard</a></li>
                                         @endif
                                         <li>
                                             <form action="{{ route('logout') }}" method="POST" style="display: inline;">

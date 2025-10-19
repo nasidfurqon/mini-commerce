@@ -14,7 +14,7 @@
                                     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                                          <div class="carousel-inner" role="listbox">
                                               <div class="carousel-item active">
-                                                   <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="img-fluid bg-light rounded">
+                                                   <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="img-fluid bg-light rounded">
                                               </div>
                                          </div>
                                     </div>

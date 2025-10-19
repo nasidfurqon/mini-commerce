@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Helpers\AuthHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,10 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Share AuthHelper with all views
+        // Share AuthHelper dengan semua view
         View::share('authHelper', new AuthHelper());
         
-        // Share common auth data with all views
+        // Share data umum auth ke semua view
         View::composer('*', function ($view) {
             $view->with([
                 'isGuest' => AuthHelper::isGuest(),
@@ -48,6 +49,49 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
             $view->with('cartCount', $cartCount);
+        });
+
+        View::composer('Partial.Cart-Preview', function ($view) {
+            $cart = null;
+            if (Auth::check()) {
+                $cart = DB::table('carts')->where('user_id', Auth::id())->first();
+            }
+            if (!$cart) {
+                $cart = DB::table('carts')->first();
+            }
+
+            $items = collect();
+            if ($cart) {
+                $items = DB::table('cart_items')
+                    ->where('cart_items.cart_id', $cart->id)
+                    ->join('products', 'cart_items.product_id', '=', 'products.id')
+                    ->select('cart_items.id as cart_item_id','products.id','products.name','products.image','products.price','cart_items.qty')
+                    ->get();
+
+                // Tambahkan image_url konsisten untuk setiap item
+                $items = $items->map(function ($item) {
+                    $img = $item->image;
+                    if (!$img) {
+                        $item->image_url = asset('assets/images/product-image/placeholder.png');
+                    } elseif (preg_match('#^https?://#', $img)) {
+                        $item->image_url = $img;
+                    } elseif (str_starts_with($img, '/storage') || str_starts_with($img, 'storage/')) {
+                        $item->image_url = url($img);
+                    } else {
+                        $item->image_url = Storage::url($img);
+                    }
+                    return $item;
+                });
+            }
+
+            $subTotal = $items->reduce(function ($carry, $item) {
+                return $carry + ($item->price * $item->qty);
+            }, 0);
+
+            $view->with([
+                'items' => $items,
+                'subTotal' => $subTotal,
+            ]);
         });
     }
 }

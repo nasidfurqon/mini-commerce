@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 // Public routes (accessible by everyone including guests)
 Route::middleware(['guest.or.auth'])->group(function () {
     Route::get('/', [LandingPageController::class, 'index'])->name('index');
@@ -76,6 +77,11 @@ Route::prefix('user')->middleware(['min.role:pengguna'])->group(function () {
     Route::post('/cart/item/remove', [CartController::class, 'removeItem'])->name('cart.item.remove')->middleware('auth');
     Route::post('/cart/item/onDecrement', [CartController::class, 'decrementItemOnCart'])->name('cart.item.onDecrement')->middleware('auth');
     Route::post('/cart/item/onRemove', [CartController::class, 'removeItemOnCart'])->name('cart.item.onRemove')->middleware('auth');
+
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('user.dashboard');
+    Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('user.profile.update');
+    
+
 });
 
 // Additional user-only routes that require authentication

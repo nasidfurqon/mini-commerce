@@ -38,7 +38,7 @@
                                                             <td>
                                                                  <div class="d-flex align-items-center gap-2">
                                                                      <div class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
-                                                                         <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="img-fluid rounded" style="width: 50px; height: 50px; object-fit: cover;" />
+                                                                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="img-fluid rounded" style="width: 50px; height: 50px; object-fit: cover;" />
                                                                      </div>
                                                                       <div>
                                                                            <a href="{{ route('admin.products.detail',['id'=>$product->id]) }}" class="text-dark fw-medium fs-15">{{ $product->name }}</a>

@@ -109,6 +109,7 @@ class LandingPageController extends Controller
     }
         
     public function checkout() {
-        return view('Page.Checkout.Index');
+        // Pastikan selalu menggunakan logika CartController untuk menyediakan $items dan $subTotal
+        return redirect()->route('user.checkout.index');
     }
 }

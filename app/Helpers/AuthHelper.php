@@ -85,7 +85,7 @@ class AuthHelper
      */
     public static function canAccessUserFeatures(): bool
     {
-        return self::hasMinimumRole('pengguna');
+        return Auth::check() && Auth::user()->role === 'pengguna';
     }
 
     /**

@@ -105,7 +105,7 @@
             <div class="card-body">
               <div id="file-previews" class="dz-previews"></div>
               @if($product->image)
-                <div class="mt-3"><img src="{{ $product->image }}" alt="Current image" class="img-fluid rounded" style="max-height:160px"></div>
+                <div class="mt-3"><img src="{{ $product->image_url }}" alt="Current image" class="img-fluid rounded" style="max-height:160px"></div>
               @endif
             </div>
           </div>
