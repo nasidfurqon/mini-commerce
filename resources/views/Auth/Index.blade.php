@@ -39,12 +39,7 @@
                                             @method('POST')
                                             <input type="email" name="email" placeholder="Email" required />
                                             <input type="password" name="password" placeholder="Password" required />
-                                            <div class="button-box">
-                                                <div class="login-toggle-btn">
-                                                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} />
-                                                    <a class="flote-none" id="remember" href="javascript:void(0)">Remember me</a>
-                                                    <a href="#">Forgot Password?</a>
-                                                </div>
+                                            <div class="button-box">                                       
                                                 <button type="submit"><span>Login</span></button>
                                             </div>
                                         </form>
