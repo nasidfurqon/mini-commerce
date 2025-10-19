@@ -2,7 +2,7 @@
 
 @section('content')
 
-            <!-- Start Container Fluid -->
+            
             <div class="container-xxl">
 
                 <div class="row">
@@ -10,7 +10,7 @@
                           <div class="card">
                               
                                <div class="card-body">
-                                    <!-- Crossfade -->
+                                    
                                     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
                                          <div class="carousel-inner" role="listbox">
                                               <div class="carousel-item active">

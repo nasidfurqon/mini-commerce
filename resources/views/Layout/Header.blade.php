@@ -2,7 +2,7 @@
 <html lang="zxx">
 
 
-<!-- Mirrored from template.hasthemes.com/furns/furns/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 25 Sep 2025 19:05:43 GMT -->
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -13,18 +13,18 @@
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/modern-order-summary.css') }}">
-    <!-- FontAwesome CDN -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-    <!-- Header Area start  -->
+    
     <div class="header section">
-        <!-- Header Bottom  Start -->
+        
         <div class="header-bottom d-none d-lg-block">
             <div class="container position-relative">
                 <div class="row align-self-center">
-                    <!-- Header Logo Start -->
+                    
                     <div class="col-auto align-self-center">
                <div class="px-3 py-3">
                     <a href="{{ route('index') }}" class="d-flex align-items-center text-decoration-none">
@@ -32,9 +32,9 @@
                     </a>
                </div>
                     </div>
-                    <!-- Header Logo End -->
+                    
 
-                    <!-- Header Action Start -->
+                    
                     <div class="col align-self-center">
                         <div class="header-actions">
                             <div class="header_account_list">
@@ -47,7 +47,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <!-- Single Wedge Start -->
+                            
                             <div class="header-bottom-set dropdown">
                                 <button class="dropdown-toggle header-action-btn" data-bs-toggle="dropdown"><i
                                         class="icon-user"></i></button>
@@ -70,13 +70,13 @@
                                     @endif
                                 </ul>
                             </div>
-                            <!-- Single Wedge End -->
+                            
                             @if($canAccessCart)                           
-                            <!-- Cart Button -->
+                            
                             <a href="#cartPreviewModal" class="header-action-btn header-action-btn-cart offcanvas-toggle pr-0">
                                 <i class="icon-handbag"></i>
                                 <span class="header-action-num">{{ $cartCount ?? 0}}</span>
-                                <!-- <span class="cart-amount">€30.00</span> -->
+                                
                             </a>
                             
                             @endif
@@ -84,12 +84,12 @@
                             
                         </div>
                     </div>
-                    <!-- Header Action End -->
+                    
                 </div>
             </div>
         </div>
 
-        <!-- Main Menu Start -->
+        
         <div class="bg-black d-none d-lg-block sticky-nav">
             <div class="container position-relative">
                 <div class="row">
@@ -104,18 +104,18 @@
                 </div>
             </div>
         </div>
-        <!-- Main Menu End -->
+        
     </div>
 
     @yield('content')
 
-    <!-- AJAX SCRIPT -->
+    
     <script>
     (function(){
         const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         document.addEventListener('click', function(e){
-            // Add to cart handler (existing)
+            
             const addBtn = e.target.closest && e.target.closest('.ajax-add-to-cart');
             if (addBtn) {
                 e.preventDefault();
@@ -140,7 +140,7 @@
                 return;
             }
 
-            // Decrement button handler
+            
             const decBtn = e.target.closest && e.target.closest('.decrement');
             if (decBtn) {
                 e.preventDefault();
@@ -162,7 +162,7 @@
                 return;
             }
 
-            // Remove (x) handler
+            
             const remBtn = e.target.closest && e.target.closest('.remove');
             if (remBtn) {
                 e.preventDefault();
@@ -187,7 +187,7 @@
 
         function handleCartResponse(data) {
             if (!data) return;
-            // If server returned full preview HTML, parse and replace body & foot
+            
             if (data.html) {
                 const tmp = document.createElement('div');
                 tmp.innerHTML = data.html;
@@ -202,11 +202,11 @@
                     if (oldBody && newBody) oldBody.innerHTML = newBody.innerHTML;
                     if (oldFoot && newFoot) oldFoot.innerHTML = newFoot.innerHTML;
 
-                    // re-init offcanvas instance safely
+                    
                     try {
                         if (window.bootstrap && bootstrap.Offcanvas) {
                             const bs = bootstrap.Offcanvas.getOrCreateInstance(root);
-                            // ensure close buttons call hide()
+                            
                             root.querySelectorAll('[data-bs-dismiss="offcanvas"], .offcanvas-close, .btn-close').forEach(btn => {
                             btn.addEventListener('click', e => {
                                 e.preventDefault();
@@ -230,7 +230,7 @@
     <script src="{{ asset('assets/js/vendor/vendor.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/plugins.min.js') }}"></script>
 
-    <!-- Main Js -->
+    
     <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 </html>

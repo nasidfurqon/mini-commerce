@@ -70,7 +70,7 @@ class ProductSeeder extends Seeder
                 Product::create([
                     'category_id' => $category->id,
                     'name' => "Product {$category->name} {$index}",
-                    'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam, voluptas.',
+                    'description' => 'Produk dengan teknologi terbaik untuk masa depan.',
                     'weight' => rand(100, 1000),                    
                     'dimension' => rand(10, 100) . 'x' . rand(10, 100) . 'x' . rand(10, 100),
                     'material' => 'Metal',

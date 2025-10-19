@@ -2,7 +2,7 @@
 
 @section('content')
 
-               <!-- Start Container Fluid -->
+               
                <div class="container-xxl">
 
                     <div class="row">

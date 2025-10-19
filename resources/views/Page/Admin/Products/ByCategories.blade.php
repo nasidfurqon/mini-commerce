@@ -2,7 +2,7 @@
 
 @section('content')
 
-               <!-- Start Container Fluid -->
+               
                <div class="container-xxl">
 
                    <div class="row">
@@ -120,7 +120,7 @@
                                                   </tbody>
                                              </table>
                                         </div>
-                                        <!-- end table-responsive -->
+                                        
                                    </div>
                                    <div class="card-footer border-top">
                                         @if ($categories->hasPages())
@@ -146,6 +146,6 @@
                     </div>
 
                </div>
-               <!-- End Container Fluid -->
+               
 
 @endsection

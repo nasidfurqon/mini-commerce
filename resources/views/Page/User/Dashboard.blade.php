@@ -19,7 +19,7 @@
 <div class="section pt-60px pb-60px" data-aos="fade-up" data-aos-delay="200">
     <div class="container">
         <div class="row g-4">
-            <!-- Profil User -->
+            
             <div class="col-lg-4 col-md-12">
                 <div class="card p-3 h-100">
                     <div class="d-flex align-items-start justify-content-between mb-2">
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <!-- Daftar Orders -->
+            
             <div class="col-lg-8 col-md-12">
                 <div class="card p-3">
                     <div class="d-flex align-items-center justify-content-between mb-2">
@@ -80,7 +80,7 @@
     </div>
 </div>
 
-<!-- Modal Edit Profil -->
+
 <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -110,7 +110,7 @@
   </div>
 </div>
 
-<!-- Modals Detail Order -->
+
 @foreach(($orders ?? []) as $order)
 <div class="modal fade" id="orderDetailModal{{ $order->id }}" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -163,7 +163,7 @@
 @endforeach
 
 <style>
-/* Dashboard scoped styles */
+
 #user-dashboard {
   --dash-accent: var(--bs-primary);
   --dash-accent-rgb: var(--bs-primary-rgb);
@@ -204,17 +204,17 @@
 
 #user-dashboard .badge { font-weight: 600; border-radius: 999px; padding: .35rem .6rem; }
 
-/* Modal polish */
+
 #user-dashboard .modal-content { border: none; border-radius: 16px; box-shadow: 0 16px 48px rgba(0,0,0,.14); }
 @keyframes modalZoomIn { from { transform: scale(.96); opacity: .0; } to { transform: scale(1); opacity: 1; } }
 #user-dashboard .modal.fade.show .modal-dialog { animation: modalZoomIn .18s ease-out; }
 @media (prefers-reduced-motion: reduce) { #user-dashboard .modal.fade.show .modal-dialog { animation: none; } }
 
-/* Copy toast */
+
 .copy-toast { position: fixed; top: 16px; right: 16px; background: var(--dash-accent); color: #fff; padding: .5rem .75rem; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.25); opacity: 0; transform: translateY(-6px); transition: opacity .2s ease, transform .2s ease; z-index: 1056; }
 .copy-toast.show { opacity: 1; transform: translateY(0); }
 
-/* Responsive tweaks */
+
 @media (max-width: 576px) {
   #user-dashboard .breadcrumb-area { padding: 16px 0; }
   #user-dashboard .card { border-radius: 14px; }
@@ -226,7 +226,7 @@
   var root = document.getElementById('user-dashboard');
   if (!root) return;
 
-  // Match card heights across the two columns for neat layout
+  
   function matchHeights(){
     var cards = root.querySelectorAll('.row.g-4 > [class*="col-"] .card');
     var max = 0;
@@ -236,7 +236,7 @@
   window.addEventListener('load', matchHeights);
   window.addEventListener('resize', matchHeights);
 
-  // Copy order id on click for quick sharing
+  
   function showToast(text){
     var toast = document.createElement('div');
     toast.className = 'copy-toast';
@@ -253,7 +253,7 @@
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(id).then(function(){ showToast('Order #' + id + ' disalin'); }).catch(function(){ showToast('Gagal menyalin'); });
       } else {
-        // Fallback
+        
         var ta = document.createElement('textarea'); ta.value = id; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); showToast('Order #' + id + ' disalin'); } catch(e){ showToast('Gagal menyalin'); } document.body.removeChild(ta);
       }
     });

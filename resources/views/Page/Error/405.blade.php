@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <!-- Blank area end -->
+    
 <style>
     .error-actions {
         display: flex;

@@ -1,4 +1,4 @@
-<!-- Icon Selection Modal -->
+
                     <div class="modal fade" id="iconModal" tabindex="-1" aria-labelledby="iconModalLabel" aria-hidden="true">
                          <div class="modal-dialog modal-xl">
                               <div class="modal-content">
@@ -7,12 +7,12 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                    </div>
                                    <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
-                                        <!-- Search Input -->
+                                        
                                         <div class="search-container">
                                              <input type="text" id="icon-search" class="form-control" placeholder="Search icons...">
                                         </div>
                                         
-                                        <!-- Tab Navigation -->
+                                        
                                         <ul class="nav nav-tabs" id="iconSourceTabs" role="tablist">
                                              <li class="nav-item" role="presentation">
                                                   <button class="nav-link active" id="fontawesome-tab-btn" data-bs-toggle="tab" data-bs-target="#fontawesome-tab" type="button" role="tab" aria-controls="fontawesome-tab" aria-selected="true">
@@ -36,46 +36,46 @@
                                              </li>
                                         </ul>
 
-                                        <!-- Tab Content -->
+                                        
                                         <div class="tab-content" id="iconTabContent">
-                                             <!-- Font Awesome Tab -->
+                                             
                                              <div class="tab-pane fade show active" id="fontawesome-tab" role="tabpanel" aria-labelledby="fontawesome-tab">
                                                   <div id="fontawesome-icons" class="virtual-scroll-container">
                                                        <div class="virtual-scroll-content">
-                                                            <!-- Font Awesome icons will be loaded here -->
+                                                            
                                                        </div>
                                                   </div>
                                              </div>
                                              
-                                             <!-- Bootstrap Icons Tab -->
+                                             
                                              <div class="tab-pane fade" id="bootstrap-tab" role="tabpanel" aria-labelledby="bootstrap-tab">
                                                   <div id="bootstrap-icons" class="virtual-scroll-container">
                                                        <div class="virtual-scroll-content">
-                                                            <!-- Bootstrap icons will be loaded here -->
+                                                            
                                                        </div>
                                                   </div>
                                              </div>
                                              
-                                             <!-- Feather Icons Tab -->
+                                             
                                              <div class="tab-pane fade" id="feather-tab" role="tabpanel" aria-labelledby="feather-tab">
                                                   <div id="feather-icons" class="virtual-scroll-container">
                                                        <div class="virtual-scroll-content">
-                                                            <!-- Feather icons will be loaded here -->
+                                                            
                                                        </div>
                                                   </div>
                                              </div>
                                              
-                                             <!-- Lucide Icons Tab -->
+                                             
                                              <div class="tab-pane fade" id="lucide-tab" role="tabpanel" aria-labelledby="lucide-tab">
                                                   <div id="lucide-icons" class="virtual-scroll-container">
                                                        <div class="virtual-scroll-content">
-                                                            <!-- Lucide icons will be loaded here -->
+                                                            
                                                        </div>
                                                   </div>
                                              </div>
                                         </div>
                                         
-                                        <!-- Loading Indicator -->
+                                        
                                         <div id="loading-indicator" class="loading-indicator text-center py-3" style="display: none;">
                                              <div class="loading-spinner"></div>
                                              <p class="mt-2 text-muted">Loading icons...</p>
@@ -89,7 +89,7 @@
                     </div>
 
                     <style>
-                    /* Icon Grid Layout - Improved Responsive Design */
+                    
                     .virtual-scroll-container {
                          position: relative;
                          overflow-y: auto;
@@ -129,7 +129,7 @@
                          padding: 5px;
                     }
                     
-                    /* Responsive Grid Adjustments */
+                    
                     @media (max-width: 768px) {
                          .virtual-scroll-content {
                               grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
@@ -219,7 +219,7 @@
                          font-weight: 600;
                     }
                     
-                    /* Loading Indicator */
+                    
                     .loading-indicator {
                          display: flex;
                          flex-direction: column;
@@ -248,7 +248,7 @@
                          100% { transform: rotate(360deg); }
                     }
                     
-                    /* Tab Navigation Styling */
+                    
                     .nav-tabs {
                          border-bottom: 2px solid #e3e6f0;
                          margin-bottom: 25px;
@@ -290,7 +290,7 @@
                          transform: scale(1.1);
                     }
                     
-                    /* Tab Content */
+                    
                     .tab-content {
                          min-height: 450px;
                          background: #ffffff;
@@ -315,7 +315,7 @@
                          }
                     }
                     
-                    /* Modal Styling - Unified and Consistent */
+                    
                     .modal-content {
                          border-radius: 16px;
                          box-shadow: 0 15px 40px rgba(0,0,0,0.15);
@@ -386,7 +386,7 @@
                     
 
                     
-                    /* Search Container */
+                    
                     .search-container {
                          margin-bottom: 25px;
                          position: relative;
@@ -427,7 +427,7 @@
                          font-weight: 400;
                     }
                     
-                    /* Tab Navigation Styling */
+                    
                     .nav-tabs {
                          border-bottom: 2px solid var(--bs-border-color);
                          margin-bottom: 20px;
@@ -474,7 +474,7 @@
                          background: var(--bs-primary);
                     }
                     
-                    /* Tab Content */
+                    
                     .tab-content {
                          background: var(--bs-body-bg);
                          border-radius: 0 0 12px 12px;
@@ -487,7 +487,7 @@
                          position: relative;
                     }
                     
-                    /* Icon Grid Improvements */
+                    
                     .icon-grid-container {
                          scrollbar-width: thin;
                          scrollbar-color: var(--bs-border-color) var(--bs-secondary-bg);
@@ -512,7 +512,7 @@
                          background: var(--bs-border-color);
                     }
                     
-                    /* Icon Option Selected State */
+                    
                     .icon-option.selected {
                          background: rgba(var(--bs-primary-rgb), 0.08) !important;
                          border-color: var(--bs-primary) !important;
@@ -521,7 +521,7 @@
                          color: var(--bs-primary) !important;
                     }
                     
-                    /* Loading State */
+                    
                     .tab-pane.loading::before {
                          content: '';
                          position: absolute;
@@ -542,7 +542,7 @@
                          100% { transform: rotate(360deg); }
                     }
                     
-                    /* Button Styling */
+                    
                     .btn-secondary {
                          background: var(--bs-secondary);
                          border: none;
@@ -577,7 +577,7 @@
                          color: white;
                     }
                     
-                    /* Animation for tab switching */
+                    
                     .tab-pane {
                          animation: fadeInUp 0.4s ease-out;
                     }
@@ -606,7 +606,7 @@
                          border-bottom: 2px solid var(--bs-border-color);
                     }
                     
-                    /* Form Control Styling */
+                    
                     .form-control:focus {
                          border-color: var(--bs-primary);
                          box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.15);
@@ -627,7 +627,7 @@
                          color: var(--bs-primary);
                     }
 
-                    /* Ubah warna teks dan ikon menjadi primary saat hover */
+                    
                     #icon-selector-btn:hover,
                     #icon-selector-btn:hover #selected-icon,
                     #icon-selector-btn:hover #selected-icon-text {
@@ -646,12 +646,12 @@
                               const iconSearch = document.getElementById('icon-search');
                               const iconModal = document.getElementById('iconModal');
                               
-                              // Icon libraries data - Comprehensive icon sets
+                              
                               const iconLibraries = {
                                    fontawesome: {
                                         loaded: false,
                                         icons: [
-                                             // Technology & Electronics
+                                             
                                              'fas fa-laptop', 'fas fa-mobile-alt', 'fas fa-desktop', 'fas fa-tablet-alt', 'fas fa-headphones',
                                              'fas fa-keyboard', 'fas fa-mouse', 'fas fa-camera', 'fas fa-tv', 'fas fa-gamepad',
                                              'fas fa-microchip', 'fas fa-wifi', 'fas fa-bluetooth', 'fas fa-usb', 'fas fa-hard-drive',
@@ -659,63 +659,63 @@
                                              'fas fa-bug', 'fas fa-cogs', 'fas fa-wrench', 'fas fa-screwdriver', 'fas fa-hammer',
                                              'fas fa-robot', 'fas fa-satellite', 'fas fa-broadcast-tower', 'fas fa-router',
                                              
-                                             // Fashion & Accessories
+                                             
                                              'fas fa-tshirt', 'fas fa-hat-cowboy', 'fas fa-shoe-prints', 'fas fa-glasses', 'fas fa-gem',
                                              'fas fa-ring', 'fas fa-crown', 'fas fa-user-tie', 'fas fa-female', 'fas fa-male',
                                              'fas fa-hat-wizard', 'fas fa-mitten', 'fas fa-socks', 'fas fa-vest', 'fas fa-dress',
                                              'fas fa-bow-tie', 'fas fa-watch', 'fas fa-necklace', 'fas fa-earrings', 'fas fa-bracelet',
                                              
-                                             // Home & Garden
+                                             
                                              'fas fa-home', 'fas fa-bed', 'fas fa-chair', 'fas fa-couch', 'fas fa-bath',
                                              'fas fa-utensils', 'fas fa-seedling', 'fas fa-leaf', 'fas fa-tree', 'fas fa-tools',
                                              'fas fa-door-open', 'fas fa-door-closed', 'fas fa-window-maximize', 'fas fa-lightbulb',
                                              'fas fa-fan', 'fas fa-toilet', 'fas fa-shower', 'fas fa-sink', 'fas fa-blender',
                                              'fas fa-microwave', 'fas fa-refrigerator', 'fas fa-washing-machine', 'fas fa-vacuum',
                                              
-                                             // Food & Beverages
+                                             
                                              'fas fa-coffee', 'fas fa-pizza-slice', 'fas fa-hamburger', 'fas fa-apple-alt', 'fas fa-wine-glass',
                                              'fas fa-beer', 'fas fa-ice-cream', 'fas fa-birthday-cake', 'fas fa-cookie-bite', 'fas fa-candy-cane',
                                              'fas fa-bread-slice', 'fas fa-cheese', 'fas fa-fish', 'fas fa-drumstick-bite', 'fas fa-carrot',
                                              'fas fa-pepper-hot', 'fas fa-lemon', 'fas fa-egg', 'fas fa-bacon', 'fas fa-hotdog',
                                              'fas fa-cocktail', 'fas fa-glass-martini', 'fas fa-mug-hot', 'fas fa-tea',
                                              
-                                             // Sports & Recreation
+                                             
                                              'fas fa-football-ball', 'fas fa-basketball-ball', 'fas fa-tennis-ball', 'fas fa-volleyball-ball',
                                              'fas fa-golf-ball', 'fas fa-swimming-pool', 'fas fa-bicycle', 'fas fa-running', 'fas fa-dumbbell',
                                              'fas fa-skiing', 'fas fa-snowboarding', 'fas fa-hiking', 'fas fa-bowling-ball', 'fas fa-ping-pong-paddle-ball',
                                              'fas fa-baseball-ball', 'fas fa-hockey-puck', 'fas fa-quidditch', 'fas fa-trophy', 'fas fa-medal',
                                              'fas fa-award', 'fas fa-ribbon', 'fas fa-chess', 'fas fa-dice',
                                              
-                                             // Books & Education
+                                             
                                              'fas fa-book', 'fas fa-graduation-cap', 'fas fa-pencil-alt', 'fas fa-calculator', 'fas fa-microscope',
                                              'fas fa-atom', 'fas fa-globe', 'fas fa-chalkboard-teacher', 'fas fa-university', 'fas fa-bookmark',
                                              'fas fa-book-open', 'fas fa-journal-whills', 'fas fa-spell-check', 'fas fa-highlighter',
                                              'fas fa-eraser', 'fas fa-ruler', 'fas fa-compass', 'fas fa-flask', 'fas fa-dna',
                                              'fas fa-brain', 'fas fa-school', 'fas fa-blackboard',
                                              
-                                             // Health & Medical
+                                             
                                              'fas fa-heart', 'fas fa-pills', 'fas fa-stethoscope', 'fas fa-hospital', 'fas fa-user-md',
                                              'fas fa-first-aid', 'fas fa-syringe', 'fas fa-thermometer', 'fas fa-band-aid', 'fas fa-tooth',
                                              'fas fa-heartbeat', 'fas fa-ambulance', 'fas fa-wheelchair', 'fas fa-crutch', 'fas fa-x-ray',
                                              'fas fa-lungs', 'fas fa-eye', 'fas fa-ear', 'fas fa-hand-holding-heart', 'fas fa-capsules',
                                              
-                                             // Business & Finance
+                                             
                                              'fas fa-briefcase', 'fas fa-chart-line', 'fas fa-dollar-sign', 'fas fa-piggy-bank', 'fas fa-credit-card',
                                              'fas fa-coins', 'fas fa-handshake', 'fas fa-building', 'fas fa-chart-pie', 'fas fa-receipt',
                                              'fas fa-balance-scale', 'fas fa-bank', 'fas fa-vault', 'fas fa-cash-register',
                                              'fas fa-money-bill', 'fas fa-money-check', 'fas fa-percentage', 'fas fa-chart-bar',
                                              
-                                             // Transportation
+                                             
                                              'fas fa-car', 'fas fa-truck', 'fas fa-motorcycle', 'fas fa-bus',
                                              'fas fa-train', 'fas fa-plane', 'fas fa-helicopter', 'fas fa-ship', 'fas fa-rocket',
                                              'fas fa-taxi', 'fas fa-subway', 'fas fa-tram', 'fas fa-anchor', 'fas fa-parachute-box',
                                              
-                                             // Nature & Weather
+                                             
                                              'fas fa-sun', 'fas fa-moon', 'fas fa-cloud', 'fas fa-cloud-rain', 'fas fa-snowflake',
                                              'fas fa-bolt', 'fas fa-rainbow', 'fas fa-wind', 'fas fa-tornado', 'fas fa-hurricane',
                                              'fas fa-mountain', 'fas fa-volcano', 'fas fa-water', 'fas fa-fire', 'fas fa-icicles',
                                              
-                                             // General & UI
+                                             
                                              'fas fa-star', 'fas fa-check', 'fas fa-times', 'fas fa-plus', 'fas fa-minus',
                                              'fas fa-arrow-up', 'fas fa-arrow-down', 'fas fa-arrow-left', 'fas fa-arrow-right', 'fas fa-info',
                                              'fas fa-question', 'fas fa-exclamation', 'fas fa-warning', 'fas fa-bell', 'fas fa-envelope',
@@ -733,7 +733,7 @@
                                    bootstrap: {
                                         loaded: false,
                                         icons: [
-                                             // Basic UI
+                                             
                                              'bi bi-house', 'bi bi-person', 'bi bi-gear', 'bi bi-search', 'bi bi-heart',
                                              'bi bi-star', 'bi bi-cart', 'bi bi-bag', 'bi bi-phone', 'bi bi-envelope',
                                              'bi bi-calendar', 'bi bi-clock', 'bi bi-camera', 'bi bi-image', 'bi bi-music-note',
@@ -745,7 +745,7 @@
                                              'bi bi-flag', 'bi bi-trophy', 'bi bi-award', 'bi bi-gift', 'bi bi-balloon',
                                              'bi bi-cake', 'bi bi-cup', 'bi bi-droplet', 'bi bi-sun', 'bi bi-moon',
                                              
-                                             // Extended set
+                                             
                                              'bi bi-alarm', 'bi bi-archive', 'bi bi-arrow-down', 'bi bi-arrow-left', 'bi bi-arrow-right',
                                              'bi bi-arrow-up', 'bi bi-at', 'bi bi-bell', 'bi bi-book', 'bi bi-bookmark-fill',
                                              'bi bi-box', 'bi bi-briefcase', 'bi bi-brush', 'bi bi-bug', 'bi bi-building',
@@ -780,7 +780,7 @@
                                    feather: {
                                         loaded: false,
                                         icons: [
-                                             // Complete Feather Icons set
+                                             
                                              'feather activity', 'feather airplay', 'feather alert-circle', 'feather alert-octagon', 'feather alert-triangle',
                                              'feather align-center', 'feather align-justify', 'feather align-left', 'feather align-right', 'feather anchor',
                                              'feather aperture', 'feather archive', 'feather arrow-down', 'feather arrow-down-circle', 'feather arrow-down-left',
@@ -844,7 +844,7 @@
                                    lucide: {
                                         loaded: false,
                                         icons: [
-                                             // Complete Lucide Icons set (similar to Feather but more comprehensive)
+                                             
                                              'lucide zap', 'lucide heart', 'lucide star', 'lucide home', 'lucide user',
                                              'lucide settings', 'lucide search', 'lucide mail', 'lucide phone', 'lucide calendar',
                                              'lucide clock', 'lucide camera', 'lucide image', 'lucide music', 'lucide play',
@@ -896,7 +896,7 @@
                                    }
                               };
                               
-                              // Load icons for a specific library
+                              
                               function loadIcons(library) {
                                    if (iconLibraries[library].loaded) return;
                                    
@@ -906,31 +906,31 @@
                                         return;
                                    }
                                    
-                                   // Find the virtual-scroll-content container
+                                   
                                    let contentContainer = container.querySelector('.virtual-scroll-content');
                                    if (!contentContainer) {
                                         console.error(`Content container not found for ${library}`);
                                         return;
                                    }
                                    
-                                   // Clear existing content
+                                   
                                    contentContainer.innerHTML = '';
                                    
-                                   // Show loading indicator
+                                   
                                    const loadingIndicator = document.getElementById('loading-indicator');
                                    if (loadingIndicator) {
                                         loadingIndicator.style.display = 'block';
                                    }
                                    
-                                   // Get icons to display (filtered or all)
+                                   
                                    const iconsToShow = iconLibraries[library].filteredIcons || iconLibraries[library].icons;
                                    
-                                   // Create icons with a small delay to show loading
+                                   
                                    setTimeout(() => {
-                                        // Pastikan container menggunakan grid bawaan
+                                        
                                         contentContainer.style.display = 'grid';
-                                        // Ikuti konfigurasi CSS default untuk .virtual-scroll-content
-                                        // Tambahkan icon langsung ke contentContainer agar menjadi item grid
+                                        
+                                        
                                         iconsToShow.forEach((iconClass) => {
                                              const iconElement = document.createElement('div');
                                              iconElement.className = 'icon-option';
@@ -950,7 +950,7 @@
                                                   text-align: center;
                                              `;
                                              
-                                             // Buat konten icon berdasarkan jenis library
+                                             
                                              let iconHTML = '';
                                              let labelText = '';
                                              
@@ -967,7 +967,7 @@
                                                   labelText = iconClass.replace(/^(fas fa-|bi bi-)/, '');
                                              }
                                              
-                                             // Label nama icon
+                                             
                                              const label = document.createElement('small');
                                              label.textContent = labelText;
                                              label.style.cssText = `
@@ -982,7 +982,7 @@
                                              iconElement.innerHTML = iconHTML;
                                              iconElement.appendChild(label);
                                              
-                                             // Hover effect
+                                             
                                              iconElement.addEventListener('mouseenter', function() {
                                                   if (!this.classList.contains('selected')) {
                                                        this.style.borderColor = '#2196f3';
@@ -1001,7 +1001,7 @@
                                                   }
                                              });
                                              
-                                             // Klik untuk memilih icon
+                                             
                                              iconElement.addEventListener('click', function() {
                                                   selectIcon(iconClass, this);
                                              });
@@ -1009,22 +1009,22 @@
                                              contentContainer.appendChild(iconElement);
                                         });
                                         
-                                        // Initialize icon libraries for newly rendered icons
+                                        
                                         if (library === 'feather' && typeof feather !== 'undefined') {
                                              feather.replace();
                                         } else if (library === 'lucide' && typeof lucide !== 'undefined') {
                                              lucide.createIcons();
                                         }
                                         
-                                        // Hide loading indicator
+                                        
                                         if (loadingIndicator) {
                                              loadingIndicator.style.display = 'none';
                                         }
                                         
-                                        // Mark as loaded
+                                        
                                         iconLibraries[library].loaded = true;
                                         
-                                        // Highlight selected icon if any
+                                        
                                         setTimeout(() => {
                                              highlightSelectedIcon();
                                         }, 100);
@@ -1032,9 +1032,9 @@
                                    }, 100);
                               }
                               
-                              // Select an icon
+                              
                               function selectIcon(iconClass, element) {
-                                   // Update the selected icon display
+                                   
                                    if (iconClass.startsWith('feather ')) {
                                         const featherIcon = iconClass.replace('feather ', '');
                                         selectedIcon.innerHTML = `<i data-feather="${featherIcon}" style="width: 1.2rem; height: 1.2rem;"></i>`;
@@ -1057,20 +1057,20 @@
                                    selectedIconText.textContent = 'Icon Selected';
                                    categoryIconInput.value = iconClass;
                                    
-                                   // Remove selected state from all options
+                                   
                                    document.querySelectorAll('.icon-option').forEach(opt => {
                                         opt.classList.remove('selected');
                                    });
                                    
-                                   // Add selected state to clicked option
+                                   
                                    element.classList.add('selected');
                                    
-                                   // Close modal
+                                   
                                    const modal = bootstrap.Modal.getInstance(iconModal);
                                    modal.hide();
                               }
                               
-                              // Handle tab changes
+                              
                               document.querySelectorAll('#iconSourceTabs button').forEach(function(tab) {
                                    tab.addEventListener('shown.bs.tab', function(e) {
                                         const targetId = e.target.getAttribute('data-bs-target').replace('#', '');
@@ -1078,30 +1078,30 @@
                                         
                                         console.log('Tab switched to:', library);
                                         
-                                        // Clear search when switching tabs
+                                        
                                         iconSearch.value = '';
                                         
-                                        // Reset filtered icons for all libraries
+                                        
                                         Object.keys(iconLibraries).forEach(lib => {
                                              iconLibraries[lib].filteredIcons = null;
                                         });
                                         
-                                        // Always reload icons for the selected library
+                                        
                                         iconLibraries[library].loaded = false;
                                         loadIcons(library);
                                    });
                               });
                               
-                              // Add function to highlight selected icon
+                              
                               function highlightSelectedIcon() {
                                    const currentIcon = categoryIconInput.value;
                                    if (currentIcon) {
-                                        // Remove previous selections
+                                        
                                         document.querySelectorAll('.icon-option').forEach(opt => {
                                              opt.classList.remove('selected');
                                         });
                                         
-                                        // Find and highlight current icon
+                                        
                                         const selectedElement = document.querySelector(`[data-icon="${currentIcon}"]`);
                                         if (selectedElement) {
                                              selectedElement.classList.add('selected');
@@ -1109,7 +1109,7 @@
                                    }
                               }
                               
-                              // Handle search functionality
+                              
                               iconSearch.addEventListener('input', function() {
                                    const searchTerm = this.value.toLowerCase();
                                    const activeTabButton = document.querySelector('#iconSourceTabs .nav-link.active');
@@ -1119,45 +1119,45 @@
                                         const library = targetId.replace('-tab', '');
                                         
                                         if (searchTerm === '') {
-                                             // Reset to show all icons
+                                             
                                              iconLibraries[library].filteredIcons = null;
                                         } else {
-                                             // Filter icons based on search term
+                                             
                                              iconLibraries[library].filteredIcons = iconLibraries[library].icons.filter(iconClass => {
                                                   const iconName = iconClass.replace(/^(fas fa-|bi bi-|feather |lucide )/, '').replace(/-/g, ' ');
                                                   return iconName.includes(searchTerm) || iconClass.toLowerCase().includes(searchTerm);
                                              });
                                         }
                                         
-                                        // Reset the library as not loaded to trigger re-render with filtered icons
+                                        
                                         iconLibraries[library].loaded = false;
                                         
-                                        // Reload icons with filtered results
+                                        
                                         loadIcons(library);
                                    }
                               });
                               
-                              // Initialize modal
+                              
                               iconModal.addEventListener('show.bs.modal', function() {
-                                   // Clear any previous search
+                                   
                                    iconSearch.value = '';
                                    
-                                   // Reset all libraries to not loaded
+                                   
                                    Object.keys(iconLibraries).forEach(lib => {
                                         iconLibraries[lib].loaded = false;
                                         iconLibraries[lib].filteredIcons = null;
                                    });
                                    
-                                   // Load Font Awesome icons by default
+                                   
                                    loadIcons('fontawesome');
                                    
-                                   // Highlight currently selected icon after a delay
+                                   
                                    setTimeout(() => {
                                         highlightSelectedIcon();
                                    }, 300);
                               });
                               
-                              // Initialize icons in tabs
+                              
                               if (typeof feather !== 'undefined') {
                                    feather.replace();
                               }

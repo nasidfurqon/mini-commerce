@@ -3,7 +3,7 @@
 
 @section('content')
 
-               <!-- Start Container Fluid -->
+               
                <div class="container-fluid">
 
                     <div class="row">
@@ -64,7 +64,7 @@
                                                   </tbody>
                                              </table>
                                         </div>
-                                        <!-- end table-responsive -->
+                                        
                                    </div>
                                    <div class="card-footer border-top">
                                         @if ($products->hasPages())

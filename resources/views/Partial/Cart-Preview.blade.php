@@ -1,4 +1,4 @@
-<!-- OffCanvas Cart Start -->
+
 <div id="cartPreviewModal" class="offcanvas offcanvas-cart">
     <div class="inner">
         <div class="head">
@@ -60,4 +60,3 @@
         </div>
     </div>
 </div>
-<!-- OffCanvas Cart End -->

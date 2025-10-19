@@ -6,7 +6,7 @@
 @endphp
 
 
-      <!-- checkout-area start -->
+      
       
 <section class="checkout-area section-space">
    <div class="container">
@@ -91,6 +91,6 @@
       </form>
    </div>
 </section>
-      <!-- checkout-area end -->
+      
 
 @endsection

@@ -1,5 +1,5 @@
 <div class="main-nav">
-               <!-- Sidebar Logo -->
+               
                <div class="px-3 py-3">
                     <a href="{{ route('index') }}" class="d-flex align-items-center text-decoration-none">
                          <span class="brand-text text-white fw-bold fs-3" style="letter-spacing: .5px; font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif;">AyceTechStore</span>

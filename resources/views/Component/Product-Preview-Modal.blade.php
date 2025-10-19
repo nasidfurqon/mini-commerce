@@ -7,7 +7,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-5 col-sm-12 col-xs-12 mb-lm-30px mb-sm-30px">
-                            <!-- Swiper -->
+                            
                             <div class="swiper-container gallery-top mb-20px">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
@@ -61,8 +61,7 @@
                                         @else
                                             <a title="Add To Cart" href="{{ route('auth.page') }}" class="add-to-cart">Add To Cart</a>
                                         @endauth
-                                        <!-- <button class="add-cart btn btn-primary btn-hover-primary ml-4"> Add To
-                                            Cart</button> -->
+                                        
                                     </div>
                                 </div>
                     
@@ -75,7 +74,7 @@
         </div>
     </div>
 <style>
-/* Scoped adjustments to ensure close button visible and tidy in Product Detail */
+
 #previewProduct{{ $product->id }} .modal-header { border-bottom: 0; padding: .75rem .75rem 0 .75rem; }
 #previewProduct{{ $product->id }} .btn-close { opacity: .7; width: 1.125rem; height: 1.125rem; }
 #previewProduct{{ $product->id }} .btn-close:hover { opacity: 1; }

@@ -1,17 +1,17 @@
 @extends('Layout.Header')
 @section('content')
 
-    <!-- Shop Category pages -->
+    
     <div class="shop-category-area pb-100px pt-70px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
-                    <!-- Shop Top Area Start -->
+                    
                     <div class="shop-top-bar d-flex">
-                        <!-- Left Side start -->
+                        
                         <p>There Are {{ $productsCount }} Products.</p>
-                        <!-- Left Side End -->
-                        <!-- Right Side Start -->
+                        
+                        
                         <div class="select-shoing-wrap d-flex align-items-center" style="visibility: hidden">
                             <div class="shot-product">
                                 <p>Sort By:</p>
@@ -26,16 +26,16 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- Right Side End -->
+                        
                     </div>
-                    <!-- Shop Top Area End -->
+                    
 
-                    <!-- Shop Bottom Area Start -->
+                    
                     <div class="shop-bottom-area">
                         <div class="row">
                             @foreach ($products as $p)
                             <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6" data-aos="fade-up" data-aos-delay="200">
-                                <!-- Single Prodect -->
+                                
                                 <div class="product mb-25px">
                                     <div class="thumb">
                                         <a href="{{ route('product.detail',$p->id) }}" class="image">
@@ -73,18 +73,18 @@
                             </div>
                             @endforeach
                         </div>
-                        <!--  Pagination Area Start -->
+                        
                         <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-30px" data-aos="fade-up">
                             @if ($products->hasPages())
                                 <ul>
-                                    {{-- Previous Page Link --}}
+                                    
                                     @if ($products->onFirstPage())
                                         <li><span class="prev disabled"><i class="ion-ios-arrow-left"></i></span></li>
                                     @else
                                         <li><a class="prev" href="{{ $products->previousPageUrl() }}"><i class="ion-ios-arrow-left"></i></a></li>
                                     @endif
 
-                                    {{-- Pagination Elements --}}
+                                    
                                     @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
                                         @if ($page == $products->currentPage())
                                             <li><a class="active" href="#">{{ $page }}</a></li>
@@ -93,7 +93,7 @@
                                         @endif
                                     @endforeach
 
-                                    {{-- Next Page Link --}}
+                                    
                                     @if ($products->hasMorePages())
                                         <li><a class="next" href="{{ $products->nextPageUrl() }}"><i class="ion-ios-arrow-right"></i></a></li>
                                     @else
@@ -102,14 +102,14 @@
                                 </ul>
                             @endif
                         </div>
-                        <!--  Pagination Area End -->
+                        
                     </div>
-                    <!-- Shop Bottom Area End -->
+                    
                 </div>
-                <!-- Sidebar Area Start -->
+                
                 <div class="col-lg-3 order-lg-first col-md-12 order-md-last mb-md-60px mb-lm-60px">
                     <div class="shop-sidebar-wrap">
-                        <!-- Sidebar single item -->
+                        
                         <div class="sidebar-widget">
                             <div class="main-heading">
                                 <h3 class="sidebar-title">Category</h3>
@@ -129,9 +129,9 @@
         </div>
     </div>
 
-    <!-- Page-specific styles: product card layout -->
+    
     <style>
-      /* Kartu konstan terlepas dari dimensi gambar */
+      
       .shop-bottom-area .product .thumb {
         aspect-ratio: 1 / 1;
         position: relative;

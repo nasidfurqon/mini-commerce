@@ -113,6 +113,6 @@
 </div>
 @endsection
 
-{{-- Page-specific assets --}}
+
 <link rel="stylesheet" href="{{ asset('assets/css2/order-detail.css') }}">
 <script src="{{ asset('assets/js2/order-detail.js') }}"></script>

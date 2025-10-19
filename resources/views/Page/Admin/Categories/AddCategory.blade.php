@@ -4,7 +4,7 @@
    
       
 
-               <!-- Start Container Fluid -->
+               
                <div class="container-xxl">
 
                     <div class="row">
@@ -58,7 +58,7 @@
 
                     @include('Component.Icon-Modal')
                </div>
-               <!-- End Container Fluid -->
+               
 @endsection
      
 

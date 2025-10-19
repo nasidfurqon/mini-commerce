@@ -1,10 +1,10 @@
 @extends('Layout.Admin')
 
 @section('content')
-               <!-- Start Container Fluid -->
+               
                <div class="container-xxl">
 
-                    <!-- Start here.... -->
+                    
                     <div class="row">
                          <div class="col-lg-3">
                               <div class="card">
@@ -133,7 +133,7 @@
                                                   </tbody>
                                              </table>
                                         </div>
-                                        <!-- end table-responsive -->
+                                        
                                    </div>
                                    <div class="card-footer border-top">
                                         @if ($orders->hasPages())
@@ -148,6 +148,6 @@
                     </div>
 
                </div>
-               <!-- End Container Fluid -->
+               
 
 @endsection

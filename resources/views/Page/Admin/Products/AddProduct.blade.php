@@ -2,7 +2,7 @@
 
 @section('content')
 
-               <!-- Start Container Fluid -->
+               
                <div class="container-xxl">
 
                     <div class="row">
@@ -87,62 +87,10 @@
                                                   <h4 class="card-title">Add Product Photo</h4>
                                              </div>
                                              <div class="card-body">
-                                                  <!-- File Upload -->
+                                                  
                                                   <div class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews" data-max-files="1" data-upload-multiple="false" data-parallel-uploads="1">
                                                        <div class="fallback">
-                                                            <input name="file" type="file" accept="image/*"/>
-                                                       </div>
-                                                       <div class="dz-message needsclick">
-                                                            <i class="bx bx-cloud-upload fs-48 text-primary"></i>
-                                                            <h3 class="mt-4">Drop your images here, or <span class="text-primary">click to browse</span></h3>
-                                                            <span class="text-muted fs-13">
-                                                                 1600 x 1200 (4:3) recommended. PNG, JPG and GIF files are allowed
-                                                            </span>
-                                                       </div>
-                                                  </div>
-                                                  <!-- Previews container moved to right card -->
-                                             </div>
-                                        </div>
-                                   </div>
-                                   <div class="col-lg-6">
-                                        <div class="card h-100 mb-3">
-                                             <div class="card-header">
-                                                  <h4 class="card-title">Upload Previews</h4>
-                                             </div>
-                                             <div class="card-body">
-                                                  <div id="file-previews" class="dz-previews"></div>
-                                             </div>
-                                         </div>
-                                   </div>
-                              </div>    
-
-                              {{-- ini gausah diotak atik --}}
-                              <div class="d-none">
-                                   <input type="hidden" name="is_active" value="1">
-                                   <input type="hidden" name="image" id="image">
-                              </div>
-
-
-                              <div class="p-3 bg-light rounded">
-                                   <div class="row justify-content-end g-2">
-                                        <div class="col-lg-2">
-                                             <a href="{{ request('category') ? route('admin.products.index',['category'=>request('category')]) : route('admin.categories.index') }}" class="btn btn-outline-secondary w-100">Cancel</a>
-                                        </div>
-                                        <div class="col-lg-2">
-                                             <button type="submit" class="btn btn-primary w-100">Create Product</button>
-                                        </div>
-                                   </div>
-                              </div>
-                         </form>
-                    </div>
-               </div>
-               <!-- End Container Fluid -->
-    
-
-@endsection
-
-<style>
-/* Tidy Dropzone preview layout */
+                                                            <input name="file" type="file" accept="image
 #file-previews.dz-previews {
   display: flex;
   flex-direction: column;

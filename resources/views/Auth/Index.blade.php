@@ -1,7 +1,7 @@
 @extends('Layout.Header')
 
 @section('content')
-    <!-- login area start -->
+    
     <div class="login-register-area pt-100px pb-100px">
         <div class="container">
             <div class="row justify-content-center">
@@ -16,7 +16,7 @@
                             </a>
                         </div>
                         <div class="tab-content">
-                            <!-- Login Tab -->
+                            
                             <div id="lg1" class="tab-pane active">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Register Tab -->
+                            
                             <div id="lg2" class="tab-pane">
                                 <div class="login-form-container">
                                     <div class="login-register-form">
@@ -89,5 +89,5 @@
             </div>
         </div>
     </div>
-    <!-- login area end -->
+    
 @endsection

@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <!-- Blank area end -->
+    
 
 
 @endsection

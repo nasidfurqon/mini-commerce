@@ -10,7 +10,7 @@
 
 @if($hasAny)
 <div class="alert-stack">
-    {{-- SUCCESS --}}
+    
     @if(session('success'))
         <div class="alert alert-success alert-icon alert-dismissible fade show alert-floating" role="alert" data-auto-dismiss="5000">
             <div class="d-flex align-items-center">
@@ -26,7 +26,7 @@
         </div>
     @endif
 
-    {{-- ERROR / DANGER --}}
+    
     @if(session('error') || session('danger'))
         <div class="alert alert-danger alert-icon alert-dismissible fade show alert-floating" role="alert" data-auto-dismiss="7000">
             <div class="d-flex align-items-center">
@@ -42,7 +42,7 @@
         </div>
     @endif
 
-    {{-- WARNING --}}
+    
     @if(session('warning'))
         <div class="alert alert-warning alert-icon alert-dismissible fade show alert-floating" role="alert" data-auto-dismiss="7000">
             <div class="d-flex align-items-center">
@@ -58,7 +58,7 @@
         </div>
     @endif
 
-    {{-- INFO / STATUS --}}
+    
     @if(session('info') || session('status'))
         <div class="alert alert-info alert-icon alert-dismissible fade show alert-floating" role="alert" data-auto-dismiss="6000">
             <div class="d-flex align-items-center">
@@ -74,7 +74,7 @@
         </div>
     @endif
 
-    {{-- VALIDATION ERRORS --}}
+    
     @if(($errors ?? collect())->any())
         <div class="alert alert-danger alert-icon alert-dismissible fade show" role="alert">
             <div class="d-flex align-items-center">
@@ -94,7 +94,7 @@
         </div>
     @endif
 
-    {{-- Auto dismiss: sembunyikan alert setelah durasi jika diset --}}
+    
     <script>
         (function() {
             const alerts = document.querySelectorAll('.alert[data-auto-dismiss]');
@@ -103,12 +103,12 @@
                 if (!isNaN(delay)) {
                     setTimeout(function() {
                         try {
-                            // Gunakan kelas Bootstrap fade untuk animasi penutupan
+                            
                             el.classList.remove('show');
                             el.addEventListener('transitionend', function() {
                                 el.remove();
                             }, { once: true });
-                            // Jika fade tidak tersedia, fallback: remove langsung
+                            
                             setTimeout(function(){ if (document.body.contains(el)) el.remove(); }, 600);
                         } catch (e) { if (document.body.contains(el)) el.remove(); }
                     }, delay);
@@ -119,7 +119,7 @@
 </div>
 
 <script>
-// ... existing code ...
+
 </script>
 
 <style>
